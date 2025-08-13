@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userAuth } from "../context/AuthContext";
 
-function Home() {
+function Ciclo1() {
   const { user, signout, loading } = userAuth();
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -76,11 +76,11 @@ function Home() {
             </div>
 
             {showDropdown && (
-              <div className="absolute right-0 top-12 bg-[#222831] border border-[#393E46] rounded-md z-20 min-w-48">
+              <div className="absolute right-0 top-12 bg-[#222831] border border-[#393E46] rounded-md shadow-lg z-20 min-w-48">
                 <div className="p-3 border-b border-[#393E46]">
-                  {/* <p className="text-sm text-[#DFD0B8] font-medium">
+                  <p className="text-sm text-[#DFD0B8] font-medium">
                     {user?.name}
-                  </p> */}
+                  </p>
                   <p className="text-xs text-[#817d74]">{user?.email}</p>
                 </div>
                 <div className="p-2">
@@ -89,7 +89,7 @@ function Home() {
                       handleSignout();
                       closeDropdown();
                     }}
-                    className="w-full text-center px-3 py-2 text-[#DFD0B8] hover:bg-[#393E46] rounded-md transition-colors duration-200 cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-[#DFD0B8] hover:bg-[#393E46] rounded-md transition-colors duration-200 cursor-pointer"
                   >
                     Cerrar sesión
                   </button>
@@ -127,10 +127,7 @@ function Home() {
 
         {/* Mobile Menu Dropdown */}
         {showMobileMenu && (
-          <div
-            className="absolute top-full left-0 right-0 bg-[#222831] border-t border-[#393E46] border-b-1
-          border-b-[#393E46] z-30 md:hidden"
-          >
+          <div className="absolute top-full left-0 right-0 bg-[#222831] border-t border-[#393E46] border-b-2 border-b-[#393E46] shadow-lg z-30 md:hidden">
             <div className="px-4 py-3 space-y-3">
               <div className="flex items-center gap-3 pb-3 border-b border-[#393E46]">
                 <img
@@ -166,70 +163,48 @@ function Home() {
           ></div>
         )}
       </div>
-      {/* Ciclos Grid */}
+
+      {/* Contenido Principal - Ciclo 1 */}
       <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-center justify-center">
         <div className="max-w-4xl mx-auto w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
-            <button
-              onClick={() => navigate("/ciclo1")}
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
-            >
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-[#DFD0B8] mb-8">
               Ciclo 1
-            </button>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-            >
-              Ciclo 2
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-            >
-              Ciclo 3
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-            >
-              Ciclo 4
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-            >
-              Ciclo 5
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-            >
-              Ciclo 6
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-            >
-              Ciclo 7
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-            >
-              Ciclo 8
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-            >
-              Ciclo 9
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-            >
-              Ciclo 10
-            </a>
+            </h1>
+            <p className="text-[#DFD0B8] text-lg md:text-xl opacity-80 mb-8">
+              Contenido del primer ciclo académico
+            </p>
+
+            {/* Aquí puedes agregar el contenido específico del Ciclo 1 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-[#222831] p-6 rounded-lg">
+                <h3 className="text-[#DFD0B8] text-xl font-semibold mb-4">
+                  Materias
+                </h3>
+                <p className="text-[#DFD0B8] opacity-70">
+                  Lista de materias del Ciclo 1
+                </p>
+              </div>
+
+              <div className="bg-[#222831] p-6 rounded-lg">
+                <h3 className="text-[#DFD0B8] text-xl font-semibold mb-4">
+                  Horarios
+                </h3>
+                <p className="text-[#DFD0B8] opacity-70">
+                  Horarios de clases del Ciclo 1
+                </p>
+              </div>
+            </div>
+
+            {/* Botón para regresar */}
+            <div className="mt-8">
+              <button
+                onClick={() => navigate("/")}
+                className="bg-[#222831] text-[#DFD0B8] px-6 py-3 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+              >
+                ← Regresar al inicio
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -237,4 +212,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Ciclo1;
