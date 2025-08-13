@@ -35,7 +35,11 @@ export const AuthContextProvider = ({ children }) => {
         } else {
           setUser(session?.user.user_metadata);
           console.log("Data de usuario ", session?.user.user_metadata);
-          navigate("/", { replace: true });
+          // Solo redirigir al home si el usuario acaba de iniciar sesión
+          // y está en la página de login
+          if (event === "SIGNED_IN" && window.location.pathname === "/login") {
+            navigate("/", { replace: true });
+          }
         }
       }
     );
