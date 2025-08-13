@@ -8,15 +8,11 @@ function Home() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  useEffect(() => {
-    if (!loading && user === null) {
-      navigate("/login", { replace: true });
-    }
-  }, [user, loading, navigate]);
+  // Ya no es necesario redirigir, HomeOrLogin se encarga
 
   const handleSignout = async () => {
     await signout();
-    navigate("/login", { replace: true });
+    // HomeOrLogin se encarga de mostrar el login
   };
 
   const toggleDropdown = () => {

@@ -31,15 +31,22 @@ export const AuthContextProvider = ({ children }) => {
         setLoading(false);
         if (session == null) {
           setUser(null);
-          navigate("/login", { replace: true });
+          // No redirigir, HomeOrLogin se encarga
         } else {
           setUser(session?.user.user_metadata);
           console.log("Data de usuario ", session?.user.user_metadata);
-          // Solo redirigir al home si el usuario acaba de iniciar sesión
-          // y está en la página de login
-          if (event === "SIGNED_IN" && window.location.pathname === "/login") {
-            navigate("/", { replace: true });
+          // Limpiar el hash de la URL si contiene access_token (OAuth) SOLO después de que la sesión es válida
+          if (
+            window.location.hash &&
+            window.location.hash.includes("access_token")
+          ) {
+            window.history.replaceState(
+              null,
+              "",
+              window.location.pathname + window.location.search
+            );
           }
+          // No redirigir, HomeOrLogin se encarga
         }
       }
     );

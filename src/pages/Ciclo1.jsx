@@ -10,13 +10,13 @@ function Ciclo1() {
 
   useEffect(() => {
     if (!loading && user === null) {
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
     }
   }, [user, loading, navigate]);
 
   const handleSignout = async () => {
     await signout();
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true }); // Login ahora en '/'
   };
 
   const toggleDropdown = () => {
