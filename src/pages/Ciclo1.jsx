@@ -60,7 +60,7 @@ function Ciclo1() {
     {
       id: 3,
       titulo: "Matemáticas Básicas - Ocaña, Pérez",
-      url: "https://drive.google.com/file/d/1_takdnzG5r-2yXO4htWRAdh68tWgqzt5/view?usp=drive_link",
+      url: "https://drive.google.com/file/d/1ww93Z-x2u-ImBAtm7IC4RAr2MlxqbtEx/view?usp=drive_link",
     },
   ];
 
@@ -101,20 +101,38 @@ function Ciclo1() {
               className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity duration-200"
               onClick={toggleDropdown}
             >
-              <h2 className="text-sm lg:text-base">{user?.name}</h2>
               <img
                 src={user?.picture}
                 alt="Foto de perfil"
                 className="w-8 h-8 lg:w-10 lg:h-10 rounded-full"
               />
+              <h2 className="text-sm lg:text-base">{user?.name}</h2>
+              {user?.email?.endsWith("@cidie.edu.pe") && (
+                <div className="relative group">
+                  <svg
+                    className="w-4 h-4 text-blue-500 cursor-pointer"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-500 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                    Verificado UNSCH
+                  </span>
+                </div>
+              )}
             </div>
 
             {showDropdown && (
               <div className="absolute right-0 top-12 bg-[#222831] border border-[#393E46] rounded-md shadow-lg z-20 min-w-48">
                 <div className="p-3 border-b border-[#393E46]">
-                  <p className="text-sm text-[#DFD0B8] font-medium">
+                  {/* <p className="text-sm text-[#DFD0B8] font-medium">
                     {user?.name}
-                  </p>
+                  </p> */}
                   <p className="text-xs text-[#817d74]">{user?.email}</p>
                 </div>
                 <div className="p-2">
@@ -170,7 +188,27 @@ function Ciclo1() {
                   className="w-12 h-12 rounded-full"
                 />
                 <div>
-                  <p className="text-[#DFD0B8] font-medium">{user?.name}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-[#DFD0B8] font-medium">{user?.name}</p>
+                    {user?.email?.endsWith("@cidie.edu.pe") && (
+                      <div className="relative group">
+                        <svg
+                          className="w-4 h-4 text-blue-500 cursor-pointer"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                          Verificado UNSCH
+                        </span>
+                      </div>
+                    )}
+                  </div>
                   <p className="text-xs text-[#817d74]">{user?.email}</p>
                 </div>
               </div>
@@ -199,7 +237,7 @@ function Ciclo1() {
       </div>
 
       {/* Contenido Principal - Ciclo 1 */}
-      <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-center justify-center">
+      <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-start justify-center">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center">
             {!showMatematicaLibros ? (
