@@ -7,6 +7,8 @@ function Ciclo1() {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showMatematicaLibros, setShowMatematicaLibros] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (!loading && user === null) {
@@ -34,6 +36,38 @@ function Ciclo1() {
   const closeMobileMenu = () => {
     setShowMobileMenu(false);
   };
+
+  const toggleMatematicaLibros = () => {
+    setShowMatematicaLibros(!showMatematicaLibros);
+  };
+
+  const handleLibroClick = (url) => {
+    window.open(url, "_blank");
+  };
+
+  // Lista de libros para Matemática Básica
+  const librosMatematica = [
+    {
+      id: 1,
+      titulo: "Matemática Básica - Gonzáles, Chacón, Fonseca",
+      url: "https://drive.google.com/file/d/1BKGpp1HsjY0hZheOgQrP7tEFsTmwCQjn/view?usp=drive_link",
+    },
+    {
+      id: 2,
+      titulo: "Matemática Básica - Figueroa",
+      url: "https://drive.google.com/file/d/12Acjz6LH0n_-UqJG9RGqZpOR850eA9Xi/view?usp=drive_link",
+    },
+    {
+      id: 3,
+      titulo: "Matemáticas Básicas - Ocaña, Pérez",
+      url: "https://drive.google.com/file/d/1_takdnzG5r-2yXO4htWRAdh68tWgqzt5/view?usp=drive_link",
+    },
+  ];
+
+  // Filtrar libros basado en el término de búsqueda
+  const librosFiltrados = librosMatematica.filter((libro) =>
+    libro.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   if (loading) {
     // Mostrar loader mientras se resuelve la autenticación
@@ -168,43 +202,117 @@ function Ciclo1() {
       <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-center justify-center">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-[#DFD0B8] mb-8">
-              Ciclo 1
-            </h1>
-            <p className="text-[#DFD0B8] text-lg md:text-xl opacity-80 mb-8">
-              Contenido del primer ciclo académico
-            </p>
-
-            {/* Aquí puedes agregar el contenido específico del Ciclo 1 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-[#222831] p-6 rounded-lg">
-                <h3 className="text-[#DFD0B8] text-xl font-semibold mb-4">
-                  Materias
-                </h3>
-                <p className="text-[#DFD0B8] opacity-70">
-                  Lista de materias del Ciclo 1
+            {!showMatematicaLibros ? (
+              <>
+                <h1 className="text-4xl md:text-6xl font-bold text-[#DFD0B8] mb-8">
+                  Ciclo 1
+                </h1>
+                <p className="text-[#DFD0B8] text-lg md:text-xl opacity-80 mb-8">
+                  Elige el curso para acceder a los libros
                 </p>
-              </div>
 
-              <div className="bg-[#222831] p-6 rounded-lg">
-                <h3 className="text-[#DFD0B8] text-xl font-semibold mb-4">
-                  Horarios
-                </h3>
-                <p className="text-[#DFD0B8] opacity-70">
-                  Horarios de clases del Ciclo 1
+                {/* Grid de materias */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
+                  <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+                    Comunicación Oral y Escrita
+                  </button>
+                  <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+                    Metodología del Trabajo Universitario
+                  </button>
+                  <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+                    Ciencias Naturales y Medio Ambiente
+                  </button>
+                  <button
+                    onClick={toggleMatematicaLibros}
+                    className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl"
+                  >
+                    Matemática Básica
+                  </button>
+                  <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+                    Filosofía
+                  </button>
+                  <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+                    Fundamentos de Sistemas de Información
+                  </button>
+                </div>
+
+                {/* Botón para regresar */}
+                <div className="mt-8">
+                  <button
+                    onClick={() => navigate("/")}
+                    className="bg-[#222831] text-[#DFD0B8] px-6 py-3 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
+                  >
+                    ← Regresar al inicio
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h1 className="text-4xl md:text-6xl font-bold text-[#DFD0B8] mb-8">
+                  Matemática Básica
+                </h1>
+                <p className="text-[#DFD0B8] text-lg md:text-xl opacity-80 mb-8">
+                  Libros disponibles para el curso
                 </p>
-              </div>
-            </div>
 
-            {/* Botón para regresar */}
-            <div className="mt-8">
-              <button
-                onClick={() => navigate("/")}
-                className="bg-[#222831] text-[#DFD0B8] px-6 py-3 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
-              >
-                ← Regresar al inicio
-              </button>
-            </div>
+                {/* Buscador de libros */}
+                <div className="max-w-md mx-auto mb-8">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Buscar libros..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full px-4 py-3 pl-10 bg-[#222831] text-[#DFD0B8] border border-[#393E46] rounded-lg focus:outline-none focus:border-[#DFD0B8] transition-colors duration-200"
+                    />
+                    <svg
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#817d74]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Grid de libros */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
+                  {librosFiltrados.length > 0 ? (
+                    librosFiltrados.map((libro) => (
+                      <button
+                        key={libro.id}
+                        onClick={() => handleLibroClick(libro.url)}
+                        className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl"
+                      >
+                        {libro.titulo}
+                      </button>
+                    ))
+                  ) : (
+                    <div className="col-span-full text-center py-8">
+                      <p className="text-[#817d74] text-lg">
+                        No se encontraron libros que coincidan con tu búsqueda
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Botón para regresar */}
+                <div className="mt-8">
+                  <button
+                    onClick={toggleMatematicaLibros}
+                    className="bg-[#222831] text-[#DFD0B8] px-6 py-3 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
+                  >
+                    ← Regresar a cursos
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
