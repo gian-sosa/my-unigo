@@ -1,35 +1,10 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userAuth } from "../context/AuthContext";
+import Header from "../components/Header";
 
 function Home() {
-  const { user, signout, loading } = userAuth();
+  const { user, loading } = userAuth();
   const navigate = useNavigate();
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-
-  // Ya no es necesario redirigir, HomeOrLogin se encarga
-
-  const handleSignout = async () => {
-    await signout();
-    // HomeOrLogin se encarga de mostrar el login
-  };
-
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
-
-  const closeDropdown = () => {
-    setShowDropdown(false);
-  };
-
-  const toggleMobileMenu = () => {
-    setShowMobileMenu(!showMobileMenu);
-  };
-
-  const closeMobileMenu = () => {
-    setShowMobileMenu(false);
-  };
 
   if (loading) {
     // Mostrar loader mientras se resuelve la autenticación
@@ -47,159 +22,7 @@ function Home() {
 
   return (
     <div className="min-h-screen w-full bg-[#393E46] flex flex-col">
-      {/* Header */}
-      <div className="w-full bg-[#222831] text-[#DFD0B8] relative">
-        <div className="h-16 md:h-20 px-4 md:px-8 flex items-center justify-between max-w-7xl mx-auto relative">
-          {/* Logo centrado en móvil, izquierda en desktop */}
-          <h1
-            onClick={() => navigate("/")}
-            className="text-2xl md:text-4xl font-medium md:relative absolute left-1/2 transform -translate-x-1/2 md:transform-none md:left-auto cursor-pointer hover:opacity-80 transition-opacity duration-200"
-          >
-            UniGo
-          </h1>
-          {/* Desktop Profile Menu - Solo visible en pantallas grandes */}
-          <div className="hidden md:block relative">
-            <div
-              className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity duration-200"
-              onClick={toggleDropdown}
-            >
-              <img
-                src={user?.picture}
-                alt="Foto de perfil"
-                className="w-8 h-8 lg:w-10 lg:h-10 rounded-full"
-              />
-              <h2 className="text-sm lg:text-base">{user?.name}</h2>
-              {user?.email?.endsWith("@cidie.edu.pe") && (
-                <div className="relative group">
-                  <svg
-                    className="w-4 h-4 text-blue-500 cursor-pointer"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-500 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 cursor-default">
-                    Verificado UNSCH
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {showDropdown && (
-              <div className="absolute right-0 top-12 bg-[#222831] border border-[#393E46] rounded-md z-20 min-w-48">
-                <div className="p-3 border-b border-[#393E46]">
-                  {/* <p className="text-sm text-[#DFD0B8] font-medium">
-                    {user?.name}
-                  </p> */}
-                  <p className="text-xs text-[#817d74]">{user?.email}</p>
-                </div>
-                <div className="p-2">
-                  <button
-                    onClick={() => {
-                      handleSignout();
-                      closeDropdown();
-                    }}
-                    className="w-full text-center px-3 py-2 text-[#DFD0B8] hover:bg-[#393E46] rounded-md transition-colors duration-200 cursor-pointer"
-                  >
-                    Cerrar sesión
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {showDropdown && (
-              <div className="fixed inset-0 z-10" onClick={closeDropdown}></div>
-            )}
-          </div>
-
-          {/* Mobile Hamburger Menu - Solo visible en móvil */}
-          <div className="md:hidden">
-            <button
-              onClick={toggleMobileMenu}
-              className="p-2 text-[#DFD0B8] hover:bg-[#393E46] rounded-md transition-colors duration-200 cursor-pointer"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu Dropdown */}
-        {showMobileMenu && (
-          <div
-            className="absolute top-full left-0 right-0 bg-[#222831] border-t border-[#393E46] border-b-1
-          border-b-[#393E46] z-30 md:hidden"
-          >
-            <div className="px-4 py-3 space-y-3">
-              <div className="flex items-center gap-3 pb-3 border-b border-[#393E46]">
-                <img
-                  src={user?.picture}
-                  alt="Foto de perfil"
-                  className="w-12 h-12 rounded-full"
-                />
-                <div>
-                  <div className="flex items-center gap-2">
-                    <p className="text-[#DFD0B8] font-medium">{user?.name}</p>
-                    {user?.email?.endsWith("@cidie.edu.pe") && (
-                      <div className="relative group">
-                        <svg
-                          className="w-4 h-4 text-blue-500 cursor-pointer"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
-                          Verificado UNSCH
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <p className="text-xs text-[#817d74]">{user?.email}</p>
-                </div>
-              </div>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleSignout();
-                  closeMobileMenu();
-                }}
-                className="w-full text-center px-3 py-3 text-[#DFD0B8] hover:bg-[#393E46] rounded-md transition-colors duration-200 cursor-pointer"
-              >
-                Cerrar sesión
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Mobile Menu Overlay */}
-        {showMobileMenu && (
-          <div
-            className="fixed inset-0 z-20 md:hidden"
-            onClick={closeMobileMenu}
-          ></div>
-        )}
-      </div>
+      <Header />
       {/* Ciclos Grid */}
       <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-center justify-center">
         <div className="max-w-4xl mx-auto w-full">
@@ -210,12 +33,12 @@ function Home() {
             >
               Ciclo 1
             </button>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+            <button
+              onClick={() => navigate("/ciclo2")}
+              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
             >
               Ciclo 2
-            </a>
+            </button>
             <a
               href="#"
               className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
