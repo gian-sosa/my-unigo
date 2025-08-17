@@ -39,54 +39,54 @@ function Home() {
             >
               Ciclo 2
             </button>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+            <button
+              onClick={() => navigate("/ciclo3")}
+              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
             >
               Ciclo 3
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+            </button>
+            <button
+              onClick={() => navigate("/ciclo4")}
+              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
             >
               Ciclo 4
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+            </button>
+            <button
+              onClick={() => navigate("/ciclo5")}
+              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
             >
               Ciclo 5
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+            </button>
+            <button
+              onClick={() => navigate("/ciclo6")}
+              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
             >
               Ciclo 6
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+            </button>
+            <button
+              onClick={() => navigate("/ciclo7")}
+              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
             >
               Ciclo 7
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+            </button>
+            <button
+              onClick={() => navigate("/ciclo8")}
+              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
             >
               Ciclo 8
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+            </button>
+            <button
+              onClick={() => navigate("/ciclo9")}
+              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
             >
               Ciclo 9
-            </a>
-            <a
-              href="#"
-              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium"
+            </button>
+            <button
+              onClick={() => navigate("/ciclo10")}
+              className="bg-[#222831] text-[#DFD0B8] text-center p-4 md:p-6 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
             >
               Ciclo 10
-            </a>
+            </button>
           </div>
         </div>
       </div>
