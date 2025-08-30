@@ -28,7 +28,7 @@ function Ciclo6() {
   const librosSistemasDigitales = [
     {
       id: 1,
-      titulo: "Fundamento de Sistemas Digitales - Floyd",
+      titulo: "Fundamentos de Sistemas Digitales - Floyd",
       url: "https://drive.google.com/file/d/1BrasZI_NauCL2nKBUcXkgUDJvPbnqM_t/view?usp=drive_link",
     },
   ];
