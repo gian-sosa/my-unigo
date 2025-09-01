@@ -35,7 +35,7 @@ function Ciclo6() {
       id: 2,
       titulo:
         "Sistemas Digitales Principios y Aplicaciones - Tocci, Widmer, Moss",
-      url: "https://drive.google.com/file/d/1BrasZI_NauCL2nKBUcXkgUDJvPbnqM_t/view?usp=drive_link",
+      url: "https://drive.google.com/file/d/15Zpi6uImOR1T4mAknRdgCvMiIOlZNGB4/view?usp=drive_link",
     },
   ];
 
