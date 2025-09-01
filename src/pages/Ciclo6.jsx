@@ -31,6 +31,12 @@ function Ciclo6() {
       titulo: "Fundamentos de Sistemas Digitales - Floyd",
       url: "https://drive.google.com/file/d/1BrasZI_NauCL2nKBUcXkgUDJvPbnqM_t/view?usp=drive_link",
     },
+    {
+      id: 2,
+      titulo:
+        "Sistemas Digitales Principios y Aplicaciones - Tocci, Widmer, Moss",
+      url: "https://drive.google.com/file/d/1BrasZI_NauCL2nKBUcXkgUDJvPbnqM_t/view?usp=drive_link",
+    },
   ];
 
   // Filtrar libros basado en el término de búsqueda
