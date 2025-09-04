@@ -6,11 +6,11 @@ function Login() {
   return (
     <div className="min-h-screen w-full bg-[#393E46] flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-md">
-        <h1 className="text-[#DFD0B8] text-3xl md:text-4xl text-center mb-8">
-          UniGo
-        </h1>
         <div className="bg-[#DFD0B8] flex flex-col items-center p-6 md:p-10 gap-5 rounded-md w-full">
           <div className="flex flex-col items-center justify-center">
+            <h1 className="text-[#222831] font-medium text-3xl md:text-4xl text-center mb-8">
+              UniGo
+            </h1>
             <p className="font-medium">¡Hola de nuevo!</p>
             <p className="text-[#222831]">Por favor, ingresa tus datos.</p>
           </div>
