@@ -16,8 +16,11 @@ function Ciclo3() {
   if (loading) {
     // Mostrar loader mientras se resuelve la autenticación
     return (
-      <div className="absolute inset-0 h-full w-full bg-[#393E46] flex items-center justify-center">
-        <div className="text-[#DFD0B8] text-xl">Cargando...</div>
+      <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+          <div className="text-white text-xl font-medium">Cargando...</div>
+        </div>
       </div>
     );
   }
@@ -28,38 +31,38 @@ function Ciclo3() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-[#393E46] flex flex-col">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex flex-col">
       <Header />
 
       {/* Contenido Principal - Ciclo 3 */}
       <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-start justify-center">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-[#DFD0B8] mb-8">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-8">
               Ciclo 3
             </h1>
-            <p className="text-[#DFD0B8] text-lg md:text-xl opacity-80 mb-8">
+            <p className="text-slate-300 text-base md:text-lg mb-8">
               Elige el curso para acceder a los libros
             </p>
 
             {/* Grid de materias */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
-              <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Cálculo I
               </button>
-              <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Física I
               </button>
-              <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Estructura de Datos Fundamentales y Algoritmos
               </button>
-              <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Teoría General de Sistemas
               </button>
-              <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Seminario y Gestión Empresarial
               </button>
-              <button className="bg-[#222831] hover:bg-[#2A3038] text-[#DFD0B8] px-8 py-6 rounded-lg transition-colors duration-200 font-medium cursor-pointer text-lg shadow-lg hover:shadow-xl">
+              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Álgebra Lineal
               </button>
             </div>
@@ -68,7 +71,7 @@ function Ciclo3() {
             <div className="mt-8">
               <button
                 onClick={() => navigate("/")}
-                className="bg-[#222831] text-[#DFD0B8] px-6 py-3 rounded-md hover:bg-[#2A3038] transition-colors duration-200 font-medium cursor-pointer"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer"
               >
                 ← Regresar al inicio
               </button>
@@ -81,3 +84,6 @@ function Ciclo3() {
 }
 
 export default Ciclo3;
+
+
+

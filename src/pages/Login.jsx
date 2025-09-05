@@ -8,10 +8,10 @@ function Login() {
       <div className="w-full max-w-md">
         <div className="bg-white/95 backdrop-blur-sm flex flex-col items-center p-6 md:p-10 gap-6 rounded-2xl w-full shadow-2xl border border-white/20">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="font-bold text-3xl md:text-4xl text-center mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="font-bold text-2xl md:text-3xl text-center mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               UniGo
             </h1>
-            <p className="font-semibold text-slate-700 text-lg">
+            <p className="font-semibold text-slate-700 text-base">
               ¡Hola de nuevo!
             </p>
             <p className="text-slate-600 text-sm">
@@ -65,12 +65,12 @@ function Login() {
               </a>
             </div>
             <div className="flex flex-col gap-4 pt-2">
-              <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold p-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl">
+              <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold p-4 rounded-xl transition-all duration-200  shadow-lg cursor-not-allowed">
                 Iniciar Sesión
               </button>
               <button
                 onClick={signInWithGoogle}
-                className="w-full bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 font-semibold p-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-md hover:shadow-lg flex items-center justify-center gap-3"
+                className="w-full bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 font-semibold p-4 rounded-xl transition-all duration-200  shadow-md flex items-center justify-center gap-3 cursor-pointer"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path

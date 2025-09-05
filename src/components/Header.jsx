@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { userAuth } from "../context/AuthContext";
 
@@ -7,6 +7,39 @@ function Header() {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const dropdownRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+
+  // Efecto para manejar clicks fuera del dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target)
+      ) {
+        setShowMobileMenu(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setShowDropdown(false);
+        setShowMobileMenu(false);
+      }
+    };
+
+    if (showDropdown || showMobileMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscape);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+        document.removeEventListener("keydown", handleEscape);
+      };
+    }
+  }, [showDropdown, showMobileMenu]);
 
   const handleSignout = async () => {
     await signout();
@@ -30,13 +63,13 @@ function Header() {
   };
 
   return (
-    <div className="w-full bg-[#222831] text-[#DFD0B8] relative">
+    <div className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50 shadow-lg relative">
       <div className="h-16 md:h-20 px-4 md:px-8 flex items-center justify-between max-w-7xl mx-auto relative">
         {/* Logo - Responsive positioning */}
         <div className="flex-shrink-0">
           <h1
             onClick={() => navigate("/")}
-            className="text-xl sm:text-2xl md:text-4xl font-medium cursor-pointer hover:opacity-80 transition-opacity duration-200"
+            className="text-lg sm:text-xl md:text-2xl font-bold cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
           >
             UniGo
           </h1>
@@ -46,21 +79,23 @@ function Header() {
         <div className="flex-1 md:hidden"></div>
 
         {/* Desktop Profile Menu - Solo visible en pantallas grandes */}
-        <div className="hidden md:block relative">
+        <div className="hidden md:block relative" ref={dropdownRef}>
           <div
-            className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+            className="flex items-center gap-3 cursor-pointer hover:bg-white/10 p-2 rounded-xl transition-all duration-200"
             onClick={toggleDropdown}
           >
             <img
               src={user?.picture}
               alt="Foto de perfil"
-              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full"
+              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full ring-2 ring-slate-600"
             />
-            <h2 className="text-sm lg:text-base">{user?.name}</h2>
+            <h2 className="text-sm lg:text-base text-white font-medium">
+              {user?.name}
+            </h2>
             {user?.email?.endsWith("@cidie.edu.pe") && (
               <div className="relative group">
                 <svg
-                  className="w-4 h-4 text-blue-500 cursor-pointer"
+                  className="w-4 h-4 text-blue-400 cursor-pointer"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -70,7 +105,7 @@ function Header() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-xs text-white bg-slate-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
                   Verificado UNSCH
                 </span>
               </div>
@@ -78,9 +113,11 @@ function Header() {
           </div>
 
           {showDropdown && (
-            <div className="absolute right-0 top-12 bg-[#222831] border border-[#393E46] rounded-md shadow-lg z-20 min-w-48">
-              <div className="p-3 border-b border-[#393E46]">
-                <p className="text-xs text-[#817d74]">{user?.email}</p>
+            <div className="absolute right-0 top-12 bg-slate-800/95 backdrop-blur-sm border border-slate-600 rounded-xl shadow-xl z-50 min-w-48 overflow-hidden">
+              <div className="p-3 border-b border-slate-600 bg-slate-700/50">
+                <p className="text-xs text-slate-300 font-medium">
+                  {user?.email}
+                </p>
               </div>
               <div className="p-2">
                 <button
@@ -88,24 +125,20 @@ function Header() {
                     handleSignout();
                     closeDropdown();
                   }}
-                  className="w-full text-left px-3 py-2 text-[#DFD0B8] hover:bg-[#393E46] rounded-md transition-colors duration-200 cursor-pointer"
+                  className="w-full text-left px-3 py-2 text-white hover:bg-red-500/20 hover:text-red-300 rounded-lg transition-all duration-200 cursor-pointer font-medium"
                 >
                   Cerrar sesión
                 </button>
               </div>
             </div>
           )}
-
-          {showDropdown && (
-            <div className="fixed inset-0 z-10" onClick={closeDropdown}></div>
-          )}
         </div>
 
         {/* Mobile Hamburger Menu - Solo visible en móvil */}
-        <div className="md:hidden">
+        <div className="md:hidden" ref={mobileMenuRef}>
           <button
             onClick={toggleMobileMenu}
-            className="p-2 text-[#DFD0B8] hover:bg-[#393E46] rounded-md transition-colors duration-200 cursor-pointer"
+            className="p-2 text-slate-300 hover:bg-white/10 rounded-lg transition-colors duration-200 cursor-pointer"
           >
             <svg
               className="w-6 h-6"
@@ -126,21 +159,21 @@ function Header() {
 
       {/* Mobile Menu Dropdown */}
       {showMobileMenu && (
-        <div className="absolute top-full left-0 right-0 bg-[#222831] border-t border-[#393E46] border-b-2 border-b-[#393E46] shadow-lg z-30 md:hidden">
+        <div className="absolute top-full left-0 right-0 bg-slate-800/95 backdrop-blur-sm border-b border-slate-600 shadow-lg z-50 md:hidden">
           <div className="px-4 py-3 space-y-3">
-            <div className="flex items-center gap-3 pb-3 border-b border-[#393E46]">
+            <div className="flex items-center gap-3 pb-3 border-b border-slate-600">
               <img
                 src={user?.picture}
                 alt="Foto de perfil"
-                className="w-12 h-12 rounded-full"
+                className="w-12 h-12 rounded-full ring-2 ring-slate-600"
               />
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-[#DFD0B8] font-medium">{user?.name}</p>
+                  <p className="text-white font-semibold">{user?.name}</p>
                   {user?.email?.endsWith("@cidie.edu.pe") && (
                     <div className="relative group">
                       <svg
-                        className="w-4 h-4 text-blue-500 cursor-pointer"
+                        className="w-4 h-4 text-blue-400 cursor-pointer"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -150,13 +183,13 @@ function Header() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                      <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-xs text-white bg-slate-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
                         Verificado UNSCH
                       </span>
                     </div>
                   )}
                 </div>
-                <p className="text-xs text-[#817d74]">{user?.email}</p>
+                <p className="text-xs text-slate-300">{user?.email}</p>
               </div>
             </div>
             <button
@@ -166,20 +199,12 @@ function Header() {
                 handleSignout();
                 closeMobileMenu();
               }}
-              className="w-full text-center px-3 py-3 text-[#DFD0B8] hover:bg-[#393E46] rounded-md transition-colors duration-200 cursor-pointer"
+              className="w-full text-center px-4 py-3 text-red-300 hover:bg-red-500/20 rounded-lg transition-colors duration-200 cursor-pointer font-semibold"
             >
               Cerrar sesión
             </button>
           </div>
         </div>
-      )}
-
-      {/* Mobile Menu Overlay */}
-      {showMobileMenu && (
-        <div
-          className="fixed inset-0 z-20 md:hidden"
-          onClick={closeMobileMenu}
-        ></div>
       )}
     </div>
   );
