@@ -60,6 +60,14 @@ function Header() {
   // Efecto para manejar clicks fuera del dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // No cerrar el menú si se hace click en el botón de logout o en el contenedor del menú móvil
+      if (
+        event.target.textContent === "Cerrar sesión" ||
+        event.target.closest(".mobile-menu-container")
+      ) {
+        return;
+      }
+
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowDropdown(false);
       }
@@ -121,7 +129,7 @@ function Header() {
   };
 
   return (
-    <div className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50 shadow-lg relative">
+    <div className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50 shadow-lg fixed top-0 left-0 right-0 z-[9999]">
       <div className="h-16 md:h-20 px-4 md:px-8 flex items-center justify-between max-w-7xl mx-auto relative">
         {/* Logo - Responsive positioning */}
         <div className="flex-shrink-0 flex items-center gap-2">
@@ -188,7 +196,7 @@ function Header() {
           </div>
 
           {showDropdown && (
-            <div className="absolute right-0 top-12 bg-slate-800/95 backdrop-blur-sm border border-slate-600 rounded-xl shadow-xl z-50 min-w-48 overflow-hidden">
+            <div className="absolute right-0 top-12 bg-slate-800/95 backdrop-blur-sm border border-slate-600 rounded-xl shadow-xl z-[9999] min-w-48 overflow-hidden">
               <div className="p-3 border-b border-slate-600 bg-slate-700/50">
                 <p className="text-xs text-slate-300 font-medium">
                   {user?.email}
@@ -248,7 +256,7 @@ function Header() {
 
       {/* Mobile Menu Dropdown */}
       {showMobileMenu && (
-        <div className="absolute top-full left-0 right-0 bg-slate-800/95 backdrop-blur-sm border-b border-slate-600 shadow-lg z-50 md:hidden">
+        <div className="fixed top-full left-0 right-0 bg-slate-800/95 backdrop-blur-sm border-b border-slate-600 shadow-lg z-[99999] md:hidden mobile-menu-container">
           <div className="px-4 py-3 space-y-3">
             <div className="flex items-center gap-3 pb-3 border-b border-slate-600">
               {/* Avatar móvil con fallback */}
@@ -297,26 +305,42 @@ function Header() {
                 <p className="text-xs text-slate-300">{user?.email}</p>
               </div>
             </div>
-            <button
-              onClick={async () => {
-                if (isSigningOut) return;
-                try {
-                  await handleSignout();
-                  closeMobileMenu();
-                } catch (error) {
-                  console.error("Error al cerrar sesión:", error);
-                  closeMobileMenu();
-                }
-              }}
-              disabled={isSigningOut}
-              className={`w-full text-center px-4 py-3 rounded-lg transition-colors duration-200 font-semibold ${
-                isSigningOut
-                  ? "text-slate-500 bg-slate-600 cursor-not-allowed"
-                  : "text-red-300 hover:bg-red-500/20 cursor-pointer"
-              }`}
-            >
-              {isSigningOut ? "Cerrando sesión..." : "Cerrar sesión"}
-            </button>
+            <div style={{ position: "relative", zIndex: 999999 }}>
+              <div
+                onTouchStart={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log("🔴 TOUCH START - LOGOUT MÓVIL");
+                  signout()
+                    .then(() => {
+                      console.log("✅ LOGOUT EXITOSO");
+                      window.location.replace("/");
+                    })
+                    .catch((error) => {
+                      console.error("❌ ERROR LOGOUT:", error);
+                      window.location.replace("/");
+                    });
+                }}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log("🔴 MOUSE DOWN - LOGOUT MÓVIL");
+                  signout()
+                    .then(() => {
+                      console.log("✅ LOGOUT EXITOSO");
+                      window.location.replace("/");
+                    })
+                    .catch((error) => {
+                      console.error("❌ ERROR LOGOUT:", error);
+                      window.location.replace("/");
+                    });
+                }}
+                className="w-full text-center px-4 py-3 text-red-300 hover:bg-red-500/20 rounded-lg transition-colors duration-200 cursor-pointer font-semibold select-none"
+                style={{ userSelect: "none", touchAction: "manipulation" }}
+              >
+                Cerrar sesión
+              </div>
+            </div>
           </div>
         </div>
       )}

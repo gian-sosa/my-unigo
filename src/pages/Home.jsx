@@ -27,7 +27,7 @@ function Home() {
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex flex-col">
       <Header />
       {/* Ciclos Grid */}
-      <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-center justify-center">
+      <div className="flex-1 w-full px-4 md:px-8 py-8 pt-20 md:pt-28 flex items-center justify-center">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center mb-8">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
