@@ -1,0 +1,16 @@
+# Configuración para Netlify
+# Este archivo va en la raíz del proyecto
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Variables de entorno para producción
+# Configura estas en tu dashboard de Netlify
+[build.environment]
+  NODE_VERSION = "18"
