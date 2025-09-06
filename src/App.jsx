@@ -1,4 +1,3 @@
-import "./App.css";
 import { AuthContextProvider } from "./context/AuthContext";
 import { MyRoutes } from "./routers/routes";
 function App() {
@@ -10,4 +9,3 @@ function App() {
 }
 
 export default App;
-
