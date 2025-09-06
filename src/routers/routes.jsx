@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import { userAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Ciclo1 from "../pages/Ciclo1";
 import Ciclo2 from "../pages/Ciclo2";
@@ -15,7 +15,7 @@ import Ciclo9 from "../pages/Ciclo9";
 import Ciclo10 from "../pages/Ciclo10";
 
 function HomeOrLogin() {
-  const { user, loading } = userAuth();
+  const { user, loading } = useAuth();
   if (loading) return null;
   return user ? <Home /> : <Login />;
 }
@@ -107,3 +107,4 @@ export function MyRoutes() {
     </Routes>
   );
 }
+

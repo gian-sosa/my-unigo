@@ -5,9 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run clean:debug && vite build",
+    "build:secure": "npm run security:check && npm run clean:debug && vite build --mode production",
+    "clean:debug": "powershell -Command \"Remove-Item -Path 'src/debug*.js', 'src/**/*debug*', 'dist/debug*', '*.log' -Force -ErrorAction SilentlyContinue\"",
+    "security:check": "npm run audit:deps && npm run audit:licenses && npm run lint:security",
+    "audit:deps": "npm audit --audit-level=moderate",
+    "audit:licenses": "npm audit --audit-level=low",
+    "audit:fix": "npm audit fix",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:security": "eslint . --config eslint.security.config.js",
+    "preview": "vite preview",
+    "deps:outdated": "npm outdated",
+    "deps:update": "npm update"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.54.0",
@@ -25,6 +34,7 @@
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^4.7.0",
     "eslint": "^9.32.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",

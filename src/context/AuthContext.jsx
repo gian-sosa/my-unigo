@@ -1,53 +1,62 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import { supabase } from "../supabase/supabase.config";
-import { useNavigate } from "react-router-dom";
+import { logger, prodLogger } from "../utils/logger";
+import { validateSessionData, sanitizeForLogging } from "../utils/validation";
+import { useSecurityMonitor } from "../utils/security-monitor";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sessionError, setSessionError] = useState(null);
+  const { logEvent, isRateLimited } = useSecurityMonitor();
 
   // Función para validar la integridad de la sesión
   const validateSession = async (session) => {
     try {
-      if (!session || !session.user) {
-        return false;
-      }
+      // Usar validación centralizada y segura
+      const validation = validateSessionData(session);
 
-      // Verificar que el token no haya expirado
-      const now = Math.floor(Date.now() / 1000);
-      if (session.expires_at && session.expires_at < now) {
-        console.warn("Sesión expirada");
-        return false;
-      }
+      if (!validation.valid) {
+        logger.warn("Validación de sesión falló:", validation.error);
+        prodLogger.error("Session validation failed", {
+          reason: validation.error,
+        });
 
-      // Verificar que el usuario tenga los campos necesarios
-      const { user_metadata, email } = session.user;
-      if (!email || !user_metadata) {
-        console.warn("Datos de usuario incompletos");
-        return false;
-      }
+        // Si es un problema de dominio o sesión expirada, cerrar sesión
+        if (
+          validation.error.includes("dominio") ||
+          validation.error.includes("expirada")
+        ) {
+          await supabase.auth.signOut();
+          setUser(null);
+        }
 
-      // Validar que el email termine con @unsch.edu.pe para restricción institucional
-      if (!email.endsWith("@unsch.edu.pe")) {
-        console.warn(
-          "Email no autorizado - solo permitidos emails @unsch.edu.pe"
-        );
         return false;
       }
 
       return true;
     } catch (error) {
-      console.error("Error al validar sesión:", error);
+      logger.error("Error al validar sesión:", sanitizeForLogging(error));
+      prodLogger.error("Session validation failed");
       return false;
     }
   };
 
   async function signInWithGoogle() {
     try {
+      // Verificar rate limiting antes del intento de login
+      if (isRateLimited()) {
+        const error = new Error(
+          "Demasiados intentos fallidos. Intenta en 15 minutos."
+        );
+        logEvent("RATE_LIMITED_LOGIN", {
+          reason: "Too many failed attempts",
+        });
+        throw error;
+      }
+
       setSessionError(null);
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
@@ -60,10 +69,23 @@ export const AuthContextProvider = ({ children }) => {
           },
         },
       });
-      if (error) throw new Error("Ocurrió un error en la Autenticación");
+
+      if (error) {
+        logEvent("LOGIN_FAILED", {
+          provider: "google",
+          error: error.message,
+        });
+        throw new Error("Ocurrió un error en la Autenticación");
+      }
+
+      logEvent("LOGIN_ATTEMPT", {
+        provider: "google",
+      });
+
       return data;
     } catch (error) {
-      console.error("Error en login:", error);
+      logger.error("Error en login:", sanitizeForLogging(error));
+      prodLogger.error("Login failed");
       setSessionError("Error al iniciar sesión");
       throw error;
     }
@@ -72,11 +94,16 @@ export const AuthContextProvider = ({ children }) => {
   async function signout() {
     try {
       setSessionError(null);
+      logEvent("LOGOUT", {
+        userEmail: user?.email ? "authenticated_user" : "unknown",
+      });
+
       const { error } = await supabase.auth.signOut();
       if (error) throw new Error("Ocurrió un error al cerrar sesión");
       setUser(null);
     } catch (error) {
-      console.error("Error al cerrar sesión:", error);
+      logger.error("Error al cerrar sesión:", sanitizeForLogging(error));
+      prodLogger.error("Logout failed");
       setSessionError("Error al cerrar sesión");
       throw error;
     }
@@ -91,7 +118,8 @@ export const AuthContextProvider = ({ children }) => {
       } = await supabase.auth.getSession();
 
       if (error) {
-        console.error("Error al obtener sesión:", error);
+        logger.error("Error al obtener sesión:", error);
+        prodLogger.error("Session retrieval failed");
         setSessionError("Error de autenticación");
         return null;
       }
@@ -106,7 +134,8 @@ export const AuthContextProvider = ({ children }) => {
 
       return session;
     } catch (error) {
-      console.error("Error al verificar sesión:", error);
+      logger.error("Error al verificar sesión:", error);
+      prodLogger.error("Session check failed");
       setSessionError("Error de conexión");
       return null;
     }
@@ -117,6 +146,9 @@ export const AuthContextProvider = ({ children }) => {
     checkSession().then((session) => {
       if (session && session.user) {
         setUser(session.user.user_metadata);
+        logEvent("SESSION_RESTORED", {
+          userEmail: "authenticated_user",
+        });
       }
       setLoading(false);
     });
@@ -130,6 +162,9 @@ export const AuthContextProvider = ({ children }) => {
         if (event === "SIGNED_OUT" || session === null) {
           setUser(null);
           setLoading(false);
+          logEvent("SESSION_ENDED", {
+            event: event,
+          });
           return;
         }
 
@@ -138,6 +173,10 @@ export const AuthContextProvider = ({ children }) => {
 
           if (isValid) {
             setUser(session.user.user_metadata);
+            logEvent("LOGIN_SUCCESS", {
+              event: event,
+              provider: "google",
+            });
 
             // Limpiar el hash de la URL si contiene access_token (OAuth)
             if (
@@ -196,6 +235,10 @@ export const AuthContextProvider = ({ children }) => {
   );
 };
 
-export const userAuth = () => {
-  return useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth debe ser usado dentro de AuthContextProvider");
+  }
+  return context;
 };

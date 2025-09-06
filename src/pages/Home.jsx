@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { userAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import Header from "../components/Header";
 
 function Home() {
-  const { user, loading } = userAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
 
   if (loading) {

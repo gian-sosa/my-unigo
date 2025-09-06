@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import Header from "../components/Header";
 
 function Ciclo1() {
-  const { user, loading } = userAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [showMatematicaLibros, setShowMatematicaLibros] = useState(false);
   const [showFundamentosLibros, setShowFundamentosLibros] = useState(false);
@@ -274,4 +274,5 @@ function Ciclo1() {
 }
 
 export default Ciclo1;
+
 

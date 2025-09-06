@@ -1,0 +1,28 @@
+# Configuración de Headers de Seguridad para Netlify
+/*
+  # Seguridad HTTPS
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  
+  # Protección contra ataques XSS
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  
+  # Content Security Policy (CSP) - CRÍTICO
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com https://*.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co https://accounts.google.com; frame-src https://accounts.google.com;
+  
+  # Referrer Policy
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  # Permissions Policy
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+# Configuración específica para archivos sensibles
+/src/*
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+  
+/.env*
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+  
+/debug*
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive

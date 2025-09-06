@@ -12,12 +12,38 @@ dist
 dist-ssr
 *.local
 
-# Environment variables
+# Environment variables - CRÍTICO: No exponer credenciales
 .env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
+
+# Archivos de configuración sensibles - CRÍTICOS
+src/supabase/supabase.config.simple.jsx
+src/supabase/*.simple.*
+src/config/credentials.*
+src/**/*credentials*
+
+# Archivos de debug y logs - CRÍTICO para producción
+debug*.js
+debug*.log
+*.log
+logs/
+temp/
+src/debug*
+src/**/*debug*
+dist/debug*
+
+# Archivos temporales y backups
+*.backup
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
 
 # Editor directories and files
 .vscode/*

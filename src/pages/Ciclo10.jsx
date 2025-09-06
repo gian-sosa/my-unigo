@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { userAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import Header from "../components/Header";
 
 function Ciclo10() {
-  const { user, loading } = userAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -87,6 +87,7 @@ function Ciclo10() {
 }
 
 export default Ciclo10;
+
 
 
 

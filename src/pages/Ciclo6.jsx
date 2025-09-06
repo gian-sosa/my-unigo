@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import Header from "../components/Header";
 
 function Ciclo6() {
-  const { user, loading } = userAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [showSistemasDigitalesLibros, setShowSistemasDigitalesLibros] =
     useState(false);
@@ -209,4 +209,5 @@ function Ciclo6() {
 }
 
 export default Ciclo6;
+
 

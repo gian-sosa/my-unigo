@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
-import { userAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 // Componente para proteger rutas que requieren autenticación
 function ProtectedRoute({ children }) {
-  const { user, loading, sessionError } = userAuth();
+  const { user, loading, sessionError } = useAuth();
 
   // Mostrar loading mientras se verifica la autenticación
   if (loading) {
@@ -45,3 +45,4 @@ function ProtectedRoute({ children }) {
 }
 
 export default ProtectedRoute;
+

@@ -1,9 +1,51 @@
 import { useState } from "react";
-import { userAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+import { sanitizeText, validateInstitutionalEmail } from "../utils/validation";
 
 function Login() {
-  const { signInWithGoogle, sessionError } = userAuth();
+  const { signInWithGoogle, sessionError } = useAuth();
   const [showWarning, setShowWarning] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const handleEmailChange = (e) => {
+    const sanitizedValue = sanitizeText(e.target.value);
+    setEmail(sanitizedValue);
+
+    // Validar email en tiempo real
+    if (sanitizedValue && !validateInstitutionalEmail(sanitizedValue)) {
+      setValidationErrors((prev) => ({
+        ...prev,
+        email: "Solo se permiten emails del dominio @unsch.edu.pe",
+      }));
+    } else {
+      setValidationErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.email;
+        return newErrors;
+      });
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const sanitizedValue = sanitizeText(e.target.value);
+    setPassword(sanitizedValue);
+
+    // Validación básica de contraseña
+    if (sanitizedValue && sanitizedValue.length < 6) {
+      setValidationErrors((prev) => ({
+        ...prev,
+        password: "La contraseña debe tener al menos 6 caracteres",
+      }));
+    } else {
+      setValidationErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.password;
+        return newErrors;
+      });
+    }
+  };
 
   const handleGoogleLogin = async () => {
     setShowWarning(true);
@@ -94,9 +136,18 @@ function Login() {
                 type="text"
                 name="email"
                 id="email"
-                className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-slate-400 transition-all duration-200"
-                placeholder="Ingresa tu correo"
+                value={email}
+                onChange={handleEmailChange}
+                className={`w-full p-4 bg-slate-50 border ${
+                  validationErrors.email ? "border-red-500" : "border-slate-200"
+                } rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-slate-400 transition-all duration-200`}
+                placeholder="ejemplo@unsch.edu.pe"
               />
+              {validationErrors.email && (
+                <p className="text-red-500 text-xs mt-1">
+                  {validationErrors.email}
+                </p>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <label
@@ -109,9 +160,20 @@ function Login() {
                 type="password"
                 name="password"
                 id="password"
-                className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-slate-400 transition-all duration-200"
+                value={password}
+                onChange={handlePasswordChange}
+                className={`w-full p-4 bg-slate-50 border ${
+                  validationErrors.password
+                    ? "border-red-500"
+                    : "border-slate-200"
+                } rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-slate-400 transition-all duration-200`}
                 placeholder="Ingresa tu contraseña"
               />
+              {validationErrors.password && (
+                <p className="text-red-500 text-xs mt-1">
+                  {validationErrors.password}
+                </p>
+              )}
             </div>
             <div className="flex gap-3 items-center">
               <input
