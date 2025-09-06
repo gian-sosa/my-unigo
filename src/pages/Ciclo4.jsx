@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import Header from "../components/Header";
 
 function Ciclo4() {
   const { user, loading } = useAuth();
+  const { isDark } = useTheme();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,10 +18,10 @@ function Ciclo4() {
   if (loading) {
     // Mostrar loader mientras se resuelve la autenticación
     return (
-      <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex items-center justify-center">
+      <div className="absolute inset-0 h-full w-full theme-bg-gradient flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-          <div className="text-white text-xl font-medium">Cargando...</div>
+          <div className="theme-text-primary text-xl font-medium">Cargando...</div>
         </div>
       </div>
     );
@@ -31,38 +33,38 @@ function Ciclo4() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex flex-col">
+    <div className="min-h-screen w-full theme-bg-gradient flex flex-col">
       <Header />
 
       {/* Contenido Principal - Ciclo 4 */}
       <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-start justify-center">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-8">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 dark:from-blue-400 dark:to-purple-400">
               Ciclo 4
             </h1>
-            <p className="text-slate-300 text-base md:text-lg mb-8">
+            <p className="theme-text-secondary text-base md:text-lg mb-8">
               Elige el curso para acceder a los libros
             </p>
 
             {/* Grid de materias */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
-              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Cálculo II
               </button>
-              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Física II
               </button>
-              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Programación Orientada a Objetos
               </button>
-              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Estadística y Probabilidades
               </button>
-              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Modelamiento de Análisis de Software
               </button>
-              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                 Matemática Discreta
               </button>
             </div>
@@ -71,7 +73,7 @@ function Ciclo4() {
             <div className="mt-8">
               <button
                 onClick={() => navigate("/")}
-                className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer"
+                className="theme-card backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer"
               >
                 ← Regresar al Inicio
               </button>

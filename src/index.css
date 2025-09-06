@@ -20,6 +20,7 @@
   --theme-border: rgba(0, 0, 0, 0.2);
   --theme-border-hover: #3b82f6;
   --theme-card-hover: rgba(0, 0, 0, 0.1);
+  --theme-placeholder: #9ca3af;
 }
 
 /* Variables CSS para modo oscuro */
@@ -42,6 +43,7 @@
   --theme-border: #393e46;
   --theme-border-hover: #3b82f6;
   --theme-card-hover: rgba(255, 255, 255, 0.2);
+  --theme-placeholder: #94a3b8;
 }
 
 body {
@@ -52,6 +54,10 @@ body {
 /* Clases utilitarias usando variables CSS */
 .theme-bg-primary {
   background-color: var(--bg-primary);
+}
+
+.theme-bg-secondary {
+  background-color: var(--bg-secondary);
 }
 
 .theme-bg-gradient {
@@ -83,6 +89,12 @@ body {
 
 .theme-input {
   background-color: var(--theme-input-bg);
+  color: var(--text-primary);
+  border-color: var(--theme-border);
+}
+
+.theme-input::placeholder {
+  color: var(--theme-placeholder);
 }
 
 .theme-border {
@@ -92,6 +104,16 @@ body {
 .theme-card-hover:hover {
   background-color: var(--theme-card-hover);
   border-color: var(--theme-border-hover);
+}
+
+.theme-menu-hover:hover {
+  background-color: rgba(107, 114, 128, 0.1);
+  color: var(--text-primary);
+}
+
+.dark .theme-menu-hover:hover {
+  background-color: rgba(71, 85, 105, 0.5);
+  color: #ffffff;
 }
 
 /* Transiciones suaves */

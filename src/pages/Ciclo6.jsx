@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import Header from "../components/Header";
 
 function Ciclo6() {
   const { user, loading } = useAuth();
+  const { isDark } = useTheme();
   const navigate = useNavigate();
   const [showSistemasDigitalesLibros, setShowSistemasDigitalesLibros] =
     useState(false);
@@ -49,10 +51,12 @@ function Ciclo6() {
   if (loading) {
     // Mostrar loader mientras se resuelve la autenticación
     return (
-      <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex items-center justify-center">
+      <div className="absolute inset-0 h-full w-full theme-bg-gradient flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-          <div className="text-white text-xl font-medium">Cargando...</div>
+          <div className="theme-text-primary text-xl font-medium">
+            Cargando...
+          </div>
         </div>
       </div>
     );
@@ -64,7 +68,7 @@ function Ciclo6() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex flex-col">
+    <div className="min-h-screen w-full theme-bg-gradient flex flex-col">
       <Header />
 
       {/* Contenido Principal - Ciclo 6 */}
@@ -73,39 +77,39 @@ function Ciclo6() {
           <div className="text-center">
             {!showSistemasDigitalesLibros ? (
               <>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-8">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 dark:from-blue-400 dark:to-purple-400">
                   Ciclo 6
                 </h1>
-                <p className="text-slate-300 text-base md:text-lg mb-8">
+                <p className="theme-text-secondary text-base md:text-lg mb-8">
                   Elige el curso para acceder a los libros
                 </p>
 
                 {/* Grid de materias */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
-                  <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+                  <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                     <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
                       Gestión de Entornos de Bases de Datos
                     </div>
                   </button>
                   <button
                     onClick={toggleSistemasDigitalesLibros}
-                    className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg"
+                    className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg"
                   >
                     <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
                       Sistemas Digitales y Arquitectura de Computadoras
                     </div>
                   </button>
-                  <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+                  <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                     <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
                       Sistemas Operativos
                     </div>
                   </button>
-                  <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+                  <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                     <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
                       Innovación Tecnológica, Creatividad y Emprendimiento
                     </div>
                   </button>
-                  <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+                  <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
                     <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
                       Construcción y Evolución de Software
                     </div>
@@ -116,7 +120,7 @@ function Ciclo6() {
                 <div className="mt-8">
                   <button
                     onClick={() => navigate("/")}
-                    className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer"
+                    className="theme-card backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer"
                   >
                     ← Regresar al Inicio
                   </button>
@@ -124,7 +128,7 @@ function Ciclo6() {
               </>
             ) : (
               <>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-8">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 dark:from-blue-400 dark:to-purple-400">
                   Sistemas Digitales y Arquitectura de Computadoras
                 </h1>
 
@@ -136,10 +140,10 @@ function Ciclo6() {
                       placeholder="Buscar libros..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full px-4 py-3 pl-10 bg-[#222831] text-[#DFD0B8] border border-[#393E46] rounded-lg focus:outline-none focus:border-[#DFD0B8] transition-colors duration-200"
+                      className="w-full px-4 py-3 pl-10 theme-input theme-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                     />
                     <svg
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#817d74]"
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 theme-text-secondary"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -161,11 +165,11 @@ function Ciclo6() {
                       <button
                         key={libro.id}
                         onClick={() => handleLibroClick(libro.url)}
-                        className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-2xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg text-left"
+                        className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg text-left"
                       >
                         <div className="flex items-center gap-3">
                           <svg
-                            className="w-5 h-5 text-blue-400 group-hover:text-blue-300 transition-colors duration-300 flex-shrink-0"
+                            className="w-5 h-5 text-blue-400 group-hover:text-blue-300 transition-colors duration-300 flex-shrink-0 dark:text-blue-300 dark:group-hover:text-blue-200"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -183,7 +187,7 @@ function Ciclo6() {
                     ))
                   ) : (
                     <div className="col-span-full text-center py-8">
-                      <p className="text-slate-400 text-lg">
+                      <p className="theme-text-secondary text-lg">
                         No se encontraron libros que coincidan con tu búsqueda
                       </p>
                     </div>
@@ -194,7 +198,7 @@ function Ciclo6() {
                 <div className="mt-8">
                   <button
                     onClick={toggleSistemasDigitalesLibros}
-                    className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer"
+                    className="theme-card backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer"
                   >
                     ← Regresar a Cursos
                   </button>
