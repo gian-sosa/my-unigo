@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run clean:debug && vite build",
-    "build:secure": "npm run security:check && npm run clean:debug && vite build --mode production",
-    "clean:debug": "powershell -Command \"Remove-Item -Path 'src/debug*.js', 'src/**/*debug*', 'dist/debug*', '*.log' -Force -ErrorAction SilentlyContinue\"",
+    "build": "vite build",
+    "build:secure": "npm run security:check && vite build --mode production",
+    "clean:debug": "echo 'Debug files cleanup - handled by .gitignore'",
     "security:check": "npm run audit:deps && npm run audit:licenses && npm run lint:security",
     "audit:deps": "npm audit --audit-level=moderate",
     "audit:licenses": "npm audit --audit-level=low",
