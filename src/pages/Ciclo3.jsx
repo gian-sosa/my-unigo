@@ -73,7 +73,7 @@ function Ciclo3() {
                 onClick={() => navigate("/")}
                 className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 font-semibold cursor-pointer"
               >
-                ← Regresar al inicio
+                ← Regresar al Inicio
               </button>
             </div>
           </div>
@@ -84,7 +84,3 @@ function Ciclo3() {
 }
 
 export default Ciclo3;
-
-
-
-

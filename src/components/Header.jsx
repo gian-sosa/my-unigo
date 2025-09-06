@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 function Header() {
   const { user, signout, sessionError: _sessionError } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -129,7 +131,7 @@ function Header() {
   };
 
   return (
-    <div className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50 shadow-lg fixed top-0 left-0 right-0 z-[9999]">
+    <div className="w-full theme-header backdrop-blur-sm border-b shadow-lg fixed top-0 left-0 right-0 z-[9999]">
       <div className="h-16 md:h-20 px-4 md:px-8 flex items-center justify-between max-w-7xl mx-auto relative">
         {/* Logo - Responsive positioning */}
         <div className="flex-shrink-0 flex items-center gap-2">
@@ -150,7 +152,7 @@ function Header() {
         {/* Desktop Profile Menu - Solo visible en pantallas grandes */}
         <div className="hidden md:block relative" ref={dropdownRef}>
           <div
-            className="flex items-center gap-3 cursor-pointer hover:bg-white/10 p-2 rounded-xl transition-all duration-200"
+            className="flex items-center gap-3 cursor-pointer hover:bg-black/10 p-2 rounded-xl transition-all duration-200 dark:hover:bg-white/10"
             onClick={toggleDropdown}
           >
             {/* Avatar con fallback */}
@@ -159,18 +161,18 @@ function Header() {
                 <img
                   src={getImageUrl()}
                   alt="Foto de perfil"
-                  className="w-8 h-8 lg:w-10 lg:h-10 rounded-full ring-2 ring-slate-600 object-cover"
+                  className="w-8 h-8 lg:w-10 lg:h-10 rounded-full ring-2 ring-gray-300 object-cover dark:ring-slate-600"
                   onError={handleImageError}
                 />
               ) : (
-                <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full ring-2 ring-slate-600 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full ring-2 ring-gray-300 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center dark:ring-slate-600">
                   <span className="text-white font-semibold text-xs lg:text-sm">
                     {getUserInitials()}
                   </span>
                 </div>
               )}
             </div>
-            <h2 className="text-sm lg:text-base text-white font-medium">
+            <h2 className="text-sm lg:text-base theme-text-primary font-medium">
               {user?.user_metadata?.name ||
                 user?.name ||
                 user?.email?.split("@")[0]}
@@ -178,7 +180,7 @@ function Header() {
             {user?.email?.endsWith("@unsch.edu.pe") && (
               <div className="relative group">
                 <svg
-                  className="w-4 h-4 text-blue-400 cursor-pointer"
+                  className="w-4 h-4 text-blue-500 cursor-pointer dark:text-blue-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -188,7 +190,7 @@ function Header() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-xs text-white bg-slate-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-xs text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 dark:bg-slate-800">
                   Verificado UNSCH
                 </span>
               </div>
@@ -196,13 +198,49 @@ function Header() {
           </div>
 
           {showDropdown && (
-            <div className="absolute right-0 top-12 bg-slate-800/95 backdrop-blur-sm border border-slate-600 rounded-xl shadow-xl z-[9999] min-w-48 overflow-hidden">
-              <div className="p-3 border-b border-slate-600 bg-slate-700/50">
-                <p className="text-xs text-slate-300 font-medium">
+            <div className="absolute right-0 top-12 bg-white/95 backdrop-blur-sm border border-gray-200 rounded-xl shadow-xl z-[9999] min-w-48 overflow-hidden dark:bg-slate-800/95 dark:border-slate-600">
+              <div className="p-3 border-b border-gray-200 bg-gray-50/50 dark:bg-slate-700/50 dark:border-slate-600">
+                <p className="text-xs text-gray-600 font-medium dark:text-slate-300">
                   {user?.email}
                 </p>
               </div>
               <div className="p-2">
+                {/* Botón de cambio de tema */}
+                <button
+                  onClick={toggleTheme}
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-gray-600 hover:bg-gray-100 hover:text-gray-800 group dark:text-slate-300 dark:hover:bg-slate-700/50 dark:hover:text-white"
+                >
+                  <div className="flex items-center justify-center w-5 h-5">
+                    {isDark ? (
+                      <svg
+                        className="w-5 h-5 text-amber-500 transition-colors duration-200"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-5 h-5 text-gray-500 transition-colors duration-200"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                  <span className="font-medium">
+                    {isDark ? "Modo claro" : "Modo oscuro"}
+                  </span>
+                </button>
+
+                {/* Separador */}
+                <div className="w-full h-px bg-gray-200 my-2 dark:bg-slate-600"></div>
+
                 <button
                   onClick={async () => {
                     if (isSigningOut) return;
@@ -220,8 +258,8 @@ function Header() {
                   disabled={isSigningOut}
                   className={`w-full text-left px-3 py-2 rounded-lg transition-all duration-200 font-medium ${
                     isSigningOut
-                      ? "text-slate-500 cursor-not-allowed"
-                      : "text-white hover:bg-red-500/20 hover:text-red-300 cursor-pointer"
+                      ? "text-gray-400 cursor-not-allowed dark:text-slate-500"
+                      : "text-gray-800 hover:bg-red-50 hover:text-red-600 cursor-pointer dark:text-white dark:hover:bg-red-500/20 dark:hover:text-red-300"
                   }`}
                 >
                   {isSigningOut ? "Cerrando sesión..." : "Cerrar sesión"}
@@ -235,7 +273,7 @@ function Header() {
         <div className="md:hidden" ref={mobileMenuRef}>
           <button
             onClick={toggleMobileMenu}
-            className="p-2 text-slate-300 hover:bg-white/10 rounded-lg transition-colors duration-200 cursor-pointer"
+            className="p-2 theme-text-secondary hover:bg-black/10 rounded-lg transition-colors duration-200 cursor-pointer dark:hover:bg-white/10"
           >
             <svg
               className="w-6 h-6"
@@ -256,20 +294,20 @@ function Header() {
 
       {/* Mobile Menu Dropdown */}
       {showMobileMenu && (
-        <div className="fixed top-full left-0 right-0 bg-slate-800/95 backdrop-blur-sm border-b border-slate-600 shadow-lg z-[99999] md:hidden mobile-menu-container">
+        <div className="fixed top-full left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-lg z-[99999] md:hidden mobile-menu-container dark:bg-slate-800/95 dark:border-slate-600">
           <div className="px-4 py-3 space-y-3">
-            <div className="flex items-center gap-3 pb-3 border-b border-slate-600">
+            <div className="flex items-center gap-3 pb-3 border-b border-gray-200 dark:border-slate-600">
               {/* Avatar móvil con fallback */}
               <div className="relative">
                 {getImageUrl() ? (
                   <img
                     src={getImageUrl()}
                     alt="Foto de perfil"
-                    className="w-12 h-12 rounded-full ring-2 ring-slate-600 object-cover"
+                    className="w-12 h-12 rounded-full ring-2 ring-gray-300 object-cover dark:ring-slate-600"
                     onError={handleImageError}
                   />
                 ) : (
-                  <div className="w-12 h-12 rounded-full ring-2 ring-slate-600 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full ring-2 ring-gray-300 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center dark:ring-slate-600">
                     <span className="text-white font-semibold text-base">
                       {getUserInitials()}
                     </span>
@@ -278,7 +316,7 @@ function Header() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-white font-semibold">
+                  <p className="text-gray-800 font-semibold dark:text-white">
                     {user?.user_metadata?.name ||
                       user?.name ||
                       user?.email?.split("@")[0]}
@@ -286,7 +324,7 @@ function Header() {
                   {user?.email?.endsWith("@unsch.edu.pe") && (
                     <div className="relative group">
                       <svg
-                        className="w-4 h-4 text-blue-400 cursor-pointer"
+                        className="w-4 h-4 text-blue-500 cursor-pointer dark:text-blue-400"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -296,15 +334,61 @@ function Header() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-xs text-white bg-slate-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                      <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-xs text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 dark:bg-slate-800">
                         Verificado UNSCH
                       </span>
                     </div>
                   )}
                 </div>
-                <p className="text-xs text-slate-300">{user?.email}</p>
+                <p className="text-xs text-gray-600 dark:text-slate-300">
+                  {user?.email}
+                </p>
               </div>
             </div>
+
+            {/* Botón de cambio de tema móvil */}
+            <div
+              onTouchStart={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleTheme();
+              }}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleTheme();
+              }}
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200 cursor-pointer font-medium select-none dark:text-slate-300 dark:hover:bg-slate-700/50"
+              style={{ userSelect: "none", touchAction: "manipulation" }}
+            >
+              <div className="flex items-center justify-center w-5 h-5">
+                {isDark ? (
+                  <svg
+                    className="w-5 h-5 text-amber-500 transition-colors duration-200"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-5 h-5 text-gray-500 transition-colors duration-200"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+              </div>
+              <span>
+                {isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+              </span>
+            </div>
+
             <div style={{ position: "relative", zIndex: 999999 }}>
               <div
                 onTouchStart={(e) => {
@@ -335,7 +419,7 @@ function Header() {
                       window.location.replace("/");
                     });
                 }}
-                className="w-full text-center px-4 py-3 text-red-300 hover:bg-red-500/20 rounded-lg transition-colors duration-200 cursor-pointer font-semibold select-none"
+                className="w-full text-center px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 cursor-pointer font-semibold select-none dark:text-red-300 dark:hover:bg-red-500/20"
                 style={{ userSelect: "none", touchAction: "manipulation" }}
               >
                 Cerrar sesión

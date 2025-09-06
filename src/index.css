@@ -1,5 +1,101 @@
 @import "tailwindcss";
 
+/* Variables CSS para modo claro (por defecto) */
+:root {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-gradient-start: #f9fafb;
+  --bg-gradient-middle: #f3f4f6;
+  --bg-gradient-end: #e5e7eb;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: #e5e7eb;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --header-border: rgba(229, 231, 235, 0.5);
+
+  /* Input y bordes adicionales */
+  --theme-input-bg: rgba(0, 0, 0, 0.05);
+  --theme-border: rgba(0, 0, 0, 0.2);
+  --theme-border-hover: #3b82f6;
+  --theme-card-hover: rgba(0, 0, 0, 0.1);
+}
+
+/* Variables CSS para modo oscuro */
+.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-gradient-start: #0f172a;
+  --bg-gradient-middle: #1e293b;
+  --bg-gradient-end: #374151;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --border-color: #475569;
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --card-border: rgba(255, 255, 255, 0.2);
+  --header-bg: rgba(15, 23, 42, 0.95);
+  --header-border: rgba(71, 85, 105, 0.5);
+
+  /* Input y bordes adicionales para modo oscuro */
+  --theme-input-bg: #222831;
+  --theme-border: #393e46;
+  --theme-border-hover: #3b82f6;
+  --theme-card-hover: rgba(255, 255, 255, 0.2);
+}
+
 body {
   font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Clases utilitarias usando variables CSS */
+.theme-bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.theme-bg-gradient {
+  background: linear-gradient(
+    to bottom right,
+    var(--bg-gradient-start),
+    var(--bg-gradient-middle),
+    var(--bg-gradient-end)
+  );
+}
+
+.theme-text-primary {
+  color: var(--text-primary);
+}
+
+.theme-text-secondary {
+  color: var(--text-secondary);
+}
+
+.theme-card {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+.theme-header {
+  background-color: var(--header-bg);
+  border-color: var(--header-border);
+}
+
+.theme-input {
+  background-color: var(--theme-input-bg);
+}
+
+.theme-border {
+  border-color: var(--theme-border);
+}
+
+.theme-card-hover:hover {
+  background-color: var(--theme-card-hover);
+  border-color: var(--theme-border-hover);
+}
+
+/* Transiciones suaves */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
 }

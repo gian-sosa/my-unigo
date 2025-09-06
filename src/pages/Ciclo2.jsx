@@ -84,8 +84,3 @@ function Ciclo2() {
 }
 
 export default Ciclo2;
-
-
-
-
-

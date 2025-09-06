@@ -56,9 +56,9 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex flex-col justify-center items-center p-4">
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 flex flex-col justify-center items-center p-4 dark:from-slate-900 dark:via-slate-800 dark:to-gray-900">
       <div className="w-full max-w-md">
-        <div className="bg-white/95 backdrop-blur-sm flex flex-col items-center p-6 md:p-10 gap-6 rounded-2xl w-full shadow-2xl border border-white/20">
+        <div className="bg-white/95 backdrop-blur-sm flex flex-col items-center p-6 md:p-10 gap-6 rounded-2xl w-full shadow-2xl border border-gray-200/20 dark:bg-slate-800/95 dark:border-slate-700/20">
           {/* Advertencia de dominio de email */}
           <div className="w-full bg-blue-50 border border-blue-200 rounded-xl p-4 mb-2">
             <div className="flex items-start gap-3">
@@ -120,10 +120,10 @@ function Login() {
             <h1 className="font-bold text-2xl md:text-3xl text-center mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               UniGo
             </h1>
-            <p className="font-semibold text-slate-700 text-base">
+            <p className="font-semibold text-gray-700 text-base dark:text-slate-300">
               ¡Hola de nuevo!
             </p>
-            <p className="text-slate-600 text-sm">
+            <p className="text-gray-600 text-sm dark:text-slate-400">
               Usa tu cuenta de Google institucional UNSCH.
             </p>
           </div>
@@ -131,7 +131,7 @@ function Login() {
             <div className="flex flex-col gap-4 pt-2">
               <button
                 onClick={handleGoogleLogin}
-                className="w-full bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 font-semibold p-4 rounded-xl transition-all duration-200  shadow-md flex items-center justify-center gap-3 cursor-pointer"
+                className="w-full bg-white border-2 border-gray-200 hover:border-gray-300 text-gray-700 font-semibold p-4 rounded-xl transition-all duration-200 shadow-md flex items-center justify-center gap-3 cursor-pointer dark:bg-slate-700 dark:border-slate-600 dark:hover:border-slate-500 dark:text-slate-200"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -168,7 +168,7 @@ function Login() {
                 className={`w-full p-4 bg-slate-100 border ${
                   validationErrors.email ? "border-red-500" : "border-slate-300"
                 } rounded-xl text-slate-500 cursor-not-allowed opacity-60 placeholder:text-slate-400 transition-all duration-200`}
-                placeholder="Solo login con Google disponible"
+                placeholder="No disponible"
               />
               {validationErrors.email && (
                 <p className="text-red-500 text-xs mt-1">
@@ -195,7 +195,7 @@ function Login() {
                     ? "border-red-500"
                     : "border-slate-300"
                 } rounded-xl text-slate-500 cursor-not-allowed opacity-60 placeholder:text-slate-400 transition-all duration-200`}
-                placeholder="Solo login con Google disponible"
+                placeholder="No disponible"
               />
               {validationErrors.password && (
                 <p className="text-red-500 text-xs mt-1">
@@ -230,13 +230,13 @@ function Login() {
                 disabled={true}
                 className="w-full bg-slate-400 text-slate-600 font-semibold p-4 rounded-xl cursor-not-allowed opacity-60"
               >
-                Iniciar Sesión (No disponible)
+                Iniciar Sesión
               </button>
             </div>
             <p className="text-center text-sm text-slate-600">
               ¿No tienes una cuenta?{" "}
               <span className="text-slate-400 cursor-not-allowed">
-                Solo registro con Google
+                Regístrate
               </span>
             </p>
           </div>
