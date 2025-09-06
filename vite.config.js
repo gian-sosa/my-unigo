@@ -20,7 +20,9 @@ export default defineConfig(({ mode }) => {
         ", "
       )}`
     );
-    console.warn("🔧 Asegúrate de configurar estas variables en tu plataforma de deployment");
+    console.warn(
+      "🔧 Asegúrate de configurar estas variables en tu plataforma de deployment"
+    );
   }
 
   return {

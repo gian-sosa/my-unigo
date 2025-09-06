@@ -1,6 +1,7 @@
 # 🚀 Deployment Environment Variables Guide
 
 ## ❌ Current Issue:
+
 ```
 Build failed: Missing environment variables VITE_APP_SUPABASE_URL and VITE_APP_SUPABASE_ANON_KEY
 ```
@@ -10,6 +11,7 @@ Build failed: Missing environment variables VITE_APP_SUPABASE_URL and VITE_APP_S
 ### 📋 Required Variables:
 
 1. **VITE_APP_SUPABASE_URL**
+
    - Value: `https://jyaccaqwurmztjsjlacb.supabase.co`
 
 2. **VITE_APP_SUPABASE_ANON_KEY**
@@ -18,6 +20,7 @@ Build failed: Missing environment variables VITE_APP_SUPABASE_URL and VITE_APP_S
 ## 🛠️ Step-by-Step Configuration:
 
 ### For Netlify:
+
 1. Go to your Netlify dashboard
 2. Select your project: `my-unigo`
 3. Navigate to **Site settings** → **Environment variables**
@@ -35,18 +38,22 @@ Value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5
 6. Trigger a new deployment
 
 ### For Vercel:
+
 1. Go to your Vercel dashboard
 2. Select your project
 3. Navigate to **Settings** → **Environment Variables**
 4. Add the same variables as above
 
 ### For Other Platforms:
+
 Set the environment variables in your platform's configuration:
+
 - **Railway**: Settings → Environment
 - **Heroku**: Settings → Config Vars
 - **Digital Ocean**: App → Settings → Environment
 
 ## 🔧 Local Development:
+
 Create a `.env.local` file in your project root:
 
 ```bash
@@ -57,6 +64,7 @@ VITE_APP_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 ## ✅ Verification Commands:
 
 After setting variables, test locally:
+
 ```bash
 npm run build    # Should work without errors
 npm run preview  # Should show working app
