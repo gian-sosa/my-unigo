@@ -77,7 +77,7 @@ function Login() {
               </div>
               <div>
                 <h4 className="font-semibold text-blue-800 text-sm">
-                  Correo Institucional UNSCH Requerido
+                  Correo Institucional Requerido
                 </h4>
                 <p className="text-blue-700 text-xs mt-1">
                   Debido a las Políticas de privacidad e integridad de material
@@ -124,7 +124,7 @@ function Login() {
               ¡Hola de nuevo!
             </p>
             <p className="text-slate-600 text-sm">
-              Por favor, ingresa tus datos.
+              Usa tu cuenta de Google institucional UNSCH.
             </p>
           </div>
           <div className="flex flex-col gap-5 w-full">
@@ -164,10 +164,11 @@ function Login() {
                 id="email"
                 value={email}
                 onChange={handleEmailChange}
-                className={`w-full p-4 bg-slate-50 border ${
-                  validationErrors.email ? "border-red-500" : "border-slate-200"
-                } rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-slate-400 transition-all duration-200`}
-                placeholder="ejemplo@unsch.edu.pe"
+                disabled={true}
+                className={`w-full p-4 bg-slate-100 border ${
+                  validationErrors.email ? "border-red-500" : "border-slate-300"
+                } rounded-xl text-slate-500 cursor-not-allowed opacity-60 placeholder:text-slate-400 transition-all duration-200`}
+                placeholder="Solo login con Google disponible"
               />
               {validationErrors.email && (
                 <p className="text-red-500 text-xs mt-1">
@@ -188,12 +189,13 @@ function Login() {
                 id="password"
                 value={password}
                 onChange={handlePasswordChange}
-                className={`w-full p-4 bg-slate-50 border ${
+                disabled={true}
+                className={`w-full p-4 bg-slate-100 border ${
                   validationErrors.password
                     ? "border-red-500"
-                    : "border-slate-200"
-                } rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-slate-400 transition-all duration-200`}
-                placeholder="Ingresa tu contraseña"
+                    : "border-slate-300"
+                } rounded-xl text-slate-500 cursor-not-allowed opacity-60 placeholder:text-slate-400 transition-all duration-200`}
+                placeholder="Solo login con Google disponible"
               />
               {validationErrors.password && (
                 <p className="text-red-500 text-xs mt-1">
@@ -201,37 +203,41 @@ function Login() {
                 </p>
               )}
             </div>
-            <div className="flex gap-3 items-center">
+            <div className="flex gap-3 items-center opacity-60">
               <input
                 type="checkbox"
                 id="recuerdame"
-                className="w-4 h-4 text-blue-600 bg-slate-50 border-slate-300 rounded focus:ring-blue-500 focus:ring-2"
+                disabled={true}
+                className="w-4 h-4 text-blue-600 bg-slate-100 border-slate-300 rounded cursor-not-allowed"
               />
-              <label htmlFor="recuerdame" className="text-slate-600 text-sm">
+              <label
+                htmlFor="recuerdame"
+                className="text-slate-500 text-sm cursor-not-allowed"
+              >
                 Recordar mis datos
               </label>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center opacity-60">
               <a
                 href="#"
-                className="text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors duration-200"
+                className="text-slate-400 text-sm cursor-not-allowed pointer-events-none"
               >
                 ¿Olvidaste tu contraseña?
               </a>
             </div>
             <div className="flex flex-col gap-4 pt-2">
-              <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold p-4 rounded-xl transition-all duration-200  shadow-lg cursor-not-allowed">
-                Iniciar Sesión
+              <button
+                disabled={true}
+                className="w-full bg-slate-400 text-slate-600 font-semibold p-4 rounded-xl cursor-not-allowed opacity-60"
+              >
+                Iniciar Sesión (No disponible)
               </button>
             </div>
             <p className="text-center text-sm text-slate-600">
               ¿No tienes una cuenta?{" "}
-              <a
-                href="#"
-                className="text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-200"
-              >
-                Regístrate
-              </a>
+              <span className="text-slate-400 cursor-not-allowed">
+                Solo registro con Google
+              </span>
             </p>
           </div>
         </div>
