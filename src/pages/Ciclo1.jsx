@@ -94,7 +94,7 @@ function Ciclo1() {
       <Header />
 
       {/* Contenido Principal - Ciclo 1 */}
-      <div className="flex-1 w-full px-4 md:px-8 py-8 pt-24 flex items-start justify-center">
+      <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-start justify-center">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center">
             {!showMatematicaLibros && !showFundamentosLibros ? (

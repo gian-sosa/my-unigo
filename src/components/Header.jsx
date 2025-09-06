@@ -131,7 +131,7 @@ function Header() {
   };
 
   return (
-    <div className="w-full theme-header backdrop-blur-sm border-b shadow-lg fixed top-0 left-0 right-0 z-[9999]">
+    <div className="w-full theme-header backdrop-blur-sm border-b shadow-lg sticky top-0 z-[9999]">
       <div className="h-16 md:h-20 px-4 md:px-8 flex items-center justify-between max-w-7xl mx-auto relative">
         {/* Logo - Responsive positioning */}
         <div className="flex-shrink-0 flex items-center gap-2">
