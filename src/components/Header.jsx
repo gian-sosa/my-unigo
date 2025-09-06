@@ -20,9 +20,6 @@ function Header() {
   const getImageUrl = () => {
     if (imageError) return null;
 
-    // Debug temporal - ver qué datos tenemos
-    console.log("Datos del usuario:", user);
-
     // Intentar diferentes campos donde puede estar la imagen
     return (
       user?.picture ||
