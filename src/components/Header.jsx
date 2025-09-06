@@ -11,6 +11,20 @@ function Header() {
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
 
+  // Debug: Mostrar datos del usuario
+  useEffect(() => {
+    if (user) {
+      console.log("Datos del usuario en Header:", {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        user_metadata: user.user_metadata,
+        picture: user.picture,
+        avatar_url: user.avatar_url,
+      });
+    }
+  }, [user]);
+
   // Función para manejar errores de carga de imagen
   const handleImageError = () => {
     setImageError(true);
@@ -32,7 +46,7 @@ function Header() {
 
   // Generar iniciales como fallback
   const getUserInitials = () => {
-    const name = user?.name || user?.user_metadata?.name || user?.email;
+    const name = user?.user_metadata?.name || user?.name || user?.email;
     if (!name) return "?";
 
     const nameParts = name.split(" ");
@@ -134,7 +148,9 @@ function Header() {
               )}
             </div>
             <h2 className="text-sm lg:text-base text-white font-medium">
-              {user?.name}
+              {user?.user_metadata?.name ||
+                user?.name ||
+                user?.email?.split("@")[0]}
             </h2>
             {user?.email?.endsWith("@unsch.edu.pe") && (
               <div className="relative group">
@@ -225,7 +241,11 @@ function Header() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-white font-semibold">{user?.name}</p>
+                  <p className="text-white font-semibold">
+                    {user?.user_metadata?.name ||
+                      user?.name ||
+                      user?.email?.split("@")[0]}
+                  </p>
                   {user?.email?.endsWith("@unsch.edu.pe") && (
                     <div className="relative group">
                       <svg
