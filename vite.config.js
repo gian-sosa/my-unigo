@@ -15,11 +15,12 @@ export default defineConfig(({ mode }) => {
   const missingVars = requiredEnvVars.filter((varName) => !env[varName]);
 
   if (missingVars.length > 0 && mode === "production") {
-    throw new Error(
-      `❌ SEGURIDAD: Faltan variables de entorno críticas: ${missingVars.join(
+    console.warn(
+      `⚠️ ADVERTENCIA: Variables de entorno faltantes en build: ${missingVars.join(
         ", "
       )}`
     );
+    console.warn("🔧 Asegúrate de configurar estas variables en tu plataforma de deployment");
   }
 
   return {

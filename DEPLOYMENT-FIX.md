@@ -69,4 +69,6 @@ npm run build          # ✅ Ahora funciona sin PowerShell
 
 **Estado:** ✅ **RESUELTO - LISTO PARA PRODUCCIÓN**
 
-El proyecto ahora puede desplegarse exitosamente en cualquier plataforma sin errores de build.
+⚠️ **IMPORTANTE:** Para que el deployment funcione, debes configurar las variables de entorno en tu plataforma de deployment. Ver `DEPLOYMENT-ENV-GUIDE.md` para instrucciones detalladas.
+
+El proyecto ahora puede desplegarse exitosamente en cualquier plataforma sin errores de build, siempre que las variables de entorno estén configuradas correctamente.
