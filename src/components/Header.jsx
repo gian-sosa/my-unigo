@@ -294,9 +294,9 @@ function Header() {
 
       {/* Mobile Menu Dropdown */}
       {showMobileMenu && (
-        <div className="fixed top-full left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-lg z-[99999] md:hidden mobile-menu-container dark:bg-slate-800/95 dark:border-slate-600">
+        <div className="fixed top-full left-0 right-0 theme-header backdrop-blur-sm border-b theme-border shadow-lg z-[99999] md:hidden mobile-menu-container">
           <div className="px-4 py-3 space-y-3">
-            <div className="flex items-center gap-3 pb-3 border-b border-gray-200 dark:border-slate-600">
+            <div className="flex items-center gap-3 pb-3 border-b theme-border">
               {/* Avatar móvil con fallback */}
               <div className="relative">
                 {getImageUrl() ? (
@@ -316,7 +316,7 @@ function Header() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-gray-800 font-semibold dark:text-white">
+                  <p className="theme-text-primary font-semibold">
                     {user?.user_metadata?.name ||
                       user?.name ||
                       user?.email?.split("@")[0]}
@@ -340,7 +340,7 @@ function Header() {
                     </div>
                   )}
                 </div>
-                <p className="text-xs text-gray-600 dark:text-slate-300">
+                <p className="text-xs theme-text-secondary">
                   {user?.email}
                 </p>
               </div>
@@ -358,7 +358,7 @@ function Header() {
                 e.stopPropagation();
                 toggleTheme();
               }}
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200 cursor-pointer font-medium select-none dark:text-slate-300 dark:hover:bg-slate-700/50"
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 theme-text-secondary theme-menu-hover rounded-lg transition-colors duration-200 cursor-pointer font-medium select-none"
               style={{ userSelect: "none", touchAction: "manipulation" }}
             >
               <div className="flex items-center justify-center w-5 h-5">
