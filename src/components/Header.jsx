@@ -8,6 +8,7 @@ function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
 
@@ -88,8 +89,19 @@ function Header() {
   }, [showDropdown, showMobileMenu]);
 
   const handleSignout = async () => {
-    await signout();
-    navigate("/", { replace: true });
+    try {
+      if (isSigningOut) return; // Evitar múltiples clicks
+
+      setIsSigningOut(true);
+      console.log("Iniciando proceso de cerrar sesión...");
+      await signout();
+      console.log("Sesión cerrada exitosamente, navegando a home...");
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Error en handleSignout:", error);
+    } finally {
+      setIsSigningOut(false);
+    }
   };
 
   const toggleDropdown = () => {
@@ -184,13 +196,27 @@ function Header() {
               </div>
               <div className="p-2">
                 <button
-                  onClick={() => {
-                    handleSignout();
-                    closeDropdown();
+                  onClick={async () => {
+                    if (isSigningOut) return;
+                    try {
+                      await handleSignout();
+                      closeDropdown();
+                    } catch (error) {
+                      console.error(
+                        "Error al cerrar sesión desde desktop:",
+                        error
+                      );
+                      closeDropdown();
+                    }
                   }}
-                  className="w-full text-left px-3 py-2 text-white hover:bg-red-500/20 hover:text-red-300 rounded-lg transition-all duration-200 cursor-pointer font-medium"
+                  disabled={isSigningOut}
+                  className={`w-full text-left px-3 py-2 rounded-lg transition-all duration-200 font-medium ${
+                    isSigningOut
+                      ? "text-slate-500 cursor-not-allowed"
+                      : "text-white hover:bg-red-500/20 hover:text-red-300 cursor-pointer"
+                  }`}
                 >
-                  Cerrar sesión
+                  {isSigningOut ? "Cerrando sesión..." : "Cerrar sesión"}
                 </button>
               </div>
             </div>
@@ -272,15 +298,24 @@ function Header() {
               </div>
             </div>
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleSignout();
-                closeMobileMenu();
+              onClick={async () => {
+                if (isSigningOut) return;
+                try {
+                  await handleSignout();
+                  closeMobileMenu();
+                } catch (error) {
+                  console.error("Error al cerrar sesión:", error);
+                  closeMobileMenu();
+                }
               }}
-              className="w-full text-center px-4 py-3 text-red-300 hover:bg-red-500/20 rounded-lg transition-colors duration-200 cursor-pointer font-semibold"
+              disabled={isSigningOut}
+              className={`w-full text-center px-4 py-3 rounded-lg transition-colors duration-200 font-semibold ${
+                isSigningOut
+                  ? "text-slate-500 bg-slate-600 cursor-not-allowed"
+                  : "text-red-300 hover:bg-red-500/20 cursor-pointer"
+              }`}
             >
-              Cerrar sesión
+              {isSigningOut ? "Cerrando sesión..." : "Cerrar sesión"}
             </button>
           </div>
         </div>
