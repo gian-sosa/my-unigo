@@ -112,13 +112,16 @@ function Header() {
     <div className="w-full bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50 shadow-lg relative">
       <div className="h-16 md:h-20 px-4 md:px-8 flex items-center justify-between max-w-7xl mx-auto relative">
         {/* Logo - Responsive positioning */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 flex items-center gap-2">
           <h1
             onClick={() => navigate("/")}
             className="text-lg sm:text-xl md:text-2xl font-bold cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
           >
             UniGo
           </h1>
+          <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">
+            BETA
+          </span>
         </div>
 
         {/* Spacer for mobile centering */}
