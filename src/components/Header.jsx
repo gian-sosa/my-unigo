@@ -3,12 +3,47 @@ import { useNavigate } from "react-router-dom";
 import { userAuth } from "../context/AuthContext";
 
 function Header() {
-  const { user, signout } = userAuth();
+  const { user, signout, sessionError } = userAuth();
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
+
+  // Función para manejar errores de carga de imagen
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  // Función para obtener URL de imagen o fallback
+  const getImageUrl = () => {
+    if (imageError) return null;
+
+    // Debug temporal - ver qué datos tenemos
+    console.log("Datos del usuario:", user);
+
+    // Intentar diferentes campos donde puede estar la imagen
+    return (
+      user?.picture ||
+      user?.avatar_url ||
+      user?.user_metadata?.picture ||
+      user?.user_metadata?.avatar_url ||
+      null
+    );
+  };
+
+  // Generar iniciales como fallback
+  const getUserInitials = () => {
+    const name = user?.name || user?.user_metadata?.name || user?.email;
+    if (!name) return "?";
+
+    const nameParts = name.split(" ");
+    if (nameParts.length >= 2) {
+      return `${nameParts[0][0]}${nameParts[1][0]}`.toUpperCase();
+    }
+    return name[0].toUpperCase();
+  };
 
   // Efecto para manejar clicks fuera del dropdown
   useEffect(() => {
@@ -84,15 +119,27 @@ function Header() {
             className="flex items-center gap-3 cursor-pointer hover:bg-white/10 p-2 rounded-xl transition-all duration-200"
             onClick={toggleDropdown}
           >
-            <img
-              src={user?.picture}
-              alt="Foto de perfil"
-              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full ring-2 ring-slate-600"
-            />
+            {/* Avatar con fallback */}
+            <div className="relative">
+              {getImageUrl() ? (
+                <img
+                  src={getImageUrl()}
+                  alt="Foto de perfil"
+                  className="w-8 h-8 lg:w-10 lg:h-10 rounded-full ring-2 ring-slate-600 object-cover"
+                  onError={handleImageError}
+                />
+              ) : (
+                <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full ring-2 ring-slate-600 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <span className="text-white font-semibold text-xs lg:text-sm">
+                    {getUserInitials()}
+                  </span>
+                </div>
+              )}
+            </div>
             <h2 className="text-sm lg:text-base text-white font-medium">
               {user?.name}
             </h2>
-            {user?.email?.endsWith("@cidie.edu.pe") && (
+            {user?.email?.endsWith("@unsch.edu.pe") && (
               <div className="relative group">
                 <svg
                   className="w-4 h-4 text-blue-400 cursor-pointer"
@@ -162,15 +209,27 @@ function Header() {
         <div className="absolute top-full left-0 right-0 bg-slate-800/95 backdrop-blur-sm border-b border-slate-600 shadow-lg z-50 md:hidden">
           <div className="px-4 py-3 space-y-3">
             <div className="flex items-center gap-3 pb-3 border-b border-slate-600">
-              <img
-                src={user?.picture}
-                alt="Foto de perfil"
-                className="w-12 h-12 rounded-full ring-2 ring-slate-600"
-              />
+              {/* Avatar móvil con fallback */}
+              <div className="relative">
+                {getImageUrl() ? (
+                  <img
+                    src={getImageUrl()}
+                    alt="Foto de perfil"
+                    className="w-12 h-12 rounded-full ring-2 ring-slate-600 object-cover"
+                    onError={handleImageError}
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-full ring-2 ring-slate-600 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                    <span className="text-white font-semibold text-base">
+                      {getUserInitials()}
+                    </span>
+                  </div>
+                )}
+              </div>
               <div>
                 <div className="flex items-center gap-2">
                   <p className="text-white font-semibold">{user?.name}</p>
-                  {user?.email?.endsWith("@cidie.edu.pe") && (
+                  {user?.email?.endsWith("@unsch.edu.pe") && (
                     <div className="relative group">
                       <svg
                         className="w-4 h-4 text-blue-400 cursor-pointer"

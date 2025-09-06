@@ -1,12 +1,79 @@
+import { useState } from "react";
 import { userAuth } from "../context/AuthContext";
 
 function Login() {
-  const { signInWithGoogle } = userAuth();
+  const { signInWithGoogle, sessionError } = userAuth();
+  const [showWarning, setShowWarning] = useState(false);
+
+  const handleGoogleLogin = async () => {
+    setShowWarning(true);
+    // Pequeño delay para que el usuario lea la advertencia
+    setTimeout(() => {
+      signInWithGoogle();
+    }, 100);
+  };
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-md">
         <div className="bg-white/95 backdrop-blur-sm flex flex-col items-center p-6 md:p-10 gap-6 rounded-2xl w-full shadow-2xl border border-white/20">
+          {/* Advertencia de dominio de email */}
+          <div className="w-full bg-blue-50 border border-blue-200 rounded-xl p-4 mb-2">
+            <div className="flex items-start gap-3">
+              <div className="text-blue-600 mt-0.5">
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-semibold text-blue-800 text-sm">
+                  Correo Institucional UNSCH Requerido
+                </h4>
+                <p className="text-blue-700 text-xs mt-1">
+                  Debido a las Políticas de privacidad e integridad de material
+                  universitario, solo se permite el acceso con Correo
+                  Institucional de dominio <strong>@unsch.edu.pe</strong>{" "}
+                  mediante Google.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Error de sesión si existe */}
+          {sessionError && (
+            <div className="w-full bg-red-50 border border-red-200 rounded-xl p-4 mb-2">
+              <div className="flex items-start gap-3">
+                <div className="text-red-600 mt-0.5">
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-red-800 text-sm">
+                    Error de Autenticación
+                  </h4>
+                  <p className="text-red-700 text-xs mt-1">{sessionError}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="flex flex-col items-center justify-center">
             <h1 className="font-bold text-2xl md:text-3xl text-center mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               UniGo
@@ -69,7 +136,7 @@ function Login() {
                 Iniciar Sesión
               </button>
               <button
-                onClick={signInWithGoogle}
+                onClick={handleGoogleLogin}
                 className="w-full bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 font-semibold p-4 rounded-xl transition-all duration-200  shadow-md flex items-center justify-center gap-3 cursor-pointer"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">

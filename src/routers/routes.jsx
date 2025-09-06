@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import { userAuth } from "../context/AuthContext";
+import ProtectedRoute from "../components/ProtectedRoute";
 import Ciclo1 from "../pages/Ciclo1";
 import Ciclo2 from "../pages/Ciclo2";
 import Ciclo3 from "../pages/Ciclo3";
@@ -23,16 +24,86 @@ export function MyRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomeOrLogin />} />
-      <Route path="/ciclo1" element={<Ciclo1 />} />
-      <Route path="/ciclo2" element={<Ciclo2 />} />
-      <Route path="/ciclo3" element={<Ciclo3 />} />
-      <Route path="/ciclo4" element={<Ciclo4 />} />
-      <Route path="/ciclo5" element={<Ciclo5 />} />
-      <Route path="/ciclo6" element={<Ciclo6 />} />
-      <Route path="/ciclo7" element={<Ciclo7 />} />
-      <Route path="/ciclo8" element={<Ciclo8 />} />
-      <Route path="/ciclo9" element={<Ciclo9 />} />
-      <Route path="/ciclo10" element={<Ciclo10 />} />
+      <Route
+        path="/ciclo1"
+        element={
+          <ProtectedRoute>
+            <Ciclo1 />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ciclo2"
+        element={
+          <ProtectedRoute>
+            <Ciclo2 />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ciclo3"
+        element={
+          <ProtectedRoute>
+            <Ciclo3 />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ciclo4"
+        element={
+          <ProtectedRoute>
+            <Ciclo4 />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ciclo5"
+        element={
+          <ProtectedRoute>
+            <Ciclo5 />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ciclo6"
+        element={
+          <ProtectedRoute>
+            <Ciclo6 />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ciclo7"
+        element={
+          <ProtectedRoute>
+            <Ciclo7 />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ciclo8"
+        element={
+          <ProtectedRoute>
+            <Ciclo8 />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ciclo9"
+        element={
+          <ProtectedRoute>
+            <Ciclo9 />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ciclo10"
+        element={
+          <ProtectedRoute>
+            <Ciclo10 />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
