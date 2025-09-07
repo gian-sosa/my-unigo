@@ -62,10 +62,11 @@ function Header() {
   // Efecto para manejar clicks fuera del dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // No cerrar el menú si se hace click en el botón de logout o en el contenedor del menú móvil
+      // No cerrar el menú si se hace click en el botón de logout, en el contenedor del menú móvil, o en botones internos
       if (
         event.target.textContent === "Cerrar sesión" ||
-        event.target.closest(".mobile-menu-container")
+        event.target.closest(".mobile-menu-container") ||
+        event.target.textContent?.includes("modo")
       ) {
         return;
       }
@@ -294,7 +295,7 @@ function Header() {
 
       {/* Mobile Menu Dropdown */}
       {showMobileMenu && (
-        <div className="fixed top-full left-0 right-0 theme-header backdrop-blur-sm border-b theme-border shadow-lg z-[99999] md:hidden mobile-menu-container">
+        <div ref={mobileMenuRef} className="fixed top-full left-0 right-0 theme-header backdrop-blur-sm border-b theme-border shadow-lg z-[99999] md:hidden mobile-menu-container">
           <div className="px-4 py-3 space-y-3">
             <div className="flex items-center gap-3 pb-3 border-b theme-border">
               {/* Avatar móvil con fallback */}
@@ -348,13 +349,7 @@ function Header() {
 
             {/* Botón de cambio de tema móvil */}
             <div
-              onTouchStart={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                toggleTheme();
-              }}
-              onMouseDown={(e) => {
-                e.preventDefault();
+              onClick={(e) => {
                 e.stopPropagation();
                 toggleTheme();
               }}
@@ -391,24 +386,9 @@ function Header() {
 
             <div style={{ position: "relative", zIndex: 999999 }}>
               <div
-                onTouchStart={(e) => {
-                  e.preventDefault();
+                onClick={(e) => {
                   e.stopPropagation();
-                  console.log("🔴 TOUCH START - LOGOUT MÓVIL");
-                  signout()
-                    .then(() => {
-                      console.log("✅ LOGOUT EXITOSO");
-                      window.location.replace("/");
-                    })
-                    .catch((error) => {
-                      console.error("❌ ERROR LOGOUT:", error);
-                      window.location.replace("/");
-                    });
-                }}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  console.log("🔴 MOUSE DOWN - LOGOUT MÓVIL");
+                  console.log("🔴 CLICK - LOGOUT MÓVIL");
                   signout()
                     .then(() => {
                       console.log("✅ LOGOUT EXITOSO");
