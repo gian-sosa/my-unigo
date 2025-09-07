@@ -13,6 +13,7 @@ function Header() {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const hamburgerRef = useRef(null);
 
   // Debug: Mostrar datos del usuario
   useEffect(() => {
@@ -76,7 +77,9 @@ function Header() {
       }
       if (
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target)
+        !mobileMenuRef.current.contains(event.target) &&
+        hamburgerRef.current &&
+        !hamburgerRef.current.contains(event.target)
       ) {
         setShowMobileMenu(false);
       }
@@ -271,8 +274,9 @@ function Header() {
         </div>
 
         {/* Mobile Hamburger Menu - Solo visible en móvil */}
-        <div className="md:hidden" ref={mobileMenuRef}>
+        <div className="md:hidden">
           <button
+            ref={hamburgerRef}
             onClick={toggleMobileMenu}
             className="p-2 theme-text-secondary hover:bg-black/10 rounded-lg transition-colors duration-200 cursor-pointer dark:hover:bg-white/10"
           >
@@ -295,7 +299,10 @@ function Header() {
 
       {/* Mobile Menu Dropdown */}
       {showMobileMenu && (
-        <div ref={mobileMenuRef} className="fixed top-full left-0 right-0 theme-header backdrop-blur-sm border-b theme-border shadow-lg z-[99999] md:hidden mobile-menu-container">
+        <div
+          ref={mobileMenuRef}
+          className="fixed top-full left-0 right-0 theme-header backdrop-blur-sm border-b theme-border shadow-lg z-[99999] md:hidden mobile-menu-container"
+        >
           <div className="px-4 py-3 space-y-3">
             <div className="flex items-center gap-3 pb-3 border-b theme-border">
               {/* Avatar móvil con fallback */}
@@ -341,9 +348,7 @@ function Header() {
                     </div>
                   )}
                 </div>
-                <p className="text-xs theme-text-secondary">
-                  {user?.email}
-                </p>
+                <p className="text-xs theme-text-secondary">{user?.email}</p>
               </div>
             </div>
 
