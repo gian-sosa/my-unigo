@@ -21,7 +21,9 @@ function Ciclo4() {
       <div className="absolute inset-0 h-full w-full theme-bg-gradient flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-          <div className="theme-text-primary text-xl font-medium">Cargando...</div>
+          <div className="theme-text-primary text-xl font-medium">
+            Cargando...
+          </div>
         </div>
       </div>
     );
@@ -49,22 +51,22 @@ function Ciclo4() {
 
             {/* Grid de materias */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Cálculo II
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Física II
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Programación Orientada a Objetos
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Estadística y Probabilidades
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Modelamiento de Análisis de Software
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Matemática Discreta
               </button>
             </div>
@@ -73,7 +75,7 @@ function Ciclo4() {
             <div className="mt-8">
               <button
                 onClick={() => navigate("/")}
-                className="theme-card backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer"
+                className="theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
               >
                 ← Regresar al Inicio
               </button>
@@ -86,5 +88,7 @@ function Ciclo4() {
 }
 
 export default Ciclo4;
+
+
 
 

@@ -51,25 +51,25 @@ function Ciclo10() {
 
             {/* Grid de materias */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Auditoría y Control de TI
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Seminario de Tesis III
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Internet de las Cosas
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Transformación Digital
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Comercio Electrónico
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Marketing Empresarial
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Formulación y Evaluación de Proyectos de Inversión en TI
               </button>
             </div>
@@ -78,7 +78,7 @@ function Ciclo10() {
             <div className="mt-8">
               <button
                 onClick={() => navigate("/")}
-                className="theme-card backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer"
+                className="theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
               >
                 ← Regresar al Inicio
               </button>
@@ -91,5 +91,7 @@ function Ciclo10() {
 }
 
 export default Ciclo10;
+
+
 
 

@@ -51,25 +51,25 @@ function Ciclo8() {
 
             {/* Grid de materias */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Servicio Social Universitario
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Seminario de Tesis I
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Inteligencia Artificial I
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Telecomunicaciones
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Arquitectura de Software
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Desarrollo Web
               </button>
-              <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
+              <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
                 Informática Forense
               </button>
             </div>
@@ -78,7 +78,7 @@ function Ciclo8() {
             <div className="mt-8">
               <button
                 onClick={() => navigate("/")}
-                className="theme-card backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer"
+                className="theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
               >
                 ← Regresar al Inicio
               </button>
@@ -91,5 +91,7 @@ function Ciclo8() {
 }
 
 export default Ciclo8;
+
+
 
 

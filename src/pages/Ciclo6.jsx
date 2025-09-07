@@ -86,33 +86,23 @@ function Ciclo6() {
 
                 {/* Grid de materias */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
-                  <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
-                    <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
-                      Gestión de Entornos de Bases de Datos
-                    </div>
+                  <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
+                    Gestión de Entornos de Bases de Datos
                   </button>
                   <button
                     onClick={toggleSistemasDigitalesLibros}
-                    className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg"
+                    className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
                   >
-                    <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
-                      Sistemas Digitales y Arquitectura de Computadoras
-                    </div>
+                    Sistemas Digitales y Arquitectura de Computadoras
                   </button>
-                  <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
-                    <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
-                      Sistemas Operativos
-                    </div>
+                  <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
+                    Sistemas Operativos
                   </button>
-                  <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
-                    <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
-                      Innovación Tecnológica, Creatividad y Emprendimiento
-                    </div>
+                  <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
+                    Innovación Tecnológica, Creatividad y Emprendimiento
                   </button>
-                  <button className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg">
-                    <div className="text-base group-hover:text-blue-300 transition-colors duration-300">
-                      Construcción y Evolución de Software
-                    </div>
+                  <button className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer">
+                    Construcción y Evolución de Software
                   </button>
                 </div>
 
@@ -120,7 +110,7 @@ function Ciclo6() {
                 <div className="mt-8">
                   <button
                     onClick={() => navigate("/")}
-                    className="theme-card backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer"
+                    className="theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
                   >
                     ← Regresar al Inicio
                   </button>
@@ -165,11 +155,11 @@ function Ciclo6() {
                       <button
                         key={libro.id}
                         onClick={() => handleLibroClick(libro.url)}
-                        className="group theme-card backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer hover:shadow-lg text-left"
+                        className="group theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer text-left"
                       >
                         <div className="flex items-center gap-3">
                           <svg
-                            className="w-5 h-5 text-blue-400 group-hover:text-blue-300 transition-colors duration-300 flex-shrink-0 dark:text-blue-300 dark:group-hover:text-blue-200"
+                            className="w-5 h-5 text-blue-400 transition-colors duration-300 flex-shrink-0 dark:text-blue-300"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -198,7 +188,7 @@ function Ciclo6() {
                 <div className="mt-8">
                   <button
                     onClick={toggleSistemasDigitalesLibros}
-                    className="theme-card backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl theme-card-hover transition-all duration-300 font-semibold cursor-pointer"
+                    className="theme-card theme-card-hover backdrop-blur-sm border theme-text-primary px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
                   >
                     ← Regresar a Cursos
                   </button>
@@ -213,5 +203,8 @@ function Ciclo6() {
 }
 
 export default Ciclo6;
+
+
+
 
 

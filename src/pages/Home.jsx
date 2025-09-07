@@ -46,7 +46,7 @@ function Home() {
               onClick={() => navigate("/ciclo1")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 1
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">
@@ -57,7 +57,7 @@ function Home() {
               onClick={() => navigate("/ciclo2")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 2
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">
@@ -68,7 +68,7 @@ function Home() {
               onClick={() => navigate("/ciclo3")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 3
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">
@@ -79,7 +79,7 @@ function Home() {
               onClick={() => navigate("/ciclo4")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 4
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">
@@ -90,7 +90,7 @@ function Home() {
               onClick={() => navigate("/ciclo5")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 5
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">
@@ -101,7 +101,7 @@ function Home() {
               onClick={() => navigate("/ciclo6")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 6
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">
@@ -112,7 +112,7 @@ function Home() {
               onClick={() => navigate("/ciclo7")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 7
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">
@@ -123,7 +123,7 @@ function Home() {
               onClick={() => navigate("/ciclo8")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 8
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">
@@ -134,7 +134,7 @@ function Home() {
               onClick={() => navigate("/ciclo9")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 9
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">
@@ -145,7 +145,7 @@ function Home() {
               onClick={() => navigate("/ciclo10")}
               className="group theme-card backdrop-blur-sm border theme-text-primary text-center p-4 md:p-6 rounded-2xl hover:shadow-lg transition-all duration-300 font-semibold cursor-pointer"
             >
-              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors duration-300 dark:group-hover:text-blue-300">
+              <div className="text-lg md:text-xl font-bold mb-2 group-hover:text-slate-800 transition-colors duration-300 dark:group-hover:text-blue-500">
                 Ciclo 10
               </div>
               <div className="text-sm theme-text-secondary group-hover:opacity-80 transition-colors duration-300">

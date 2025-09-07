@@ -6,7 +6,9 @@ const supabaseAnonKey = import.meta.env.VITE_APP_SUPABASE_ANON_KEY;
 
 // Validar que las variables de entorno estén configuradas
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error("Faltan variables de entorno de Supabase. Verifica tu archivo .env");
+  throw new Error(
+    "Faltan variables de entorno de Supabase. Verifica tu archivo .env"
+  );
 }
 
 // Suprimir warnings innecesarios de Supabase
