@@ -39,7 +39,6 @@ export const AuthContextProvider = ({ children }) => {
   async function signInWithGoogle() {
     try {
       setSessionError(null);
-      console.log("Intentando login con Google...");
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
@@ -57,8 +56,6 @@ export const AuthContextProvider = ({ children }) => {
         setSessionError(error.message);
         throw error;
       }
-
-      console.log("Login iniciado correctamente");
     } catch (error) {
       console.error("Error en login:", error);
       setSessionError("Error al iniciar sesión con Google");
@@ -68,8 +65,6 @@ export const AuthContextProvider = ({ children }) => {
 
   async function signout() {
     try {
-      console.log("Cerrando sesión...");
-
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
 
@@ -111,7 +106,6 @@ export const AuthContextProvider = ({ children }) => {
 
           if (isValid) {
             setUser(session.user);
-            console.log("Sesión restaurada para:", session.user.email);
           } else {
             setUser(null);
             setSessionError("Sesión inválida o expirada");
@@ -133,19 +127,15 @@ export const AuthContextProvider = ({ children }) => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log("Auth state change:", event);
-
       if (event === "SIGNED_OUT" || session === null) {
         setUser(null);
         setSessionError(null);
-        console.log("Usuario desconectado");
       } else if (event === "SIGNED_IN" && session) {
         const isValid = await validateSession(session);
 
         if (isValid) {
           setUser(session.user);
           setSessionError(null);
-          console.log("Usuario conectado:", session.user.email);
         } else {
           setUser(null);
           setSessionError("Email no autorizado. Solo se permite @unsch.edu.pe");

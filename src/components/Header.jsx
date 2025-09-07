@@ -15,18 +15,9 @@ function Header() {
   const mobileMenuRef = useRef(null);
   const hamburgerRef = useRef(null);
 
-  // Debug: Mostrar datos del usuario
+  // Debug: Mostrar datos del usuario (removido por seguridad)
   useEffect(() => {
-    if (user) {
-      console.log("Datos del usuario en Header:", {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        user_metadata: user.user_metadata,
-        picture: user.picture,
-        avatar_url: user.avatar_url,
-      });
-    }
+    // Los logs de usuario han sido removidos por seguridad
   }, [user]);
 
   // Función para manejar errores de carga de imagen
@@ -107,9 +98,7 @@ function Header() {
       if (isSigningOut) return; // Evitar múltiples clicks
 
       setIsSigningOut(true);
-      console.log("Iniciando proceso de cerrar sesión...");
       await signout();
-      console.log("Sesión cerrada exitosamente, navegando a home...");
       navigate("/", { replace: true });
     } catch (error) {
       console.error("Error en handleSignout:", error);
@@ -212,7 +201,7 @@ function Header() {
                 {/* Botón de cambio de tema */}
                 <button
                   onClick={toggleTheme}
-                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 theme-text-secondary theme-menu-hover group"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 theme-text-secondary theme-menu-hover group cursor-pointer"
                 >
                   <div className="flex items-center justify-center w-5 h-5">
                     {isDark ? (
@@ -384,23 +373,19 @@ function Header() {
                   </svg>
                 )}
               </div>
-              <span>
-                {isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-              </span>
+              <span>{isDark ? "Modo claro" : "Modo oscuro"}</span>
             </div>
 
             <div style={{ position: "relative", zIndex: 999999 }}>
               <div
                 onClick={(e) => {
                   e.stopPropagation();
-                  console.log("🔴 CLICK - LOGOUT MÓVIL");
                   signout()
                     .then(() => {
-                      console.log("✅ LOGOUT EXITOSO");
                       window.location.replace("/");
                     })
                     .catch((error) => {
-                      console.error("❌ ERROR LOGOUT:", error);
+                      console.error("Error logout:", error);
                       window.location.replace("/");
                     });
                 }}
