@@ -46,7 +46,7 @@ function Ciclo3() {
               Ciclo 3
             </h1>
             <p className="theme-text-secondary text-base md:text-lg mb-8">
-              Elige el curso para acceder a los libros
+              Elige un curso para acceder al contenido
             </p>
 
             {/* Grid de materias */}
@@ -88,7 +88,3 @@ function Ciclo3() {
 }
 
 export default Ciclo3;
-
-
-
-

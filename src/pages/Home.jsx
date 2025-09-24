@@ -38,7 +38,7 @@ function Home() {
               Bienvenido a UniGo
             </h1>
             <p className="theme-text-secondary text-base md:text-lg">
-              Selecciona tu ciclo académico para acceder a los recursos
+              Selecciona tu ciclo académico para acceder a los cursos
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">

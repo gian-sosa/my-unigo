@@ -103,7 +103,7 @@ function Ciclo1() {
                   Ciclo 1
                 </h1>
                 <p className="theme-text-secondary text-base md:text-lg mb-8">
-                  Elige el curso para acceder a los libros
+                  Elige un curso para acceder al contenido
                 </p>
 
                 {/* Grid de materias */}
@@ -154,7 +154,7 @@ function Ciclo1() {
                   <div className="relative">
                     <input
                       type="text"
-                      placeholder="Buscar libros..."
+                      placeholder="Buscar..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full px-4 py-3 pl-10 theme-input theme-border rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200"
