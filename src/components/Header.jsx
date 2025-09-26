@@ -294,7 +294,7 @@ function Header() {
       {showMobileMenu && (
         <div
           ref={mobileMenuRef}
-          className="fixed top-full left-0 right-0 theme-header backdrop-blur-sm border-b theme-border shadow-lg z-[99999] md:hidden mobile-menu-container"
+          className="absolute top-full left-0 right-0 w-full theme-header backdrop-blur-sm border-b theme-border shadow-lg z-[99999] md:hidden mobile-menu-container"
         >
           <div className="px-4 py-3 space-y-3">
             <div className="flex items-center gap-3 pb-3 border-b theme-border">
