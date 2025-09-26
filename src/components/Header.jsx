@@ -262,26 +262,30 @@ function Header() {
           )}
         </div>
 
-        {/* Mobile Hamburger Menu - Solo visible en móvil */}
+        {/* Mobile Profile Menu - Solo visible en móvil */}
         <div className="md:hidden">
           <button
             ref={hamburgerRef}
             onClick={toggleMobileMenu}
             className="p-2 theme-text-secondary hover:bg-black/10 rounded-lg transition-colors duration-200 cursor-pointer dark:hover:bg-white/10"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            {/* Avatar pequeño para móvil */}
+            <div className="relative">
+              {getImageUrl() ? (
+                <img
+                  src={getImageUrl()}
+                  alt="Foto de perfil"
+                  className="w-7 h-7 rounded-full ring-2 ring-gray-300 object-cover dark:ring-slate-600"
+                  onError={handleImageError}
+                />
+              ) : (
+                <div className="w-7 h-7 rounded-full ring-2 ring-gray-300 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center dark:ring-slate-600">
+                  <span className="text-white font-semibold text-xs">
+                    {getUserInitials()}
+                  </span>
+                </div>
+              )}
+            </div>
           </button>
         </div>
       </div>

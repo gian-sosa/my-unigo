@@ -530,7 +530,7 @@ function Home() {
         {/* Main Sidebar */}
         <main
           className={`
-            fixed lg:static inset-y-0 left-0 z-50 lg:z-0
+            fixed left-0 z-50 lg:z-0
             w-80 sm:w-96 lg:w-80 xl:w-96
             border-r border-white/20 dark:border-gray-600/30 
             overflow-y-auto transition-transform duration-300 ease-in-out
@@ -541,6 +541,19 @@ function Home() {
             }
           `}
           style={{
+            top:
+              window.innerWidth >= 1024
+                ? "5rem"
+                : isMobileMenuOpen
+                ? "4rem"
+                : "0",
+            bottom: "0",
+            height:
+              window.innerWidth >= 1024
+                ? "calc(100vh - 5rem)"
+                : isMobileMenuOpen
+                ? "calc(100vh - 4rem)"
+                : "100vh",
             backgroundColor: isDark
               ? window.innerWidth >= 1024
                 ? "rgba(255, 255, 255, 0.1)"
@@ -556,7 +569,7 @@ function Home() {
               </h2>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700/30 lg:hover:bg-white/10 lg:dark:hover:bg-gray-700/30 rounded-lg transition-colors cursor-pointer"
+                className="p-2 hover:bg-gray-50 dark:hover:bg-gray-700/20 rounded-lg transition-colors cursor-pointer"
               >
                 <svg
                   className="w-5 h-5 theme-text-primary"
@@ -595,7 +608,7 @@ function Home() {
                 >
                   {/* Cycle Button */}
                   <button
-                    className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700/50 lg:hover:bg-gray-100 lg:dark:hover:bg-gray-700/50 theme-text-primary font-medium transition-all duration-300 flex items-center justify-between text-sm lg:text-base touch-manipulation cursor-pointer"
+                    className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-700/30 theme-text-primary font-medium transition-all duration-300 flex items-center justify-between text-sm lg:text-base touch-manipulation cursor-pointer"
                     onClick={() => toggleCycle(parseInt(cycleId))}
                   >
                     <span>{cycleData.nombre}</span>
@@ -618,14 +631,14 @@ function Home() {
 
                   {/* Courses List */}
                   {expandedCycles.has(parseInt(cycleId)) && (
-                    <div className="bg-gray-50/80 dark:bg-gray-800/30">
+                    <div>
                       {cycleData.cursos.map((curso) => (
                         <button
                           key={curso.id}
-                          className={`w-full text-left px-4 lg:px-6 py-2.5 lg:py-2 text-xs lg:text-sm hover:bg-gray-200 dark:hover:bg-gray-700/40 lg:hover:bg-gray-100 lg:dark:hover:bg-gray-700/40 transition-all duration-300 touch-manipulation leading-relaxed cursor-pointer ${
+                          className={`w-full text-left px-4 lg:px-6 py-2.5 lg:py-2 text-xs lg:text-sm hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-all duration-300 touch-manipulation leading-relaxed cursor-pointer ${
                             selectedCourse?.id === curso.id
                               ? "bg-blue-500/20 text-blue-700 dark:text-blue-400 border-l-4 border-blue-500 font-medium"
-                              : "text-gray-700 dark:text-gray-300"
+                              : "theme-text-primary"
                           }`}
                           onClick={() => selectCourse(parseInt(cycleId), curso)}
                         >
@@ -641,13 +654,13 @@ function Home() {
         </main>
 
         {/* Aside Content */}
-        <aside className="flex-1 theme-card overflow-y-auto lg:block">
+        <aside className="flex-1 theme-card overflow-y-auto lg:block lg:ml-80 xl:ml-96">
           <div className="p-4 sm:p-6 lg:p-8">
             {selectedCourse ? (
               <div>
                 {/* Course Header */}
                 <div className="mb-6 lg:mb-8">
-                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold theme-text-primary mb-2 leading-tight">
+                  <h1 className="hidden lg:block text-xl sm:text-2xl lg:text-3xl font-bold theme-text-primary mb-2 leading-tight">
                     {selectedCourse.nombre}
                   </h1>
                   <p className="text-blue-600 dark:text-blue-400 text-sm lg:text-base">
@@ -675,7 +688,7 @@ function Home() {
                           {selectedCourse.info.correoDocente}
                         </p>
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                          <span className="text-xs lg:text-sm font-mono">
+                          <span className="text-xs lg:text-sm">
                             {selectedCourse.info.celularDocente}
                           </span>
                           {selectedCourse.info.whatsappDocente && (
@@ -698,7 +711,7 @@ function Home() {
                           {selectedCourse.info.correoAuxiliar}
                         </p>
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                          <span className="text-xs lg:text-sm font-mono">
+                          <span className="text-xs lg:text-sm">
                             {selectedCourse.info.celularAuxiliar}
                           </span>
                           {!selectedCourse.info.whatsappAuxiliar && (
