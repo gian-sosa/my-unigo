@@ -488,7 +488,7 @@ function Home() {
   }
 
   return (
-    <div className="h-screen w-full theme-bg-gradient flex flex-col overflow-hidden">
+    <div className="h-screen w-full theme-bg-gradient flex flex-col overflow-hidden pt-16 md:pt-20">
       <Header />
 
       {/* Mobile Menu Button */}
@@ -541,9 +541,12 @@ function Home() {
             }
           `}
           style={{
-            top: "5rem",
+            top: window.innerWidth >= 768 ? "5rem" : "4rem",
             bottom: "0",
-            height: "calc(100vh - 5rem)",
+            height:
+              window.innerWidth >= 768
+                ? "calc(100vh - 5rem)"
+                : "calc(100vh - 4rem)",
             backgroundColor: isDark
               ? window.innerWidth >= 1024
                 ? "rgba(255, 255, 255, 0.1)"
