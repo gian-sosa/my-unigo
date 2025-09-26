@@ -591,11 +591,11 @@ function Home() {
               {Object.entries(ciclosData).map(([cycleId, cycleData]) => (
                 <div
                   key={cycleId}
-                  className="border border-white/20 dark:border-gray-600/30 rounded-lg overflow-hidden"
+                  className="border border-gray-300 dark:border-gray-600/30 rounded-lg overflow-hidden bg-white/80 dark:bg-transparent"
                 >
                   {/* Cycle Button */}
                   <button
-                    className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700/50 lg:theme-card lg:hover:bg-white/10 lg:dark:hover:bg-gray-700/50 theme-text-primary font-medium transition-all duration-300 flex items-center justify-between text-sm lg:text-base touch-manipulation cursor-pointer"
+                    className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700/50 lg:hover:bg-gray-100 lg:dark:hover:bg-gray-700/50 theme-text-primary font-medium transition-all duration-300 flex items-center justify-between text-sm lg:text-base touch-manipulation cursor-pointer"
                     onClick={() => toggleCycle(parseInt(cycleId))}
                   >
                     <span>{cycleData.nombre}</span>
@@ -618,14 +618,14 @@ function Home() {
 
                   {/* Courses List */}
                   {expandedCycles.has(parseInt(cycleId)) && (
-                    <div className="bg-white/5 dark:bg-gray-800/30">
+                    <div className="bg-gray-50/80 dark:bg-gray-800/30">
                       {cycleData.cursos.map((curso) => (
                         <button
                           key={curso.id}
-                          className={`w-full text-left px-4 lg:px-6 py-2.5 lg:py-2 text-xs lg:text-sm hover:bg-gray-50 dark:hover:bg-gray-700/40 lg:hover:bg-white/10 lg:dark:hover:bg-gray-700/40 transition-all duration-300 touch-manipulation leading-relaxed cursor-pointer ${
+                          className={`w-full text-left px-4 lg:px-6 py-2.5 lg:py-2 text-xs lg:text-sm hover:bg-gray-200 dark:hover:bg-gray-700/40 lg:hover:bg-gray-100 lg:dark:hover:bg-gray-700/40 transition-all duration-300 touch-manipulation leading-relaxed cursor-pointer ${
                             selectedCourse?.id === curso.id
-                              ? "bg-blue-500/20 text-blue-600 dark:text-blue-400 border-l-4 border-blue-400"
-                              : "theme-text-secondary"
+                              ? "bg-blue-500/20 text-blue-700 dark:text-blue-400 border-l-4 border-blue-500 font-medium"
+                              : "text-gray-700 dark:text-gray-300"
                           }`}
                           onClick={() => selectCourse(parseInt(cycleId), curso)}
                         >
@@ -780,7 +780,7 @@ function Home() {
                       <button
                         key={index}
                         onClick={() => handleMaterialClick(material.url)}
-                        className="w-full text-left p-3 lg:p-4 theme-card border border-white/20 dark:border-gray-600/30 rounded-xl hover:bg-white/10 dark:hover:bg-gray-700/30 hover:scale-[1.02] lg:hover:scale-105 transition-all duration-300 hover:shadow-lg touch-manipulation cursor-pointer"
+                        className="w-full text-left p-3 lg:p-4 theme-card border border-white/20 dark:border-gray-600/30 rounded-xl hover:bg-white/10 dark:hover:bg-gray-700/30 transition-all duration-300 hover:shadow-lg touch-manipulation cursor-pointer"
                       >
                         <div className="flex items-center space-x-3">
                           <div className="flex-shrink-0">
