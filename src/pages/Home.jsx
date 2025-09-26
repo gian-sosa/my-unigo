@@ -488,11 +488,11 @@ function Home() {
   }
 
   return (
-    <div className="min-h-screen w-full theme-bg-gradient flex flex-col">
+    <div className="h-screen w-full theme-bg-gradient flex flex-col overflow-hidden">
       <Header />
 
       {/* Mobile Menu Button */}
-      <div className="lg:hidden flex items-center justify-between p-4 border-b border-white/20 dark:border-gray-600/30">
+      <div className="lg:hidden flex items-center justify-between p-4 border-b border-white/20 dark:border-gray-600/30 flex-shrink-0">
         <h1 className="text-lg font-semibold theme-text-primary">
           {selectedCourse ? selectedCourse.nombre : "Dashboard"}
         </h1>
@@ -518,7 +518,7 @@ function Home() {
         </button>
       </div>
 
-      <div className="flex flex-1 h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] relative">
+      <div className="flex flex-1 min-h-0 relative">
         {/* Mobile Overlay */}
         {isMobileMenuOpen && (
           <div
@@ -541,19 +541,9 @@ function Home() {
             }
           `}
           style={{
-            top:
-              window.innerWidth >= 1024
-                ? "5rem"
-                : isMobileMenuOpen
-                ? "4rem"
-                : "0",
+            top: "5rem",
             bottom: "0",
-            height:
-              window.innerWidth >= 1024
-                ? "calc(100vh - 5rem)"
-                : isMobileMenuOpen
-                ? "calc(100vh - 4rem)"
-                : "100vh",
+            height: "calc(100vh - 5rem)",
             backgroundColor: isDark
               ? window.innerWidth >= 1024
                 ? "rgba(255, 255, 255, 0.1)"
@@ -654,8 +644,8 @@ function Home() {
         </main>
 
         {/* Aside Content */}
-        <aside className="flex-1 theme-card overflow-y-auto lg:block lg:ml-80 xl:ml-96">
-          <div className="p-4 sm:p-6 lg:p-8">
+        <aside className="flex-1 theme-card overflow-y-auto lg:block lg:ml-80 xl:ml-96 min-h-0">
+          <div className="p-4 sm:p-6 lg:p-8 min-h-full">
             {selectedCourse ? (
               <div>
                 {/* Course Header */}
