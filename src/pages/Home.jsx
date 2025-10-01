@@ -547,11 +547,7 @@ function Home() {
               window.innerWidth >= 768
                 ? "calc(100vh - 5rem)"
                 : "calc(100vh - 4rem)",
-            backgroundColor: isDark
-              ? window.innerWidth >= 1024
-                ? "rgba(255, 255, 255, 0.1)"
-                : "#111827"
-              : "#ffffff",
+            backgroundColor: isDark ? "rgba(17, 24, 39, 0.95)" : "#ffffff",
           }}
         >
           <div className="p-4 lg:p-6">
