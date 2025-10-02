@@ -21,6 +21,9 @@
   --theme-border-hover: #3b82f6;
   --theme-card-hover: rgba(0, 0, 0, 0.1);
   --theme-placeholder: #9ca3af;
+
+  /* Forzar esquema de colores solo para la aplicación */
+  color-scheme: light;
 }
 
 /* Variables CSS para modo oscuro */
@@ -44,6 +47,9 @@
   --theme-border-hover: #3b82f6;
   --theme-card-hover: rgba(255, 255, 255, 0.2);
   --theme-placeholder: #94a3b8;
+
+  /* Forzar esquema de colores solo para la aplicación */
+  color-scheme: dark;
 }
 
 body {
@@ -120,4 +126,17 @@ body {
 * {
   transition: background-color 0.2s ease, color 0.2s ease,
     border-color 0.2s ease;
+}
+
+/* Prevenir que el navegador aplique tema automático del sistema */
+@media (prefers-color-scheme: dark) {
+  :root:not(.dark) {
+    color-scheme: light;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .dark {
+    color-scheme: dark;
+  }
 }

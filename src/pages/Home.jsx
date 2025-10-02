@@ -548,6 +548,7 @@ function Home() {
                 ? "calc(100vh - 5rem)"
                 : "calc(100vh - 4rem)",
             backgroundColor: isDark ? "rgba(17, 24, 39, 0.95)" : "#ffffff",
+            boxShadow: isDark ? "none" : "1px 0 1px rgba(0, 0, 0, 0.1)",
           }}
         >
           <div className="p-4 lg:p-6">
@@ -593,11 +594,31 @@ function Home() {
               {Object.entries(ciclosData).map(([cycleId, cycleData]) => (
                 <div
                   key={cycleId}
-                  className="border border-gray-300 dark:border-gray-600/30 rounded-lg overflow-hidden bg-white/80 dark:bg-transparent"
+                  className="border border-gray-300 dark:border-gray-600/30 rounded-lg overflow-hidden"
+                  style={{
+                    backgroundColor: isDark
+                      ? "rgba(31, 41, 55, 0.5)"
+                      : "#ffffff",
+                    borderColor: isDark
+                      ? "rgba(107, 114, 128, 0.3)"
+                      : "#d1d5db",
+                  }}
                 >
                   {/* Cycle Button */}
                   <button
-                    className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-700/30 theme-text-primary font-medium transition-all duration-300 flex items-center justify-between text-sm lg:text-base touch-manipulation cursor-pointer"
+                    className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 bg-transparent font-medium transition-all duration-300 flex items-center justify-between text-sm lg:text-base touch-manipulation cursor-pointer"
+                    style={{
+                      color: isDark ? "#ffffff" : "#1f2937",
+                      backgroundColor: "transparent",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = isDark
+                        ? "rgba(55, 65, 81, 0.3)"
+                        : "rgba(243, 244, 246, 1)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = "transparent";
+                    }}
                     onClick={() => toggleCycle(parseInt(cycleId))}
                   >
                     <span>{cycleData.nombre}</span>
@@ -624,11 +645,43 @@ function Home() {
                       {cycleData.cursos.map((curso) => (
                         <button
                           key={curso.id}
-                          className={`w-full text-left px-4 lg:px-6 py-2.5 lg:py-2 text-xs lg:text-sm hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-all duration-300 touch-manipulation leading-relaxed cursor-pointer ${
+                          className={`w-full text-left px-4 lg:px-6 py-2.5 lg:py-2 text-xs lg:text-sm transition-all duration-300 touch-manipulation leading-relaxed cursor-pointer ${
                             selectedCourse?.id === curso.id
-                              ? "bg-blue-500/20 text-blue-700 dark:text-blue-400 border-l-4 border-blue-500 font-medium"
-                              : "theme-text-primary"
+                              ? "border-l-4 font-medium"
+                              : ""
                           }`}
+                          style={{
+                            color:
+                              selectedCourse?.id === curso.id
+                                ? isDark
+                                  ? "#60a5fa"
+                                  : "#1d4ed8"
+                                : isDark
+                                ? "#ffffff"
+                                : "#1f2937",
+                            backgroundColor:
+                              selectedCourse?.id === curso.id
+                                ? isDark
+                                  ? "rgba(59, 130, 246, 0.2)"
+                                  : "rgba(59, 130, 246, 0.2)"
+                                : "transparent",
+                            borderLeftColor:
+                              selectedCourse?.id === curso.id
+                                ? "#3b82f6"
+                                : "transparent",
+                          }}
+                          onMouseEnter={(e) => {
+                            if (selectedCourse?.id !== curso.id) {
+                              e.target.style.backgroundColor = isDark
+                                ? "rgba(55, 65, 81, 0.3)"
+                                : "rgba(243, 244, 246, 1)";
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (selectedCourse?.id !== curso.id) {
+                              e.target.style.backgroundColor = "transparent";
+                            }
+                          }}
                           onClick={() => selectCourse(parseInt(cycleId), curso)}
                         >
                           {curso.nombre}
@@ -718,7 +771,14 @@ function Home() {
                         Horarios:
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
-                        <div className="bg-white/5 dark:bg-gray-800/30 p-3 lg:p-4 rounded-lg">
+                        <div
+                          className="p-3 lg:p-4 rounded-lg"
+                          style={{
+                            backgroundColor: isDark
+                              ? "rgba(31, 41, 55, 0.3)"
+                              : "rgba(243, 244, 246, 0.9)",
+                          }}
+                        >
                           <h4 className="font-medium theme-text-primary mb-2 text-sm lg:text-base">
                             Grupo A
                           </h4>
@@ -731,7 +791,14 @@ function Home() {
                             {selectedCourse.info.horarioA.practica}
                           </p>
                         </div>
-                        <div className="bg-white/5 dark:bg-gray-800/30 p-3 lg:p-4 rounded-lg">
+                        <div
+                          className="p-3 lg:p-4 rounded-lg"
+                          style={{
+                            backgroundColor: isDark
+                              ? "rgba(31, 41, 55, 0.3)"
+                              : "rgba(243, 244, 246, 0.9)",
+                          }}
+                        >
                           <h4 className="font-medium theme-text-primary mb-2 text-sm lg:text-base">
                             Grupo B
                           </h4>
