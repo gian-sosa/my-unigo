@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import Header from "../components/Header";
+import examenAdmisionImg from "../assets/examen_admision.jpg";
+import carrosAlegoricosImg from "../assets/carros_alegoricos.png";
 
 function Home() {
   const { user, loading } = useAuth();
@@ -10,6 +12,29 @@ function Home() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [expandedCycles, setExpandedCycles] = useState(new Set());
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [expandedPublications, setExpandedPublications] = useState(new Set());
+
+  // Timeline de publicaciones
+  const timelinePublications = [
+    {
+      id: 1,
+      titulo: "Examen de Admisión 2025-II",
+      descripcion:
+        "🙋‍♀️🙋‍♂️Atención postulante a la modalidad Ordinario del Examen de Admisión 2026-II.\n\n👉Ingresa a la página web: admision.unsch.edu.pe y sigue los pasos para tu inscripción.\n\n📅 Inscripción regular: Hasta el 31 de octubre\n📅 Inscripción extemporánea: Del 01 al 14 de noviembre\n\n#AdmisiónUnsch #modalidadordinario #Inscripciones",
+      imagen: examenAdmisionImg,
+      fecha: "Sábado 04 de agosto de 2025",
+      hora: "18:09",
+    },
+    {
+      id: 2,
+      titulo: "Carro Alegórico Sistémico",
+      descripcion:
+        "Con creatividad, tecnología y orgullo universitario, la Escuela Profesional de Ingeniería de Sistemas se hace presente en el paseo de carros alegóricos por los 348 años de fundación y 68 años de reapertura de nuestra querida Universidad Nacional de San Cristóbal de Huamanga. ¡Innovación que transforma!\n\nIng. Sistemas 💛🖤",
+      imagen: carrosAlegoricosImg,
+      fecha: "Jueves 03 de julio de 2025",
+      hora: "16:30",
+    },
+  ];
 
   // Estructura completa de datos de todos los ciclos
   const ciclosData = {
@@ -421,6 +446,33 @@ function Home() {
     setSelectedCycle(cycleId);
     setSelectedCourse(course);
     setIsMobileMenuOpen(false); // Cerrar menú móvil al seleccionar curso
+  };
+
+  // Funciones para manejar expansión de publicaciones
+  const togglePublicationExpansion = (publicationId) => {
+    const newExpanded = new Set(expandedPublications);
+    if (newExpanded.has(publicationId)) {
+      newExpanded.delete(publicationId);
+    } else {
+      newExpanded.add(publicationId);
+    }
+    setExpandedPublications(newExpanded);
+  };
+
+  const truncateText = (text, maxLines = 2) => {
+    const words = text.split(" ");
+    // Aproximadamente 12-15 palabras por línea en dispositivos móviles
+    const wordsPerLine = window.innerWidth < 768 ? 8 : 12;
+    const maxWords = maxLines * wordsPerLine;
+
+    if (words.length <= maxWords) {
+      return { text, isTruncated: false };
+    }
+
+    return {
+      text: words.slice(0, maxWords).join(" "),
+      isTruncated: true,
+    };
   };
 
   const handleMaterialClick = (url) => {
@@ -875,40 +927,83 @@ function Home() {
                 )}
               </div>
             ) : (
-              <div className="text-center py-8 lg:py-16">
-                <div className="text-6xl lg:text-8xl mb-4 lg:mb-6">🎓</div>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold theme-text-primary mb-4 px-4">
-                  Sistemas de Información - UNSCH
-                </h1>
-                <p className="text-base lg:text-xl text-blue-600 dark:text-blue-400 mb-6 lg:mb-8 px-4">
-                  {window.innerWidth < 1024
-                    ? "Toca el menú para navegar"
-                    : "Selecciona un ciclo y curso para ver el contenido"}
-                </p>
-                <div className="max-w-2xl mx-auto theme-text-secondary px-4">
-                  <p className="mb-4 text-sm lg:text-base">
-                    {window.innerWidth < 1024
-                      ? "Accede a:"
-                      : "Navega por los ciclos en el panel izquierdo para acceder a:"}
-                  </p>
-                  <ul className="space-y-3 lg:space-y-2 text-left">
-                    <li className="flex items-center justify-center lg:justify-start text-sm lg:text-base">
-                      <span className="text-blue-500 mr-3 text-lg">📖</span>
-                      Información detallada de cursos
-                    </li>
-                    <li className="flex items-center justify-center lg:justify-start text-sm lg:text-base">
-                      <span className="text-green-500 mr-3 text-lg">💬</span>
-                      Grupos de WhatsApp
-                    </li>
-                    <li className="flex items-center justify-center lg:justify-start text-sm lg:text-base">
-                      <span className="text-red-500 mr-3 text-lg">📄</span>
-                      Sílabos y prácticas calificadas
-                    </li>
-                    <li className="flex items-center justify-center lg:justify-start text-sm lg:text-base">
-                      <span className="text-purple-500 mr-3 text-lg">📚</span>
-                      Libros y material de estudio
-                    </li>
-                  </ul>
+              <div className="">
+                {/* Timeline de Publicaciones */}
+                <div className="w-full max-w-2xl mx-auto px-1 sm:px-4">
+                  <div className="space-y-6">
+                    {timelinePublications.map((publication) => (
+                      <div
+                        key={publication.id}
+                        className="theme-card border border-white/20 dark:border-gray-600/30 rounded-xl overflow-hidden"
+                        style={{
+                          backgroundColor: isDark
+                            ? "rgba(31, 41, 55, 0.4)"
+                            : "#ffffff",
+                          boxShadow: isDark
+                            ? "none"
+                            : "0 2px 8px rgba(0, 0, 0, 0.1)",
+                        }}
+                      >
+                        {/* Header de la publicación */}
+                        <div className="p-4 border-b border-white/10 dark:border-gray-600/20">
+                          <h3 className="text-lg lg:text-xl font-bold theme-text-primary mb-4 text-center">
+                            {publication.titulo}
+                          </h3>
+                          <div className="theme-text-primary text-sm lg:text-base leading-relaxed">
+                            {(() => {
+                              const isExpanded = expandedPublications.has(
+                                publication.id
+                              );
+                              const { text: truncatedText, isTruncated } =
+                                truncateText(publication.descripcion);
+                              const displayText = isExpanded
+                                ? publication.descripcion
+                                : truncatedText;
+
+                              return (
+                                <div>
+                                  <p className="whitespace-pre-line">
+                                    {displayText}
+                                    {!isExpanded && isTruncated && "..."}
+                                  </p>
+                                  {isTruncated && (
+                                    <button
+                                      onClick={() =>
+                                        togglePublicationExpansion(
+                                          publication.id
+                                        )
+                                      }
+                                      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium mt-1 transition-colors cursor-pointer"
+                                    >
+                                      {isExpanded
+                                        ? "Ver menos..."
+                                        : "Ver más..."}
+                                    </button>
+                                  )}
+                                </div>
+                              );
+                            })()}
+                          </div>
+                        </div>
+
+                        {/* Imagen de la publicación */}
+                        <div className="relative w-full">
+                          <img
+                            src={publication.imagen}
+                            alt={publication.titulo}
+                            className="w-full h-auto object-contain"
+                          />
+                        </div>
+
+                        {/* Fecha de la publicación */}
+                        <div className="p-4">
+                          <p className="text-xs lg:text-sm theme-text-secondary">
+                            {publication.fecha} • {publication.hora}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
