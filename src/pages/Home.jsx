@@ -526,7 +526,7 @@ function Home() {
       <div className="absolute inset-0 h-full w-full theme-bg-gradient flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-          <div className="theme-text-primary text-xl font-medium">
+          <div className="theme-text-primary text-sm font-medium">
             Cargando...
           </div>
         </div>
@@ -545,7 +545,7 @@ function Home() {
 
       {/* Mobile Menu Button */}
       <div className="lg:hidden flex items-center justify-between p-4 border-b border-white/20 dark:border-gray-600/30 flex-shrink-0">
-        <h1 className="text-lg font-semibold theme-text-primary">
+        <h1 className="text-sm font-semibold theme-text-primary">
           {selectedCourse ? selectedCourse.nombre : "Dashboard"}
         </h1>
         <button
@@ -606,7 +606,7 @@ function Home() {
           <div className="p-4 lg:p-6">
             {/* Mobile Close Button */}
             <div className="flex items-center justify-between mb-4 lg:hidden">
-              <h2 className="text-lg font-semibold theme-text-primary">
+              <h2 className="text-sm font-semibold theme-text-primary">
                 Navegación
               </h2>
               <button
@@ -631,14 +631,14 @@ function Home() {
 
             {/* Home Button */}
             <button
-              className="w-full mb-4 lg:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 lg:px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm lg:text-base cursor-pointer"
+              className="w-full mb-4 lg:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 lg:px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg text-xs lg:text-sm cursor-pointer"
               onClick={() => {
                 setSelectedCycle(null);
                 setSelectedCourse(null);
                 setIsMobileMenuOpen(false);
               }}
             >
-              🏠 Home
+              Inicio
             </button>
 
             {/* Cycles List */}
@@ -658,7 +658,7 @@ function Home() {
                 >
                   {/* Cycle Button */}
                   <button
-                    className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 bg-transparent font-medium transition-all duration-300 flex items-center justify-between text-sm lg:text-base touch-manipulation cursor-pointer"
+                    className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 bg-transparent font-medium transition-all duration-300 flex items-center justify-between text-xs lg:text-sm touch-manipulation cursor-pointer"
                     style={{
                       color: isDark ? "#ffffff" : "#1f2937",
                       backgroundColor: "transparent",
@@ -757,7 +757,7 @@ function Home() {
                   <h1 className="hidden lg:block text-xl sm:text-2xl lg:text-3xl font-bold theme-text-primary mb-2 leading-tight">
                     {selectedCourse.nombre}
                   </h1>
-                  <p className="text-blue-600 dark:text-blue-400 text-sm lg:text-base">
+                  <p className="text-blue-600 dark:text-blue-400 text-xs lg:text-sm">
                     {ciclosData[selectedCycle]?.nombre}
                   </p>
                 </div>
@@ -772,10 +772,10 @@ function Home() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 theme-text-primary">
                       {/* Docente Principal */}
                       <div className="mb-4 lg:mb-0">
-                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-2 text-sm lg:text-base">
+                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-2 text-xs lg:text-sm">
                           Docente Principal:
                         </h3>
-                        <p className="mb-1 text-sm lg:text-base font-medium">
+                        <p className="mb-1 text-xs lg:text-sm font-medium">
                           {selectedCourse.info.docente}
                         </p>
                         <p className="text-xs lg:text-sm theme-text-secondary mb-2 break-all">
@@ -795,10 +795,10 @@ function Home() {
 
                       {/* Docente Auxiliar */}
                       <div>
-                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-2 text-sm lg:text-base">
+                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-2 text-xs lg:text-sm">
                           Docente Auxiliar:
                         </h3>
-                        <p className="mb-1 text-sm lg:text-base font-medium">
+                        <p className="mb-1 text-xs lg:text-sm font-medium">
                           {selectedCourse.info.docenteAuxiliar}
                         </p>
                         <p className="text-xs lg:text-sm theme-text-secondary mb-2 break-all">
@@ -819,7 +819,7 @@ function Home() {
 
                     {/* Horarios */}
                     <div className="mt-4 lg:mt-6">
-                      <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-3 text-sm lg:text-base">
+                      <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-3 text-xs lg:text-sm">
                         Horarios:
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
@@ -831,7 +831,7 @@ function Home() {
                               : "rgba(243, 244, 246, 0.9)",
                           }}
                         >
-                          <h4 className="font-medium theme-text-primary mb-2 text-sm lg:text-base">
+                          <h4 className="font-medium theme-text-primary mb-2 text-xs lg:text-sm">
                             Grupo A
                           </h4>
                           <p className="text-xs lg:text-sm theme-text-secondary mb-1">
@@ -851,7 +851,7 @@ function Home() {
                               : "rgba(243, 244, 246, 0.9)",
                           }}
                         >
-                          <h4 className="font-medium theme-text-primary mb-2 text-sm lg:text-base">
+                          <h4 className="font-medium theme-text-primary mb-2 text-xs lg:text-sm">
                             Grupo B
                           </h4>
                           <p className="text-xs lg:text-sm theme-text-secondary mb-1">
@@ -869,7 +869,7 @@ function Home() {
                     {/* Información Importante */}
                     {selectedCourse.info.importante && (
                       <div className="mt-4 lg:mt-6">
-                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-3 text-sm lg:text-base">
+                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-3 text-xs lg:text-sm">
                           Información Importante:
                         </h3>
                         <ul className="space-y-2 lg:space-y-3">
@@ -907,7 +907,7 @@ function Home() {
                           <div className="flex-shrink-0">
                             {getIconForMaterial(material.tipo)}
                           </div>
-                          <span className="theme-text-primary font-medium text-sm lg:text-base leading-relaxed">
+                          <span className="theme-text-primary font-medium text-xs lg:text-sm leading-relaxed">
                             {material.titulo}
                           </span>
                         </div>
@@ -920,7 +920,7 @@ function Home() {
                     <h2 className="text-lg lg:text-xl font-semibold theme-text-primary mb-2">
                       Materiales próximamente
                     </h2>
-                    <p className="theme-text-secondary text-sm lg:text-base">
+                    <p className="theme-text-secondary text-xs lg:text-sm">
                       Los materiales para este curso se agregarán pronto.
                     </p>
                   </div>
@@ -946,10 +946,10 @@ function Home() {
                       >
                         {/* Header de la publicación */}
                         <div className="p-4 border-b border-white/10 dark:border-gray-600/20">
-                          <h3 className="text-lg lg:text-xl font-bold theme-text-primary mb-4 text-center">
+                          <h3 className="text-base lg:text-lg font-bold theme-text-primary mb-4 text-center">
                             {publication.titulo}
                           </h3>
-                          <div className="theme-text-primary text-sm lg:text-base leading-relaxed">
+                          <div className="theme-text-primary text-sm leading-relaxed">
                             {(() => {
                               const isExpanded = expandedPublications.has(
                                 publication.id
@@ -997,7 +997,7 @@ function Home() {
 
                         {/* Fecha de la publicación */}
                         <div className="p-4">
-                          <p className="text-xs lg:text-sm theme-text-secondary">
+                          <p className="text-sm theme-text-secondary">
                             {publication.fecha} • {publication.hora}
                           </p>
                         </div>
