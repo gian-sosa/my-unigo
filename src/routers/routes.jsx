@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Progreso from "../pages/Progreso";
 import { useAuth } from "../context/AuthContext";
 import Ciclo1 from "../pages/Ciclo1";
 import Ciclo2 from "../pages/Ciclo2";
@@ -23,6 +24,7 @@ export function MyRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomeOrLogin />} />
+      <Route path="/progreso" element={<Progreso />} />
       <Route path="/ciclo1" element={<Ciclo1 />} />
       <Route path="/ciclo2" element={<Ciclo2 />} />
       <Route path="/ciclo3" element={<Ciclo3 />} />

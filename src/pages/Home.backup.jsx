@@ -7,10 +7,11 @@ import carrosAlegoricosImg from "../assets/carros_alegoricos.png";
 
 function Home() {
   const { user, loading } = useAuth();
-  const { isDark } = useTheme();
+  const { isDark, toggleTheme } = useTheme();
   const [selectedCycle, setSelectedCycle] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [expandedCycles, setExpandedCycles] = useState(new Set());
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedPublications, setExpandedPublications] = useState(new Set());
 
   // Timeline de publicaciones
@@ -268,9 +269,9 @@ function Home() {
             celularDocente: "907 889 415",
             whatsappDocente: true,
             docenteAuxiliar: "Ing. Fiorella Luque Mendieta",
-            correoDocenteAuxiliar: "fiorella.luque@unsch.edu.pe",
-            celularDocenteAuxiliar: "967 897 001",
-            whatsappDocenteAuxiliar: false,
+            correoAuxiliar: "fiorella.luque@unsch.edu.pe",
+            celularAuxiliar: "967 897 001",
+            whatsappAuxiliar: false,
             horarioA: {
               teoria: "Martes 07:00 - 09:00",
               practica: "Jueves 07:00 - 09:00",
@@ -431,7 +432,6 @@ function Home() {
     },
   };
 
-  // Funciones
   const toggleCycle = (cycleId) => {
     const newExpanded = new Set(expandedCycles);
     if (newExpanded.has(cycleId)) {
@@ -445,8 +445,10 @@ function Home() {
   const selectCourse = (cycleId, course) => {
     setSelectedCycle(cycleId);
     setSelectedCourse(course);
+    setIsMobileMenuOpen(false); // Cerrar menú móvil al seleccionar curso
   };
 
+  // Funciones para manejar expansión de publicaciones
   const togglePublicationExpansion = (publicationId) => {
     const newExpanded = new Set(expandedPublications);
     if (newExpanded.has(publicationId)) {
@@ -459,6 +461,7 @@ function Home() {
 
   const truncateText = (text, maxLines = 2) => {
     const words = text.split(" ");
+    // Aproximadamente 12-15 palabras por línea en dispositivos móviles
     const wordsPerLine = window.innerWidth < 768 ? 8 : 12;
     const maxWords = maxLines * wordsPerLine;
 
@@ -481,7 +484,7 @@ function Home() {
       case "whatsapp":
         return (
           <svg
-            className="w-5 h-5 text-green-500"
+            className="w-5 h-5 text-green-500 transition-colors duration-300 flex-shrink-0"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -491,7 +494,7 @@ function Home() {
       case "pdf":
         return (
           <svg
-            className="w-5 h-5 text-red-500"
+            className="w-5 h-5 text-red-500 transition-colors duration-300 flex-shrink-0"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -501,7 +504,7 @@ function Home() {
       default:
         return (
           <svg
-            className="w-5 h-5 text-blue-400"
+            className="w-5 h-5 text-blue-400 transition-colors duration-300 flex-shrink-0 dark:text-blue-300"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -518,11 +521,12 @@ function Home() {
   };
 
   if (loading) {
+    // Mostrar loader mientras se resuelve la autenticación
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center">
+      <div className="absolute inset-0 h-full w-full theme-bg-gradient flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-          <div className="text-gray-900 dark:text-white text-sm font-medium">
+          <div className="theme-text-primary text-sm font-medium">
             Cargando...
           </div>
         </div>
@@ -531,16 +535,18 @@ function Home() {
   }
 
   if (user === null) {
+    // Loader o nada mientras se resuelve la autenticación
     return null;
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       <Header />
-
+      
       {/* Main Container */}
       <div className="pt-16 md:pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           {/* Hero Section - Solo visible cuando no hay curso seleccionado */}
           {!selectedCourse && (
             <div className="mb-8">
@@ -551,26 +557,7 @@ function Home() {
                   <div className="flex items-center justify-between">
                     <div>
                       <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                        ¡Hola,{" "}
-                        {(
-                          user?.user_metadata?.full_name ||
-                          user?.user_metadata?.name ||
-                          user?.email?.split("@")[0] ||
-                          "Estudiante"
-                        )
-                          .split(" ")[0]
-                          .charAt(0)
-                          .toUpperCase() +
-                          (
-                            user?.user_metadata?.full_name ||
-                            user?.user_metadata?.name ||
-                            user?.email?.split("@")[0] ||
-                            "Estudiante"
-                          )
-                            .split(" ")[0]
-                            .slice(1)
-                            .toLowerCase()}
-                        ! 👋
+                        ¡Hola, {user?.email?.split('@')[0] || 'Estudiante'}! 👋
                       </h1>
                       <p className="text-blue-100 text-lg">
                         Bienvenido a tu plataforma académica UniGo
@@ -593,28 +580,20 @@ function Home() {
                       <span className="text-2xl">📚</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Ciclos
-                      </p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">
-                        10
-                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Ciclos</p>
+                      <p className="text-xl font-bold text-gray-900 dark:text-white">10</p>
                     </div>
                   </div>
                 </div>
-
+                
                 <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-slate-700/50 shadow-lg">
                   <div className="flex items-center">
                     <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg">
                       <span className="text-2xl">✅</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Activo
-                      </p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">
-                        Sí
-                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Activo</p>
+                      <p className="text-xl font-bold text-gray-900 dark:text-white">Sí</p>
                     </div>
                   </div>
                 </div>
@@ -625,12 +604,8 @@ function Home() {
                       <span className="text-2xl">🎯</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Progreso
-                      </p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">
-                        85%
-                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Progreso</p>
+                      <p className="text-xl font-bold text-gray-900 dark:text-white">85%</p>
                     </div>
                   </div>
                 </div>
@@ -641,12 +616,8 @@ function Home() {
                       <span className="text-2xl">⭐</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Ranking
-                      </p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">
-                        Top 10
-                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Ranking</p>
+                      <p className="text-xl font-bold text-gray-900 dark:text-white">Top 10</p>
                     </div>
                   </div>
                 </div>
@@ -656,71 +627,19 @@ function Home() {
 
           {/* Two Column Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
             {/* Sidebar - Ciclos */}
             <div className="lg:col-span-1">
-              <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl overflow-hidden sticky top-24 h-fit">
+              <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl overflow-hidden sticky top-24">
                 <div className="p-6 border-b border-gray-200/50 dark:border-slate-700/50">
                   <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
                     <span className="mr-3 text-2xl">🎓</span>
                     Ciclos Académicos
                   </h2>
                 </div>
-
-                <div className="p-4">
-                  <div className="space-y-3">
-                    {Object.entries(ciclosData).map(([cycleId, cycleData]) => (
-                      <div
-                        key={cycleId}
-                        className="bg-white/50 dark:bg-slate-700/50 backdrop-blur-sm rounded-2xl border border-white/30 dark:border-slate-600/30 overflow-hidden"
-                      >
-                        {/* Cycle Button */}
-                        <button
-                          className="w-full text-left px-4 py-3 font-medium transition-all duration-300 flex items-center justify-between text-sm hover:bg-blue-50 dark:hover:bg-slate-600/50 cursor-pointer"
-                          onClick={() => toggleCycle(parseInt(cycleId))}
-                        >
-                          <span className="text-gray-900 dark:text-white">
-                            {cycleData.nombre}
-                          </span>
-                          <svg
-                            className={`w-5 h-5 transition-transform duration-300 text-gray-600 dark:text-gray-400 ${
-                              expandedCycles.has(parseInt(cycleId))
-                                ? "rotate-180"
-                                : ""
-                            }`}
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </button>
-
-                        {/* Courses List */}
-                        {expandedCycles.has(parseInt(cycleId)) && (
-                          <div className="border-t border-gray-200/50 dark:border-slate-600/50">
-                            {cycleData.cursos.map((curso) => (
-                              <button
-                                key={curso.id}
-                                className={`w-full text-left px-6 py-2.5 text-sm transition-all duration-300 cursor-pointer ${
-                                  selectedCourse?.id === curso.id
-                                    ? "bg-blue-500 text-white font-medium"
-                                    : "text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-600/50"
-                                }`}
-                                onClick={() =>
-                                  selectCourse(parseInt(cycleId), curso)
-                                }
-                              >
-                                {curso.nombre}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                
+                <div className="p-4 max-h-96 overflow-y-auto custom-scrollbar">
+                  <div className="space-y-3">{/* Aquí irán los ciclos */}</div>
                 </div>
               </div>
             </div>
@@ -746,184 +665,16 @@ function Home() {
                           setSelectedCourse(null);
                           setSelectedCycle(null);
                         }}
-                        className="p-2 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors cursor-pointer"
+                        className="p-2 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors"
                       >
-                        <svg
-                          className="w-5 h-5 text-gray-600 dark:text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                          />
+                        <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
                     </div>
                   </div>
-
-                  {/* Course Information */}
-                  {selectedCourse.info && (
-                    <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl p-8">
-                      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                        <span className="mr-3 text-2xl">📚</span>
-                        Información del Curso
-                      </h2>
-
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* Docente Principal */}
-                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-2xl p-6">
-                          <h3 className="font-bold text-blue-700 dark:text-blue-300 mb-3">
-                            Docente Principal
-                          </h3>
-                          <p className="font-semibold text-gray-900 dark:text-white mb-1">
-                            {selectedCourse.info.docente}
-                          </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            {selectedCourse.info.correoDocente}
-                          </p>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">
-                              {selectedCourse.info.celularDocente}
-                            </span>
-                            {selectedCourse.info.whatsappDocente && (
-                              <span className="text-xs bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-1 rounded-full">
-                                WhatsApp
-                              </span>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Docente Auxiliar */}
-                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-2xl p-6">
-                          <h3 className="font-bold text-purple-700 dark:text-purple-300 mb-3">
-                            Docente Auxiliar
-                          </h3>
-                          <p className="font-semibold text-gray-900 dark:text-white mb-1">
-                            {selectedCourse.info.docenteAuxiliar}
-                          </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            {selectedCourse.info.correoDocenteAuxiliar}
-                          </p>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">
-                              {selectedCourse.info.celularDocenteAuxiliar}
-                            </span>
-                            {!selectedCourse.info.whatsappDocenteAuxiliar && (
-                              <span className="text-xs bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 px-2 py-1 rounded-full">
-                                Solo llamadas
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Horarios */}
-                      <div className="mt-8">
-                        <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                          <span className="mr-2 text-lg">🕒</span>
-                          Horarios
-                        </h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 rounded-2xl p-4">
-                            <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-2">
-                              Grupo A
-                            </h4>
-                            <p className="text-sm text-gray-700 dark:text-gray-300 mb-1">
-                              <span className="font-medium">Teoría:</span>{" "}
-                              {selectedCourse.info.horarioA.teoria}
-                            </p>
-                            <p className="text-sm text-gray-700 dark:text-gray-300">
-                              <span className="font-medium">Práctica:</span>{" "}
-                              {selectedCourse.info.horarioA.practica}
-                            </p>
-                          </div>
-                          <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-2xl p-4">
-                            <h4 className="font-bold text-orange-700 dark:text-orange-300 mb-2">
-                              Grupo B
-                            </h4>
-                            <p className="text-sm text-gray-700 dark:text-gray-300 mb-1">
-                              <span className="font-medium">Teoría:</span>{" "}
-                              {selectedCourse.info.horarioB.teoria}
-                            </p>
-                            <p className="text-sm text-gray-700 dark:text-gray-300">
-                              <span className="font-medium">Práctica:</span>{" "}
-                              {selectedCourse.info.horarioB.practica}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Información Importante */}
-                      {selectedCourse.info.importante && (
-                        <div className="mt-8">
-                          <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                            <span className="mr-2 text-lg">⚠️</span>
-                            Información Importante
-                          </h3>
-                          <div className="bg-amber-50 dark:bg-amber-900/20 rounded-2xl p-4">
-                            <ul className="space-y-2">
-                              {selectedCourse.info.importante.map(
-                                (item, index) => (
-                                  <li
-                                    key={index}
-                                    className="text-sm text-amber-800 dark:text-amber-200 flex items-start"
-                                  >
-                                    <span className="text-amber-600 dark:text-amber-400 mr-2 mt-0.5">
-                                      •
-                                    </span>
-                                    <span>{item}</span>
-                                  </li>
-                                )
-                              )}
-                            </ul>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Materials */}
-                  {selectedCourse.materiales &&
-                  selectedCourse.materiales.length > 0 ? (
-                    <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl p-8">
-                      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                        <span className="mr-3 text-2xl">📁</span>
-                        Materiales del Curso
-                      </h2>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {selectedCourse.materiales.map((material, index) => (
-                          <button
-                            key={index}
-                            onClick={() => handleMaterialClick(material.url)}
-                            className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-700/50 rounded-2xl p-4 hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-800/30 dark:hover:to-indigo-800/30 transition-all duration-300 hover:shadow-lg text-left cursor-pointer"
-                          >
-                            <div className="flex items-center space-x-3">
-                              <div className="flex-shrink-0">
-                                {getIconForMaterial(material.tipo)}
-                              </div>
-                              <span className="text-gray-900 dark:text-white font-medium text-sm">
-                                {material.titulo}
-                              </span>
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl p-8 text-center">
-                      <div className="text-6xl mb-4">📚</div>
-                      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                        Materiales próximamente
-                      </h2>
-                      <p className="text-gray-600 dark:text-gray-400">
-                        Los materiales para este curso se agregarán pronto.
-                      </p>
-                    </div>
-                  )}
+                  
+                  {/* Course Details continuarán aquí... */}
                 </div>
               ) : (
                 /* Timeline de publicaciones */
@@ -934,19 +685,401 @@ function Home() {
                       Noticias y Eventos
                     </h2>
                   </div>
+                  
+                  <div className="space-y-6">{/* Aquí irán las publicaciones */}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+      {/* Mobile Menu Button */}
+      <div className="lg:hidden flex items-center justify-between p-4 border-b border-white/20 dark:border-gray-600/30 flex-shrink-0">
+        <h1 className="text-sm font-semibold theme-text-primary">
+          {selectedCourse ? selectedCourse.nombre : "Dashboard"}
+        </h1>
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-2 theme-card rounded-lg hover:bg-white/10 dark:hover:bg-gray-700/30 transition-colors cursor-pointer"
+        >
+          <svg
+            className={`w-6 h-6 theme-text-primary transition-transform ${
+              isMobileMenuOpen ? "rotate-90" : ""
+            }`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div className="flex flex-1 min-h-0 relative">
+        {/* Mobile Overlay */}
+        {isMobileMenuOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+
+        {/* Main Sidebar */}
+        <main
+          className={`
+            fixed left-0 z-50 lg:z-0
+            w-80 sm:w-96 lg:w-80 xl:w-96
+            border-r border-white/20 dark:border-gray-600/30 
+            overflow-y-auto transition-transform duration-300 ease-in-out
+            ${
+              isMobileMenuOpen
+                ? "translate-x-0"
+                : "-translate-x-full lg:translate-x-0"
+            }
+          `}
+          style={{
+            top: window.innerWidth >= 768 ? "5rem" : "4rem",
+            bottom: "0",
+            height:
+              window.innerWidth >= 768
+                ? "calc(100vh - 5rem)"
+                : "calc(100vh - 4rem)",
+            backgroundColor: isDark ? "rgba(17, 24, 39, 0.95)" : "#ffffff",
+            boxShadow: isDark ? "none" : "1px 0 1px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <div className="p-4 lg:p-6">
+            {/* Mobile Close Button */}
+            <div className="flex items-center justify-between mb-4 lg:hidden">
+              <h2 className="text-sm font-semibold theme-text-primary">
+                Navegación
+              </h2>
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 hover:bg-gray-50 dark:hover:bg-gray-700/20 rounded-lg transition-colors cursor-pointer"
+              >
+                <svg
+                  className="w-5 h-5 theme-text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            {/* Home Button */}
+            <button
+              className="w-full mb-4 lg:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 lg:px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg text-xs lg:text-sm cursor-pointer"
+              onClick={() => {
+                setSelectedCycle(null);
+                setSelectedCourse(null);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Inicio
+            </button>
+
+            {/* Cycles List */}
+            <div className="space-y-2">
+              {Object.entries(ciclosData).map(([cycleId, cycleData]) => (
+                <div
+                  key={cycleId}
+                  className="border border-gray-300 dark:border-gray-600/30 rounded-lg overflow-hidden"
+                  style={{
+                    backgroundColor: isDark
+                      ? "rgba(31, 41, 55, 0.5)"
+                      : "#ffffff",
+                    borderColor: isDark
+                      ? "rgba(107, 114, 128, 0.3)"
+                      : "#d1d5db",
+                  }}
+                >
+                  {/* Cycle Button */}
+                  <button
+                    className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 bg-transparent font-medium transition-all duration-300 flex items-center justify-between text-xs lg:text-sm touch-manipulation cursor-pointer hover:bg-blue-400 dark:hover:bg-red-800"
+                    style={{
+                      color: isDark ? "#ffffff" : "#1f2937",
+                    }}
+                    onClick={() => toggleCycle(parseInt(cycleId))}
+                  >
+                    <span>{cycleData.nombre}</span>
+                    <svg
+                      className={`w-5 h-5 transition-transform duration-300 ${
+                        expandedCycles.has(parseInt(cycleId))
+                          ? "rotate-180"
+                          : ""
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Courses List */}
+                  {expandedCycles.has(parseInt(cycleId)) && (
+                    <div>
+                      {cycleData.cursos.map((curso) => (
+                        <button
+                          key={curso.id}
+                          className={`w-full text-left px-4 lg:px-6 py-2.5 lg:py-2 text-xs lg:text-sm transition-all duration-300 touch-manipulation leading-relaxed cursor-pointer ${
+                            selectedCourse?.id === curso.id
+                              ? "border-l-4 font-medium"
+                              : "hover:bg-blue-400 dark:hover:bg-gray-800/60"
+                          }`}
+                          style={{
+                            color:
+                              selectedCourse?.id === curso.id
+                                ? isDark
+                                  ? "#60a5fa"
+                                  : "#1d4ed8"
+                                : isDark
+                                ? "#ffffff"
+                                : "#1f2937",
+                            ...(selectedCourse?.id === curso.id && {
+                              backgroundColor: isDark
+                                ? "rgba(59, 130, 246, 0.2)"
+                                : "rgba(59, 130, 246, 0.2)",
+                            }),
+                            borderLeftColor:
+                              selectedCourse?.id === curso.id
+                                ? "#3b82f6"
+                                : "transparent",
+                          }}
+                          onClick={() => selectCourse(parseInt(cycleId), curso)}
+                        >
+                          {curso.nombre}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </main>
+
+        {/* Aside Content */}
+        <aside className="flex-1 theme-card overflow-y-auto lg:block lg:ml-80 xl:ml-96 min-h-0">
+          <div className="p-4 sm:p-6 lg:p-8 min-h-full">
+            {selectedCourse ? (
+              <div>
+                {/* Course Header */}
+                <div className="mb-6 lg:mb-8">
+                  <h1 className="hidden lg:block text-xl sm:text-2xl lg:text-3xl font-bold theme-text-primary mb-2 leading-tight">
+                    {selectedCourse.nombre}
+                  </h1>
+                  <p className="text-blue-600 dark:text-blue-400 text-xs lg:text-sm">
+                    {ciclosData[selectedCycle]?.nombre}
+                  </p>
+                </div>
+
+                {/* Course Information */}
+                {selectedCourse.info && (
+                  <div className="mb-6 lg:mb-8 theme-card border border-white/20 dark:border-gray-600/30 rounded-xl p-4 sm:p-6">
+                    <h2 className="text-lg lg:text-xl font-semibold theme-text-primary mb-4 text-left">
+                      📚 Información de Curso
+                    </h2>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 theme-text-primary">
+                      {/* Docente Principal */}
+                      <div className="mb-4 lg:mb-0">
+                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-2 text-xs lg:text-sm">
+                          Docente Principal:
+                        </h3>
+                        <p className="mb-1 text-xs lg:text-sm font-medium">
+                          {selectedCourse.info.docente}
+                        </p>
+                        <p className="text-xs lg:text-sm theme-text-secondary mb-2 break-all">
+                          {selectedCourse.info.correoDocente}
+                        </p>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                          <span className="text-xs lg:text-sm">
+                            {selectedCourse.info.celularDocente}
+                          </span>
+                          {selectedCourse.info.whatsappDocente && (
+                            <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full w-fit">
+                              Solo WhatsApp
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Docente Auxiliar */}
+                      <div>
+                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-2 text-xs lg:text-sm">
+                          Docente Auxiliar:
+                        </h3>
+                        <p className="mb-1 text-xs lg:text-sm font-medium">
+                          {selectedCourse.info.docenteAuxiliar}
+                        </p>
+                        <p className="text-xs lg:text-sm theme-text-secondary mb-2 break-all">
+                          {selectedCourse.info.correoAuxiliar}
+                        </p>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                          <span className="text-xs lg:text-sm">
+                            {selectedCourse.info.celularAuxiliar}
+                          </span>
+                          {!selectedCourse.info.whatsappAuxiliar && (
+                            <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full w-fit">
+                              No disponible
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Horarios */}
+                    <div className="mt-4 lg:mt-6">
+                      <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-3 text-xs lg:text-sm">
+                        Horarios:
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+                        <div
+                          className="p-3 lg:p-4 rounded-lg"
+                          style={{
+                            backgroundColor: isDark
+                              ? "rgba(31, 41, 55, 0.3)"
+                              : "rgba(243, 244, 246, 0.9)",
+                          }}
+                        >
+                          <h4 className="font-medium theme-text-primary mb-2 text-xs lg:text-sm">
+                            Grupo A
+                          </h4>
+                          <p className="text-xs lg:text-sm theme-text-secondary mb-1">
+                            <span className="font-medium">Teoría:</span>{" "}
+                            {selectedCourse.info.horarioA.teoria}
+                          </p>
+                          <p className="text-xs lg:text-sm theme-text-secondary">
+                            <span className="font-medium">Práctica:</span>{" "}
+                            {selectedCourse.info.horarioA.practica}
+                          </p>
+                        </div>
+                        <div
+                          className="p-3 lg:p-4 rounded-lg"
+                          style={{
+                            backgroundColor: isDark
+                              ? "rgba(31, 41, 55, 0.3)"
+                              : "rgba(243, 244, 246, 0.9)",
+                          }}
+                        >
+                          <h4 className="font-medium theme-text-primary mb-2 text-xs lg:text-sm">
+                            Grupo B
+                          </h4>
+                          <p className="text-xs lg:text-sm theme-text-secondary mb-1">
+                            <span className="font-medium">Teoría:</span>{" "}
+                            {selectedCourse.info.horarioB.teoria}
+                          </p>
+                          <p className="text-xs lg:text-sm theme-text-secondary">
+                            <span className="font-medium">Práctica:</span>{" "}
+                            {selectedCourse.info.horarioB.practica}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Información Importante */}
+                    {selectedCourse.info.importante && (
+                      <div className="mt-4 lg:mt-6">
+                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-3 text-xs lg:text-sm">
+                          Información Importante:
+                        </h3>
+                        <ul className="space-y-2 lg:space-y-3">
+                          {selectedCourse.info.importante.map((item, index) => (
+                            <li
+                              key={index}
+                              className="text-xs lg:text-sm theme-text-secondary flex items-start leading-relaxed"
+                            >
+                              <span className="text-yellow-500 mr-2 mt-0.5 flex-shrink-0">
+                                ⚠️
+                              </span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Materials */}
+                {selectedCourse.materiales &&
+                selectedCourse.materiales.length > 0 ? (
+                  <div className="space-y-3 lg:space-y-4">
+                    <h2 className="text-lg lg:text-xl font-semibold theme-text-primary mb-4">
+                      📁 Materiales del Curso
+                    </h2>
+                    {selectedCourse.materiales.map((material, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleMaterialClick(material.url)}
+                        className="w-full text-left p-3 lg:p-4 theme-card border border-white/20 dark:border-gray-600/30 rounded-xl hover:bg-white/10 dark:hover:bg-gray-700/30 transition-all duration-300 hover:shadow-lg touch-manipulation cursor-pointer"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="flex-shrink-0">
+                            {getIconForMaterial(material.tipo)}
+                          </div>
+                          <span className="theme-text-primary font-medium text-xs lg:text-sm leading-relaxed">
+                            {material.titulo}
+                          </span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8 lg:py-12">
+                    <div className="text-4xl lg:text-6xl mb-4">📚</div>
+                    <h2 className="text-lg lg:text-xl font-semibold theme-text-primary mb-2">
+                      Materiales próximamente
+                    </h2>
+                    <p className="theme-text-secondary text-xs lg:text-sm">
+                      Los materiales para este curso se agregarán pronto.
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="">
+                {/* Timeline de Publicaciones */}
+                <div className="w-full max-w-2xl mx-auto px-1 sm:px-4">
                   <div className="space-y-6">
                     {timelinePublications.map((publication) => (
                       <div
                         key={publication.id}
-                        className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl overflow-hidden"
+                        className="theme-card border border-white/20 dark:border-gray-600/30 rounded-xl overflow-hidden"
+                        style={{
+                          backgroundColor: isDark
+                            ? "rgba(31, 41, 55, 0.4)"
+                            : "#ffffff",
+                          boxShadow: isDark
+                            ? "none"
+                            : "0 2px 8px rgba(0, 0, 0, 0.1)",
+                        }}
                       >
                         {/* Header de la publicación */}
-                        <div className="p-6 border-b border-gray-200/50 dark:border-slate-700/50">
-                          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 text-center">
+                        <div className="p-4 border-b border-white/10 dark:border-gray-600/20">
+                          <h3 className="text-base lg:text-lg font-bold theme-text-primary mb-4 text-center">
                             {publication.titulo}
                           </h3>
-                          <div className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                          <div className="theme-text-primary text-sm leading-relaxed">
                             {(() => {
                               const isExpanded = expandedPublications.has(
                                 publication.id
@@ -970,7 +1103,7 @@ function Home() {
                                           publication.id
                                         )
                                       }
-                                      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium mt-2 transition-colors cursor-pointer"
+                                      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium mt-1 transition-colors cursor-pointer"
                                     >
                                       {isExpanded
                                         ? "Ver menos..."
@@ -993,8 +1126,8 @@ function Home() {
                         </div>
 
                         {/* Fecha de la publicación */}
-                        <div className="p-6">
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                        <div className="p-4">
+                          <p className="text-sm theme-text-secondary">
                             {publication.fecha} • {publication.hora}
                           </p>
                         </div>
@@ -1002,10 +1135,10 @@ function Home() {
                     ))}
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   );
