@@ -1171,6 +1171,16 @@ function Home() {
               <div className="text-green-300">Progress Data:</div>
               <pre className="text-xs">{JSON.stringify(progress, null, 1)}</pre>
             </div>
+            <button
+              onClick={async () => {
+                console.log("🧪 Probando inserción manual...");
+                const success = await toggleMaterialProgress("test-course-0");
+                console.log("🧪 Resultado:", success);
+              }}
+              className="mt-2 px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600"
+            >
+              🧪 Test Insert
+            </button>
           </div>
         </div>
       )}
