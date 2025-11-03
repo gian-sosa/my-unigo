@@ -10,7 +10,11 @@ export const useUserProgress = () => {
 
   // Cargar progreso del usuario
   const loadUserProgress = async () => {
+    console.log("🔄 [useUserProgress] Cargando progreso del usuario...");
+    console.log("👤 [useUserProgress] Usuario actual:", user);
+
     if (!user) {
+      console.log("❌ [useUserProgress] No hay usuario autenticado");
       setProgress({});
       setLoading(false);
       return;
@@ -18,12 +22,21 @@ export const useUserProgress = () => {
 
     try {
       setLoading(true);
+      console.log("📡 [useUserProgress] Consultando Supabase...");
+
       const { data, error } = await supabase
         .from("user_progress")
         .select("*")
         .eq("user_id", user.id);
 
-      if (error) throw error;
+      console.log("📊 [useUserProgress] Respuesta de Supabase:");
+      console.log("  - Data:", data);
+      console.log("  - Error:", error);
+
+      if (error) {
+        console.error("❌ [useUserProgress] Error de Supabase:", error);
+        throw error;
+      }
 
       // Convertir array a objeto para fácil acceso
       const progressMap = {};
@@ -36,13 +49,15 @@ export const useUserProgress = () => {
         };
       });
 
+      console.log("✅ [useUserProgress] Progreso cargado:", progressMap);
       setProgress(progressMap);
       setError(null);
     } catch (err) {
-      console.error("Error loading user progress:", err);
+      console.error("💥 [useUserProgress] Error cargando progreso:", err);
       setError(err.message);
     } finally {
       setLoading(false);
+      console.log("🏁 [useUserProgress] Carga completada");
     }
   };
 
@@ -53,18 +68,47 @@ export const useUserProgress = () => {
 
   // Marcar/desmarcar material como completado
   const toggleMaterialProgress = async (materialKey) => {
-    if (!user) return false;
+    console.log(
+      "🔄 [toggleMaterialProgress] Iniciando toggle para:",
+      materialKey
+    );
+    console.log("👤 [toggleMaterialProgress] Usuario:", user);
+
+    if (!user) {
+      console.log("❌ [toggleMaterialProgress] No hay usuario autenticado");
+      return false;
+    }
 
     try {
       const existingProgress = progress[materialKey];
       const isCurrentlyCompleted = existingProgress?.completed || false;
       const newCompletedState = !isCurrentlyCompleted;
 
+      console.log(
+        "📊 [toggleMaterialProgress] Estado actual:",
+        isCurrentlyCompleted
+      );
+      console.log(
+        "🔄 [toggleMaterialProgress] Nuevo estado:",
+        newCompletedState
+      );
+
       // Extraer courseId y materialId del key
       const [courseId, materialIndex] = materialKey.split("-");
+      console.log(
+        "📝 [toggleMaterialProgress] CourseId:",
+        courseId,
+        "MaterialIndex:",
+        materialIndex
+      );
 
       if (existingProgress) {
         // Actualizar progreso existente
+        console.log(
+          "🔄 [toggleMaterialProgress] Actualizando progreso existente, ID:",
+          existingProgress.id
+        );
+
         const { error } = await supabase
           .from("user_progress")
           .update({
@@ -74,22 +118,49 @@ export const useUserProgress = () => {
           })
           .eq("id", existingProgress.id);
 
-        if (error) throw error;
+        if (error) {
+          console.error(
+            "❌ [toggleMaterialProgress] Error actualizando:",
+            error
+          );
+          throw error;
+        }
+        console.log(
+          "✅ [toggleMaterialProgress] Progreso actualizado exitosamente"
+        );
       } else {
         // Crear nuevo progreso
-        const { error } = await supabase.from("user_progress").insert({
+        console.log("➕ [toggleMaterialProgress] Creando nuevo progreso");
+
+        const insertData = {
           user_id: user.id,
           course_id: courseId,
           cycle_id: 1, // Para simplificar, usamos un ciclo por defecto
           material_id: materialIndex,
           completed: newCompletedState,
           completed_at: newCompletedState ? new Date().toISOString() : null,
-        });
+        };
 
-        if (error) throw error;
+        console.log(
+          "📝 [toggleMaterialProgress] Datos a insertar:",
+          insertData
+        );
+
+        const { error } = await supabase
+          .from("user_progress")
+          .insert(insertData);
+
+        if (error) {
+          console.error("❌ [toggleMaterialProgress] Error insertando:", error);
+          throw error;
+        }
+        console.log(
+          "✅ [toggleMaterialProgress] Nuevo progreso creado exitosamente"
+        );
       }
 
       // Actualizar estado local
+      console.log("🔄 [toggleMaterialProgress] Actualizando estado local");
       setProgress((prev) => ({
         ...prev,
         [materialKey]: {
@@ -99,9 +170,10 @@ export const useUserProgress = () => {
         },
       }));
 
+      console.log("🎉 [toggleMaterialProgress] Toggle completado exitosamente");
       return true;
     } catch (err) {
-      console.error("Error updating progress:", err);
+      console.error("💥 [toggleMaterialProgress] Error en toggle:", err);
       setError(err.message);
       return false;
     }

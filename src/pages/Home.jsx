@@ -1157,6 +1157,23 @@ function Home() {
           </div>
         </div>
       </div>
+
+      {/* Debug Panel (Temporal) */}
+      {user && (
+        <div className="fixed bottom-4 right-4 bg-black/80 text-white p-4 rounded-lg text-xs max-w-sm z-50">
+          <h3 className="font-bold text-green-400 mb-2">🐛 Debug Info</h3>
+          <div className="space-y-1">
+            <div>👤 User ID: {user?.id?.slice(0, 8)}...</div>
+            <div>📊 Progress Loading: {progressLoading ? "🔄" : "✅"}</div>
+            <div>📈 Progress Count: {Object.keys(progress).length}</div>
+            <div>🎯 Selected Course: {selectedCourse?.id || "None"}</div>
+            <div className="mt-2 max-h-20 overflow-y-auto">
+              <div className="text-green-300">Progress Data:</div>
+              <pre className="text-xs">{JSON.stringify(progress, null, 1)}</pre>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
