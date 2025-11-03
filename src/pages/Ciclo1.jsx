@@ -99,7 +99,7 @@ function Ciclo1() {
           <div className="text-center">
             {!showMatematicaLibros && !showFundamentosLibros ? (
               <>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 dark:from-blue-400 dark:to-purple-400">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8">
                   Ciclo 1
                 </h1>
                 <p className="theme-text-secondary text-base md:text-lg mb-8">
@@ -146,7 +146,7 @@ function Ciclo1() {
               </>
             ) : showFundamentosLibros ? (
               <>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 dark:from-blue-400 dark:to-purple-400">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8">
                   Fundamentos de Sistemas de Información
                 </h1>
                 {/* Buscador de libros */}
@@ -208,7 +208,7 @@ function Ciclo1() {
               </>
             ) : (
               <>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 dark:from-blue-400 dark:to-purple-400">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8">
                   Matemática Básica
                 </h1>
 

@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+/* ELIMINACIÓN COMPLETA DEL TEMA DEL SISTEMA */
+/* Prevenir CUALQUIER detección automática del tema del sistema */
+:root {
+  color-scheme: none !important;
+}
+
+*,
+*::before,
+*::after {
+  color-scheme: none !important;
+}
+
+html,
+body,
+#root {
+  color-scheme: none !important;
+}
+
 /* Variables CSS para modo claro (por defecto) */
 :root {
   --bg-primary: #f8fafc;
@@ -21,58 +39,110 @@
   --theme-border-hover: #3b82f6;
   --theme-card-hover: rgba(0, 0, 0, 0.1);
   --theme-placeholder: #9ca3af;
-
-  /* Forzar esquema de colores solo para la aplicación */
-  color-scheme: light;
 }
 
-/* Variables CSS para modo oscuro */
+/* Variables CSS para modo oscuro MEJORADO - Más suave y atractivo */
 .dark {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-gradient-start: #0f172a;
-  --bg-gradient-middle: #1e293b;
-  --bg-gradient-end: #374151;
-  --text-primary: #ffffff;
-  --text-secondary: #cbd5e1;
-  --border-color: #475569;
-  --card-bg: rgba(255, 255, 255, 0.1);
-  --card-border: rgba(255, 255, 255, 0.2);
-  --header-bg: rgba(15, 23, 42, 0.95);
-  --header-border: rgba(71, 85, 105, 0.5);
+  /* Fondo principal más suave con tonos azul-gris cálidos */
+  --bg-primary: #0d1421;
+  --bg-secondary: #1a202c;
+  --bg-gradient-start: #0f1419;
+  --bg-gradient-middle: #1a202c;
+  --bg-gradient-end: #2d3748;
 
-  /* Input y bordes adicionales para modo oscuro */
-  --theme-input-bg: #222831;
-  --theme-border: #393e46;
-  --theme-border-hover: #3b82f6;
-  --theme-card-hover: rgba(255, 255, 255, 0.2);
-  --theme-placeholder: #94a3b8;
+  /* Textos optimizados para reducir fatiga visual */
+  --text-primary: #f7fafc; /* Blanco más suave, menos brillante */
+  --text-secondary: #a0aec0; /* Gris más cálido y legible */
 
-  /* Forzar esquema de colores solo para la aplicación */
-  color-scheme: dark;
+  /* Bordes y divisores con mejor contraste */
+  --border-color: #4a5568; /* Gris más visible pero no agresivo */
+
+  /* Cards con fondo más definido y elegante */
+  --card-bg: rgba(26, 32, 44, 0.8); /* Fondo más sólido pero translúcido */
+  --card-border: rgba(74, 85, 104, 0.4); /* Borde sutil pero visible */
+
+  /* Header con mejor definición */
+  --header-bg: rgba(13, 20, 33, 0.95); /* Más sólido y elegante */
+  --header-border: rgba(74, 85, 104, 0.3); /* Borde más sutil */
+
+  /* Inputs y elementos interactivos mejorados */
+  --theme-input-bg: #2d3748; /* Fondo más claro para mejor legibilidad */
+  --theme-border: #4a5568; /* Borde más visible */
+  --theme-border-hover: #667eea; /* Azul más suave para hover */
+  --theme-card-hover: rgba(
+    26,
+    32,
+    44,
+    0.8
+  ); /* Hover más oscuro para mejor contraste */
+  --theme-placeholder: #a0aec0; /* Placeholder más legible */
+
+  /* Nuevas variables para acentos y elementos especiales */
+  --accent-primary: #667eea; /* Azul suave para acentos */
+  --accent-secondary: #764ba2; /* Púrpura elegante */
+  --success-color: #48bb78; /* Verde más suave */
+  --warning-color: #ed8936; /* Naranja más cálido */
+  --error-color: #f56565; /* Rojo más suave */
+
+  /* Sombras optimizadas para modo oscuro */
+  --shadow-light: rgba(0, 0, 0, 0.3);
+  --shadow-medium: rgba(0, 0, 0, 0.5);
+  --shadow-strong: rgba(0, 0, 0, 0.7);
 }
 
 body {
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Clases utilitarias usando variables CSS */
-.theme-bg-primary {
-  background-color: var(--bg-primary);
-}
-
-.theme-bg-secondary {
-  background-color: var(--bg-secondary);
-}
-
-.theme-bg-gradient {
   background: linear-gradient(
-    to bottom right,
+    135deg,
     var(--bg-gradient-start),
     var(--bg-gradient-middle),
     var(--bg-gradient-end)
   );
+  color: var(--text-primary);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ANULACIÓN AGRESIVA DE TODAS LAS CLASES DARK DE TAILWIND */
+.dark\:bg-slate-900,
+.dark\:bg-slate-800,
+.dark\:bg-slate-700,
+.dark\:bg-gray-900,
+.dark\:bg-gray-800,
+.dark\:bg-gray-700,
+.dark\:text-white,
+.dark\:text-gray-300,
+.dark\:text-gray-400,
+.dark\:text-slate-300,
+.dark\:text-slate-400,
+.dark\:border-slate-600,
+.dark\:border-slate-700,
+.dark\:border-gray-600,
+.dark\:border-gray-700 {
+  /* Anular completamente estas clases para que nunca se apliquen */
+  background: inherit !important;
+  color: inherit !important;
+  border-color: inherit !important;
+}
+
+/* Estilos base para elementos comunes */
+.theme-bg-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--bg-gradient-start),
+    var(--bg-gradient-middle),
+    var(--bg-gradient-end)
+  );
+  min-height: 100vh;
+}
+
+.theme-card-bg {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .theme-text-primary {
@@ -83,60 +153,765 @@ body {
   color: var(--text-secondary);
 }
 
-.theme-card {
-  background-color: var(--card-bg);
+.theme-card-small {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.theme-card-large {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.theme-card-border {
   border-color: var(--card-border);
 }
 
-.theme-header {
-  background-color: var(--header-bg);
-  border-color: var(--header-border);
+.theme-divider {
+  border-color: var(--border-color);
 }
 
+/* Header específico */
+.theme-header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Inputs y formularios */
 .theme-input {
-  background-color: var(--theme-input-bg);
+  background: var(--theme-input-bg);
+  border: 1px solid var(--theme-border);
   color: var(--text-primary);
-  border-color: var(--theme-border);
+  transition: border-color 0.3s ease;
+}
+
+.theme-input:focus {
+  border-color: var(--theme-border-hover);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .theme-input::placeholder {
   color: var(--theme-placeholder);
 }
 
-.theme-border {
-  border-color: var(--theme-border);
+/* Botones y elementos interactivos */
+.theme-button {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
 }
 
-.theme-card-hover:hover {
-  background-color: var(--theme-card-hover);
-  border-color: var(--theme-border-hover);
+.theme-button:hover {
+  background: var(--theme-card-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.theme-menu-hover:hover {
-  background-color: rgba(107, 114, 128, 0.1);
+/* Elementos de navegación */
+.theme-nav-item {
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.theme-nav-item:hover {
   color: var(--text-primary);
 }
 
-.dark .theme-menu-hover:hover {
-  background-color: rgba(71, 85, 105, 0.5);
-  color: #ffffff;
+.theme-nav-item.active {
+  color: #3b82f6;
 }
 
-/* Transiciones suaves */
+/* Cards y contenedores */
+.theme-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.theme-card:hover {
+  background: var(--theme-card-hover);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Sombras y efectos */
+.theme-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.theme-shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbars personalizados */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Animaciones suaves */
 * {
-  transition: background-color 0.2s ease, color 0.2s ease,
-    border-color 0.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
 }
 
-/* Prevenir que el navegador aplique tema automático del sistema */
-@media (prefers-color-scheme: dark) {
-  :root:not(.dark) {
-    color-scheme: light;
+/* Estados de carga */
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--card-bg) 25%,
+    var(--theme-card-hover) 50%,
+    var(--card-bg) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
   }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Componentes específicos del progreso */
+.progress-bar {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 9999px;
+  height: 8px;
+  transition: width 0.5s ease;
+}
+
+.progress-container {
+  background: var(--bg-secondary);
+  border-radius: 9999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+/* Estados de notificaciones */
+.notification-success {
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+.notification-error {
+  background: linear-gradient(135deg, #fef2f2, #fecaca);
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+}
+
+.notification-warning {
+  background: linear-gradient(135deg, #fffbeb, #fed7aa);
+  border: 1px solid #fdba74;
+  color: #92400e;
+}
+
+/* Responsive design mejorado */
+@media (max-width: 768px) {
+  .theme-card {
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .theme-text-primary {
+    font-size: 14px;
+  }
+
+  .theme-text-secondary {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .theme-bg-gradient {
+    padding: 8px;
+  }
+
+  .theme-card-small {
+    padding: 12px;
+    border-radius: 8px;
+  }
+}
+
+/* Estados de enfoque mejorados para accesibilidad */
+.theme-focus:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Efectos hover suaves */
+.theme-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+/* Eliminación de autocomplete styles del navegador */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--theme-input-bg) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Media queries para tema preferido - DESHABILITADO COMPLETAMENTE */
+@media (prefers-color-scheme: dark) {
+  /* NO hacer nada - ignorar completamente las preferencias del sistema */
 }
 
 @media (prefers-color-scheme: light) {
-  .dark {
-    color-scheme: dark;
+  /* NO hacer nada - ignorar completamente las preferencias del sistema */
+}
+
+/* ============================================= */
+/* ESTILOS MEJORADOS ESPECÍFICOS PARA MODO OSCURO */
+/* ============================================= */
+
+.dark .theme-input {
+  background: var(--theme-input-bg);
+  border: 1px solid var(--theme-border);
+  color: var(--text-primary);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .theme-input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+  background: rgba(45, 55, 72, 0.9);
+}
+
+.dark .theme-input::placeholder {
+  color: var(--theme-placeholder);
+  opacity: 0.7;
+}
+
+/* Botones mejorados para modo oscuro */
+.dark .theme-button {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.dark .theme-button:hover {
+  background: var(--theme-card-hover);
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 16px var(--shadow-medium);
+  transform: translateY(-1px);
+}
+
+/* Cards con mejor apariencia en modo oscuro */
+.dark .theme-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 12px var(--shadow-light);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.dark .theme-card:hover {
+  background: var(--theme-card-hover);
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 32px var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+/* Header mejorado para modo oscuro */
+.dark .theme-header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+  box-shadow: 0 2px 16px var(--shadow-light);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* Navegación mejorada */
+.dark .theme-nav-item {
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.dark .theme-nav-item:hover {
+  color: var(--accent-primary);
+  text-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+}
+
+.dark .theme-nav-item.active {
+  color: var(--accent-primary);
+  text-shadow: 0 0 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Scrollbars elegantes para modo oscuro */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    var(--accent-secondary),
+    var(--accent-primary)
+  );
+  box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Estados de notificación optimizados para modo oscuro */
+.dark .notification-success {
+  background: linear-gradient(
+    135deg,
+    rgba(72, 187, 120, 0.2),
+    rgba(72, 187, 120, 0.1)
+  );
+  border: 1px solid rgba(72, 187, 120, 0.3);
+  color: #68d391;
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.1);
+}
+
+.dark .notification-error {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 101, 101, 0.2),
+    rgba(245, 101, 101, 0.1)
+  );
+  border: 1px solid rgba(245, 101, 101, 0.3);
+  color: #fc8181;
+  box-shadow: 0 4px 12px rgba(245, 101, 101, 0.1);
+}
+
+.dark .notification-warning {
+  background: linear-gradient(
+    135deg,
+    rgba(237, 137, 54, 0.2),
+    rgba(237, 137, 54, 0.1)
+  );
+  border: 1px solid rgba(237, 137, 54, 0.3);
+  color: #f6ad55;
+  box-shadow: 0 4px 12px rgba(237, 137, 54, 0.1);
+}
+
+/* Barra de progreso elegante para modo oscuro */
+.dark .progress-bar {
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.dark .progress-container {
+  background: var(--bg-secondary);
+  box-shadow: inset 0 2px 4px var(--shadow-light);
+}
+
+/* Estados de carga optimizados */
+.dark .loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--card-bg) 25%,
+    rgba(102, 126, 234, 0.1) 50%,
+    var(--card-bg) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer-dark 1.5s infinite;
+}
+
+@keyframes loading-shimmer-dark {
+  0% {
+    background-position: -200% 0;
   }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Efectos de glow suaves para elementos interactivos */
+.dark .theme-focus:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 16px rgba(102, 126, 234, 0.3);
+}
+
+.dark .theme-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px var(--shadow-medium);
+  transition: all 0.2s ease;
+}
+
+/* Mejoras en autocomplete para modo oscuro */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark textarea:-webkit-autofill,
+.dark textarea:-webkit-autofill:hover,
+.dark textarea:-webkit-autofill:focus,
+.dark select:-webkit-autofill,
+.dark select:-webkit-autofill:hover,
+.dark select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--theme-input-bg) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Gradientes de fondo mejorados para modo oscuro */
+.dark .theme-bg-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--bg-gradient-start) 0%,
+    var(--bg-gradient-middle) 50%,
+    var(--bg-gradient-end) 100%
+  );
+  position: relative;
+}
+
+.dark .theme-bg-gradient::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(102, 126, 234, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(118, 75, 162, 0.1) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Solo aplicar z-index específico a elementos que lo necesiten, no a todos */
+.dark .theme-bg-gradient > .content-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Asegurar que los elementos de la página no interfieran con el header */
+.dark .theme-card-large,
+.dark .theme-card-small {
+  position: relative;
+  z-index: 0;
+}
+
+/* Asegurar que el contenido principal esté por debajo del header */
+.dark [class*="pt-16"],
+.dark [class*="pt-20"] {
+  position: relative;
+  z-index: 0;
+}
+
+/* Estilos específicos para elementos de la aplicación en modo oscuro */
+.dark .bg-blue-50 {
+  background-color: rgba(102, 126, 234, 0.1) !important;
+}
+
+.dark .bg-purple-50 {
+  background-color: rgba(118, 75, 162, 0.1) !important;
+}
+
+.dark .bg-emerald-50 {
+  background-color: rgba(72, 187, 120, 0.1) !important;
+}
+
+.dark .bg-orange-50 {
+  background-color: rgba(237, 137, 54, 0.1) !important;
+}
+
+.dark .bg-amber-50 {
+  background-color: rgba(251, 191, 36, 0.1) !important;
+}
+
+.dark .text-blue-600 {
+  color: #7c93f0 !important;
+}
+
+.dark .text-blue-700 {
+  color: #8fa5f3 !important;
+}
+
+.dark .text-purple-700 {
+  color: #a584c7 !important;
+}
+
+.dark .text-emerald-700 {
+  color: #6bb882 !important;
+}
+
+.dark .text-orange-700 {
+  color: #f0a96b !important;
+}
+
+.dark .text-amber-800 {
+  color: #fbbf5e !important;
+}
+
+.dark .border-blue-200 {
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+.dark .border-amber-200 {
+  border-color: rgba(251, 191, 36, 0.3) !important;
+}
+
+/* Arreglo específico para botones de ciclos - Hover más oscuro */
+.dark .theme-card.theme-card-hover:hover,
+.dark button.theme-card.theme-card-hover:hover {
+  background: rgba(16, 22, 35, 0.9) !important; /* Hover más oscuro */
+  border-color: var(--accent-primary) !important;
+  color: var(--text-primary) !important; /* Asegurar texto visible */
+}
+
+/* Botones específicos de ciclos con clase group */
+.dark .group.theme-card.theme-card-hover:hover {
+  background: rgba(16, 22, 35, 0.9) !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 8px 32px var(--shadow-medium) !important;
+}
+
+/* Estados de hover para botones con múltiples clases theme */
+.dark button.theme-card:hover {
+  background: rgba(16, 22, 35, 0.9) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ============================================= */
+/* MEJORAS ESPECÍFICAS PARA PÁGINA PROGRESO */
+/* ============================================= */
+
+/* Inputs de checkbox mejorados para modo oscuro */
+.dark input[type="checkbox"] {
+  background: var(--theme-input-bg) !important;
+  border: 1px solid var(--theme-border) !important;
+  color: var(--text-primary) !important;
+}
+
+.dark input[type="checkbox"]:checked {
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.dark input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Hover states específicos para elementos de progreso */
+.dark .hover\:bg-gray-50:hover {
+  background: rgba(26, 32, 44, 0.6) !important;
+}
+
+.dark .hover\:bg-blue-50:hover {
+  background: rgba(102, 126, 234, 0.1) !important;
+}
+
+/* Elementos de progreso específicos */
+.dark .bg-gray-100 {
+  background: var(--theme-input-bg) !important;
+}
+
+.dark .border-gray-300 {
+  border-color: var(--theme-border) !important;
+}
+
+.dark .text-blue-600 {
+  color: #7c93f0 !important;
+}
+
+.dark .text-green-700 {
+  color: #6bb882 !important;
+}
+
+.dark .text-green-500 {
+  color: #68d391 !important;
+}
+
+/* Estilos específicos para Login en modo oscuro */
+.dark .bg-blue-50 {
+  background: rgba(102, 126, 234, 0.1) !important;
+  border-color: rgba(102, 126, 234, 0.2) !important;
+}
+
+.dark .border-blue-200 {
+  border-color: rgba(102, 126, 234, 0.2) !important;
+}
+
+.dark .text-blue-800 {
+  color: #7c93f0 !important;
+}
+
+.dark .text-blue-700 {
+  color: #8ca5f1 !important;
+}
+
+.dark .bg-red-50 {
+  background: rgba(245, 101, 101, 0.1) !important;
+  border-color: rgba(245, 101, 101, 0.2) !important;
+}
+
+.dark .border-red-200 {
+  border-color: rgba(245, 101, 101, 0.2) !important;
+}
+
+.dark .text-red-800 {
+  color: #f56565 !important;
+}
+
+.dark .text-red-700 {
+  color: #fc8181 !important;
+}
+
+.dark .text-red-600 {
+  color: #f56565 !important;
+}
+
+/* Botón de Google en modo oscuro */
+.dark .bg-white {
+  background: var(--theme-card-bg) !important;
+  color: var(--theme-text-primary) !important;
+}
+
+.dark .hover\:bg-gray-50:hover {
+  background: var(--theme-card-hover) !important;
+}
+
+.dark .border-gray-200 {
+  border-color: var(--theme-border) !important;
+}
+
+.dark .hover\:border-gray-300:hover {
+  border-color: var(--theme-border-hover) !important;
+}
+
+.dark .text-gray-700 {
+  color: var(--theme-text-primary) !important;
+}
+
+/* Badges de estado en modo oscuro */
+.dark .bg-green-100 {
+  background: rgba(72, 187, 120, 0.2) !important;
+}
+
+.dark .text-green-800 {
+  color: #68d391 !important;
+}
+
+.dark .bg-red-100 {
+  background: rgba(245, 101, 101, 0.2) !important;
+}
+
+.dark .text-red-800 {
+  color: #f56565 !important;
+}
+
+/* Colores específicos para información del curso */
+.dark .text-blue-600 {
+  color: #7c93f0 !important;
+}
+
+.dark .text-purple-600 {
+  color: #b794f6 !important;
+}
+
+.dark .text-emerald-600 {
+  color: #68d391 !important;
+}
+
+.dark .text-orange-600 {
+  color: #f6ad55 !important;
+}
+
+.dark .text-amber-500 {
+  color: #ffd60a !important;
+}
+
+/* Barras de progreso en modo oscuro */
+.dark .bg-gray-200 {
+  background: var(--theme-input-bg) !important;
+}
+
+/* Gradientes para barras de progreso */
+.dark .bg-gradient-to-r.from-blue-500.to-purple-600 {
+  background: linear-gradient(to right, #667eea, #764ba2) !important;
+}
+
+.dark .bg-gradient-to-r.from-green-500.to-emerald-600 {
+  background: linear-gradient(to right, #48bb78, #38b2ac) !important;
+}
+
+/* Iconos del header en modo oscuro */
+.dark .bg-gradient-to-r.from-blue-500.to-purple-600 {
+  background: linear-gradient(to right, #667eea, #764ba2) !important;
+}
+
+/* Fondos de íconos de estadísticas en modo oscuro */
+.dark .bg-blue-100 {
+  background: rgba(102, 126, 234, 0.15) !important;
+}
+
+.dark .bg-green-100 {
+  background: rgba(72, 187, 120, 0.15) !important;
+}
+
+.dark .bg-purple-100 {
+  background: rgba(139, 92, 246, 0.15) !important;
+}
+
+.dark .bg-orange-100 {
+  background: rgba(251, 146, 60, 0.15) !important;
 }

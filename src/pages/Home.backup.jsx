@@ -504,7 +504,7 @@ function Home() {
       default:
         return (
           <svg
-            className="w-5 h-5 text-blue-400 transition-colors duration-300 flex-shrink-0 dark:text-blue-300"
+            className="w-5 h-5 text-blue-400 transition-colors duration-300 flex-shrink-0"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -540,7 +540,7 @@ function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="min-h-screen theme-bg-gradient">
       <Header />
       
       {/* Main Container */}
@@ -574,50 +574,50 @@ function Home() {
 
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-slate-700/50 shadow-lg">
+                <div className="theme-card-bg backdrop-blur-sm rounded-2xl p-4 border theme-card-border shadow-lg">
                   <div className="flex items-center">
-                    <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg">
+                    <div className="p-2 bg-blue-100 rounded-lg">
                       <span className="text-2xl">📚</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Ciclos</p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">10</p>
+                      <p className="text-sm theme-text-secondary">Ciclos</p>
+                      <p className="text-xl font-bold theme-text-primary">10</p>
                     </div>
                   </div>
                 </div>
                 
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-slate-700/50 shadow-lg">
+                <div className="theme-card-bg backdrop-blur-sm rounded-2xl p-4 border theme-card-border shadow-lg">
                   <div className="flex items-center">
-                    <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg">
+                    <div className="p-2 bg-green-100 rounded-lg">
                       <span className="text-2xl">✅</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Activo</p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">Sí</p>
+                      <p className="text-sm theme-text-secondary">Activo</p>
+                      <p className="text-xl font-bold theme-text-primary">Sí</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-slate-700/50 shadow-lg">
+                <div className="theme-card-bg backdrop-blur-sm rounded-2xl p-4 border theme-card-border shadow-lg">
                   <div className="flex items-center">
-                    <div className="p-2 bg-purple-100 dark:bg-purple-900/50 rounded-lg">
+                    <div className="p-2 bg-purple-100 rounded-lg">
                       <span className="text-2xl">🎯</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Progreso</p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">85%</p>
+                      <p className="text-sm theme-text-secondary">Progreso</p>
+                      <p className="text-xl font-bold theme-text-primary">85%</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-slate-700/50 shadow-lg">
+                <div className="theme-card-bg backdrop-blur-sm rounded-2xl p-4 border theme-card-border shadow-lg">
                   <div className="flex items-center">
-                    <div className="p-2 bg-orange-100 dark:bg-orange-900/50 rounded-lg">
+                    <div className="p-2 bg-orange-100 rounded-lg">
                       <span className="text-2xl">⭐</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Ranking</p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">Top 10</p>
+                      <p className="text-sm theme-text-secondary">Ranking</p>
+                      <p className="text-xl font-bold theme-text-primary">Top 10</p>
                     </div>
                   </div>
                 </div>
@@ -630,9 +630,9 @@ function Home() {
             
             {/* Sidebar - Ciclos */}
             <div className="lg:col-span-1">
-              <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl overflow-hidden sticky top-24">
-                <div className="p-6 border-b border-gray-200/50 dark:border-slate-700/50">
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
+              <div className="theme-card-bg backdrop-blur-sm rounded-3xl border theme-card-border shadow-xl overflow-hidden sticky top-24">
+                <div className="p-6 border-b border-gray-200/50">
+                  <h2 className="text-xl font-bold theme-text-primary flex items-center">
                     <span className="mr-3 text-2xl">🎓</span>
                     Ciclos Académicos
                   </h2>
@@ -650,13 +650,13 @@ function Home() {
                 /* Información del curso */
                 <div className="space-y-6">
                   {/* Course Header */}
-                  <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl p-8">
+                  <div className="theme-card-bg backdrop-blur-sm rounded-3xl border theme-card-border shadow-xl p-8">
                     <div className="flex items-start justify-between">
                       <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                        <h1 className="text-2xl md:text-3xl font-bold theme-text-primary mb-2">
                           {selectedCourse.nombre}
                         </h1>
-                        <p className="text-blue-600 dark:text-blue-400 font-medium">
+                        <p className="text-blue-600 font-medium">
                           {ciclosData[selectedCycle]?.nombre}
                         </p>
                       </div>
@@ -665,9 +665,9 @@ function Home() {
                           setSelectedCourse(null);
                           setSelectedCycle(null);
                         }}
-                        className="p-2 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors"
+                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
                       >
-                        <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 theme-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
@@ -680,7 +680,7 @@ function Home() {
                 /* Timeline de publicaciones */
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
+                    <h2 className="text-2xl font-bold theme-text-primary flex items-center">
                       <span className="mr-3 text-2xl">📰</span>
                       Noticias y Eventos
                     </h2>
@@ -887,7 +887,7 @@ function Home() {
                   <h1 className="hidden lg:block text-xl sm:text-2xl lg:text-3xl font-bold theme-text-primary mb-2 leading-tight">
                     {selectedCourse.nombre}
                   </h1>
-                  <p className="text-blue-600 dark:text-blue-400 text-xs lg:text-sm">
+                  <p className="text-blue-600 text-xs lg:text-sm">
                     {ciclosData[selectedCycle]?.nombre}
                   </p>
                 </div>
@@ -902,7 +902,7 @@ function Home() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 theme-text-primary">
                       {/* Docente Principal */}
                       <div className="mb-4 lg:mb-0">
-                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-2 text-xs lg:text-sm">
+                        <h3 className="font-medium text-blue-600 mb-2 text-xs lg:text-sm">
                           Docente Principal:
                         </h3>
                         <p className="mb-1 text-xs lg:text-sm font-medium">
@@ -925,7 +925,7 @@ function Home() {
 
                       {/* Docente Auxiliar */}
                       <div>
-                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-2 text-xs lg:text-sm">
+                        <h3 className="font-medium text-blue-600 mb-2 text-xs lg:text-sm">
                           Docente Auxiliar:
                         </h3>
                         <p className="mb-1 text-xs lg:text-sm font-medium">
@@ -949,7 +949,7 @@ function Home() {
 
                     {/* Horarios */}
                     <div className="mt-4 lg:mt-6">
-                      <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-3 text-xs lg:text-sm">
+                      <h3 className="font-medium text-blue-600 mb-3 text-xs lg:text-sm">
                         Horarios:
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
@@ -999,7 +999,7 @@ function Home() {
                     {/* Información Importante */}
                     {selectedCourse.info.importante && (
                       <div className="mt-4 lg:mt-6">
-                        <h3 className="font-medium text-blue-600 dark:text-blue-400 mb-3 text-xs lg:text-sm">
+                        <h3 className="font-medium text-blue-600 mb-3 text-xs lg:text-sm">
                           Información Importante:
                         </h3>
                         <ul className="space-y-2 lg:space-y-3">
@@ -1103,7 +1103,7 @@ function Home() {
                                           publication.id
                                         )
                                       }
-                                      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium mt-1 transition-colors cursor-pointer"
+                                      className="text-blue-600 hover:text-blue-800 text-sm font-medium mt-1 transition-colors cursor-pointer"
                                     >
                                       {isExpanded
                                         ? "Ver menos..."

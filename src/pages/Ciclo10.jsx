@@ -42,7 +42,7 @@ function Ciclo10() {
       <div className="flex-1 w-full px-4 md:px-8 py-8 flex items-start justify-center">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-8">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8">
               Ciclo 10
             </h1>
             <p className="theme-text-secondary text-base md:text-lg mb-8">

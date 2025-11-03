@@ -117,7 +117,7 @@ function Ciclo6() {
           <div className="text-center">
             {!showSistemasDigitalesLibros ? (
               <>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 dark:from-blue-400 dark:to-purple-400">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8">
                   Ciclo 6
                 </h1>
                 <p className="theme-text-secondary text-base md:text-lg mb-8">
@@ -158,7 +158,7 @@ function Ciclo6() {
               </>
             ) : (
               <>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 dark:from-blue-400 dark:to-purple-400">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8">
                   Sistemas Digitales y Arquitectura de Computadoras
                 </h1>
 
@@ -288,7 +288,7 @@ function Ciclo6() {
                             </svg>
                           ) : (
                             <svg
-                              className="w-5 h-5 text-blue-400 transition-colors duration-300 flex-shrink-0 dark:text-blue-300"
+                              className="w-5 h-5 text-blue-400 transition-colors duration-300 flex-shrink-0"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"

@@ -19,7 +19,7 @@ function Home() {
       id: 1,
       titulo: "Examen de Admisión 2025-II",
       descripcion:
-        "🙋‍♀️🙋‍♂️Atención postulante a la modalidad Ordinario del Examen de Admisión 2026-II.\n\n👉Ingresa a la página web: admision.unsch.edu.pe y sigue los pasos para tu inscripción.\n\n📅 Inscripción regular: Hasta el 31 de octubre\n📅 Inscripción extemporánea: Del 01 al 14 de noviembre\n\n#AdmisiónUnsch #modalidadordinario #Inscripciones",
+        "🙋‍♀️🙋‍♂️Atención postulante a la modalidad Ordinario del Examen de Admisión 2026-II.\n👉Ingresa a la página web: admision.unsch.edu.pe y sigue los pasos para tu inscripción.\n\n📅 Inscripción regular: Hasta el 31 de octubre\n📅 Inscripción extemporánea: Del 01 al 14 de noviembre\n\n#AdmisiónUnsch #modalidadordinario #Inscripciones",
       imagen: examenAdmisionImg,
       fecha: "Sábado 04 de agosto de 2025",
       hora: "18:09",
@@ -519,10 +519,10 @@ function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen theme-bg-gradient flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-          <div className="text-gray-900 dark:text-white text-sm font-medium">
+          <div className="theme-text-primary text-sm font-medium">
             Cargando...
           </div>
         </div>
@@ -535,7 +535,7 @@ function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="min-h-screen theme-main-bg">
       <Header />
 
       {/* Main Container */}
@@ -543,7 +543,7 @@ function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section - Solo visible cuando no hay curso seleccionado */}
           {!selectedCourse && (
-            <div className="mb-8">
+            <div className="mb-8 mt-8">
               {/* Welcome Card */}
               <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-8 mb-8 shadow-2xl">
                 <div className="absolute inset-0 bg-black/10"></div>
@@ -587,64 +587,52 @@ function Home() {
 
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-slate-700/50 shadow-lg">
+                <div className="theme-card-small rounded-2xl p-4 border shadow-lg">
                   <div className="flex items-center">
-                    <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg">
+                    <div className="p-3 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                       <span className="text-2xl">📚</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Ciclos
-                      </p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">
-                        10
-                      </p>
+                      <p className="text-sm theme-text-secondary">Ciclos</p>
+                      <p className="text-xl font-bold theme-text-primary">10</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-slate-700/50 shadow-lg">
+                <div className="theme-card-small rounded-2xl p-4 border shadow-lg">
                   <div className="flex items-center">
-                    <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg">
+                    <div className="p-3 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <span className="text-2xl">✅</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Activo
-                      </p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">
-                        Sí
-                      </p>
+                      <p className="text-sm theme-text-secondary">Activo</p>
+                      <p className="text-xl font-bold theme-text-primary">Sí</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-slate-700/50 shadow-lg">
+                <div className="theme-card-small rounded-2xl p-4 border shadow-lg">
                   <div className="flex items-center">
-                    <div className="p-2 bg-purple-100 dark:bg-purple-900/50 rounded-lg">
+                    <div className="p-3 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                       <span className="text-2xl">🎯</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Progreso
-                      </p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">
+                      <p className="text-sm theme-text-secondary">Progreso</p>
+                      <p className="text-xl font-bold theme-text-primary">
                         85%
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-slate-700/50 shadow-lg">
+                <div className="theme-card-small rounded-2xl p-4 border shadow-lg">
                   <div className="flex items-center">
-                    <div className="p-2 bg-orange-100 dark:bg-orange-900/50 rounded-lg">
+                    <div className="p-3 w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
                       <span className="text-2xl">⭐</span>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Ranking
-                      </p>
-                      <p className="text-xl font-bold text-gray-900 dark:text-white">
+                      <p className="text-sm theme-text-secondary">Ranking</p>
+                      <p className="text-xl font-bold theme-text-primary">
                         Top 10
                       </p>
                     </div>
@@ -658,9 +646,9 @@ function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Sidebar - Ciclos */}
             <div className="lg:col-span-1">
-              <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl overflow-hidden sticky top-24 h-fit">
-                <div className="p-6 border-b border-gray-200/50 dark:border-slate-700/50">
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
+              <div className="theme-card-bg rounded-3xl border theme-card-border shadow-xl overflow-hidden sticky top-24 h-fit">
+                <div className="p-6 border-b theme-divider">
+                  <h2 className="text-xl font-bold theme-text-primary flex items-center">
                     <span className="mr-3 text-2xl">🎓</span>
                     Ciclos Académicos
                   </h2>
@@ -671,18 +659,18 @@ function Home() {
                     {Object.entries(ciclosData).map(([cycleId, cycleData]) => (
                       <div
                         key={cycleId}
-                        className="bg-white/50 dark:bg-slate-700/50 backdrop-blur-sm rounded-2xl border border-white/30 dark:border-slate-600/30 overflow-hidden"
+                        className="theme-card-small backdrop-blur-sm rounded-2xl border overflow-hidden"
                       >
                         {/* Cycle Button */}
                         <button
-                          className="w-full text-left px-4 py-3 font-medium transition-all duration-300 flex items-center justify-between text-sm hover:bg-blue-50 dark:hover:bg-slate-600/50 cursor-pointer"
+                          className="w-full text-left px-4 py-3 font-medium transition-all duration-300 flex items-center justify-between text-sm hover:bg-blue-400 cursor-pointer"
                           onClick={() => toggleCycle(parseInt(cycleId))}
                         >
-                          <span className="text-gray-900 dark:text-white">
+                          <span className="theme-text-primary">
                             {cycleData.nombre}
                           </span>
                           <svg
-                            className={`w-5 h-5 transition-transform duration-300 text-gray-600 dark:text-gray-400 ${
+                            className={`w-5 h-5 transition-transform duration-300 theme-text-secondary ${
                               expandedCycles.has(parseInt(cycleId))
                                 ? "rotate-180"
                                 : ""
@@ -700,14 +688,14 @@ function Home() {
 
                         {/* Courses List */}
                         {expandedCycles.has(parseInt(cycleId)) && (
-                          <div className="border-t border-gray-200/50 dark:border-slate-600/50">
+                          <div className="border-t theme-divider">
                             {cycleData.cursos.map((curso) => (
                               <button
                                 key={curso.id}
                                 className={`w-full text-left px-6 py-2.5 text-sm transition-all duration-300 cursor-pointer ${
                                   selectedCourse?.id === curso.id
                                     ? "bg-blue-500 text-white font-medium"
-                                    : "text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-600/50"
+                                    : "theme-text-primary hover:bg-blue-400"
                                 }`}
                                 onClick={() =>
                                   selectCourse(parseInt(cycleId), curso)
@@ -729,15 +717,15 @@ function Home() {
             <div className="lg:col-span-2">
               {selectedCourse ? (
                 /* Información del curso */
-                <div className="space-y-6">
+                <div className="space-y-6 mt-4">
                   {/* Course Header */}
-                  <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl p-8">
+                  <div className="theme-card-large rounded-3xl border shadow-xl p-8">
                     <div className="flex items-start justify-between">
                       <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                        <h1 className="text-2xl md:text-3xl font-bold theme-text-primary mb-2">
                           {selectedCourse.nombre}
                         </h1>
-                        <p className="text-blue-600 dark:text-blue-400 font-medium">
+                        <p className="text-blue-600 font-medium">
                           {ciclosData[selectedCycle]?.nombre}
                         </p>
                       </div>
@@ -746,10 +734,10 @@ function Home() {
                           setSelectedCourse(null);
                           setSelectedCycle(null);
                         }}
-                        className="p-2 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors cursor-pointer"
+                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer"
                       >
                         <svg
-                          className="w-5 h-5 text-gray-600 dark:text-gray-400"
+                          className="w-5 h-5 theme-text-secondary"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -767,30 +755,31 @@ function Home() {
 
                   {/* Course Information */}
                   {selectedCourse.info && (
-                    <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl p-8">
-                      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <div className="theme-card-large backdrop-blur-sm rounded-3xl border shadow-xl p-8">
+                      <h2 className="text-xl font-bold theme-text-primary mb-6 flex items-center">
                         <span className="mr-3 text-2xl">📚</span>
                         Información del Curso
                       </h2>
 
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         {/* Docente Principal */}
-                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-2xl p-6">
-                          <h3 className="font-bold text-blue-700 dark:text-blue-300 mb-3">
+                        <div className="theme-card-small rounded-2xl p-6 border theme-card-border">
+                          <h3 className="font-bold text-blue-600 mb-3 flex items-center">
+                            <span className="mr-2 text-lg">👨‍🏫</span>
                             Docente Principal
                           </h3>
-                          <p className="font-semibold text-gray-900 dark:text-white mb-1">
+                          <p className="font-semibold theme-text-primary mb-1">
                             {selectedCourse.info.docente}
                           </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                          <p className="text-sm theme-text-secondary mb-2">
                             {selectedCourse.info.correoDocente}
                           </p>
                           <div className="flex items-center gap-2">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">
+                            <span className="text-sm theme-text-secondary">
                               {selectedCourse.info.celularDocente}
                             </span>
                             {selectedCourse.info.whatsappDocente && (
-                              <span className="text-xs bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-1 rounded-full">
+                              <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
                                 WhatsApp
                               </span>
                             )}
@@ -798,22 +787,23 @@ function Home() {
                         </div>
 
                         {/* Docente Auxiliar */}
-                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-2xl p-6">
-                          <h3 className="font-bold text-purple-700 dark:text-purple-300 mb-3">
+                        <div className="theme-card-small rounded-2xl p-6 border theme-card-border">
+                          <h3 className="font-bold text-purple-600 mb-3 flex items-center">
+                            <span className="mr-2 text-lg">👩‍🏫</span>
                             Docente Auxiliar
                           </h3>
-                          <p className="font-semibold text-gray-900 dark:text-white mb-1">
+                          <p className="font-semibold theme-text-primary mb-1">
                             {selectedCourse.info.docenteAuxiliar}
                           </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                          <p className="text-sm theme-text-secondary mb-2">
                             {selectedCourse.info.correoDocenteAuxiliar}
                           </p>
                           <div className="flex items-center gap-2">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">
+                            <span className="text-sm theme-text-secondary">
                               {selectedCourse.info.celularDocenteAuxiliar}
                             </span>
                             {!selectedCourse.info.whatsappDocenteAuxiliar && (
-                              <span className="text-xs bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 px-2 py-1 rounded-full">
+                              <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">
                                 Solo llamadas
                               </span>
                             )}
@@ -823,33 +813,35 @@ function Home() {
 
                       {/* Horarios */}
                       <div className="mt-8">
-                        <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                        <h3 className="font-bold theme-text-primary mb-4 flex items-center">
                           <span className="mr-2 text-lg">🕒</span>
                           Horarios
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 rounded-2xl p-4">
-                            <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-2">
+                          <div className="theme-card-small rounded-2xl p-4 border theme-card-border">
+                            <h4 className="font-bold text-emerald-600 mb-2 flex items-center">
+                              <span className="mr-2 text-sm">🅰️</span>
                               Grupo A
                             </h4>
-                            <p className="text-sm text-gray-700 dark:text-gray-300 mb-1">
+                            <p className="text-sm theme-text-primary mb-1">
                               <span className="font-medium">Teoría:</span>{" "}
                               {selectedCourse.info.horarioA.teoria}
                             </p>
-                            <p className="text-sm text-gray-700 dark:text-gray-300">
+                            <p className="text-sm theme-text-primary">
                               <span className="font-medium">Práctica:</span>{" "}
                               {selectedCourse.info.horarioA.practica}
                             </p>
                           </div>
-                          <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-2xl p-4">
-                            <h4 className="font-bold text-orange-700 dark:text-orange-300 mb-2">
+                          <div className="theme-card-small rounded-2xl p-4 border theme-card-border">
+                            <h4 className="font-bold text-orange-600 mb-2 flex items-center">
+                              <span className="mr-2 text-sm">🅱️</span>
                               Grupo B
                             </h4>
-                            <p className="text-sm text-gray-700 dark:text-gray-300 mb-1">
+                            <p className="text-sm theme-text-primary mb-1">
                               <span className="font-medium">Teoría:</span>{" "}
                               {selectedCourse.info.horarioB.teoria}
                             </p>
-                            <p className="text-sm text-gray-700 dark:text-gray-300">
+                            <p className="text-sm theme-text-primary">
                               <span className="font-medium">Práctica:</span>{" "}
                               {selectedCourse.info.horarioB.practica}
                             </p>
@@ -860,19 +852,19 @@ function Home() {
                       {/* Información Importante */}
                       {selectedCourse.info.importante && (
                         <div className="mt-8">
-                          <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                          <h3 className="font-bold theme-text-primary mb-4 flex items-center">
                             <span className="mr-2 text-lg">⚠️</span>
                             Información Importante
                           </h3>
-                          <div className="bg-amber-50 dark:bg-amber-900/20 rounded-2xl p-4">
+                          <div className="theme-card-small rounded-2xl p-4 border theme-card-border">
                             <ul className="space-y-2">
                               {selectedCourse.info.importante.map(
                                 (item, index) => (
                                   <li
                                     key={index}
-                                    className="text-sm text-amber-800 dark:text-amber-200 flex items-start"
+                                    className="text-sm theme-text-primary flex items-start"
                                   >
-                                    <span className="text-amber-600 dark:text-amber-400 mr-2 mt-0.5">
+                                    <span className="text-amber-500 mr-2 mt-0.5 font-bold">
                                       •
                                     </span>
                                     <span>{item}</span>
@@ -889,8 +881,8 @@ function Home() {
                   {/* Materials */}
                   {selectedCourse.materiales &&
                   selectedCourse.materiales.length > 0 ? (
-                    <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl p-8">
-                      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <div className="theme-card-bg backdrop-blur-sm rounded-3xl border theme-card-border shadow-xl p-8">
+                      <h2 className="text-xl font-bold theme-text-primary mb-6 flex items-center">
                         <span className="mr-3 text-2xl">📁</span>
                         Materiales del Curso
                       </h2>
@@ -899,13 +891,13 @@ function Home() {
                           <button
                             key={index}
                             onClick={() => handleMaterialClick(material.url)}
-                            className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-700/50 rounded-2xl p-4 hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-800/30 dark:hover:to-indigo-800/30 transition-all duration-300 hover:shadow-lg text-left cursor-pointer"
+                            className="theme-card-small border theme-card-border rounded-2xl p-4 theme-card-hover transition-all duration-300 hover:shadow-lg text-left cursor-pointer"
                           >
                             <div className="flex items-center space-x-3">
                               <div className="flex-shrink-0">
                                 {getIconForMaterial(material.tipo)}
                               </div>
-                              <span className="text-gray-900 dark:text-white font-medium text-sm">
+                              <span className="theme-text-primary font-medium text-sm">
                                 {material.titulo}
                               </span>
                             </div>
@@ -914,12 +906,12 @@ function Home() {
                       </div>
                     </div>
                   ) : (
-                    <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl p-8 text-center">
+                    <div className="theme-card-bg backdrop-blur-sm rounded-3xl border theme-card-border shadow-xl p-8 text-center">
                       <div className="text-6xl mb-4">📚</div>
-                      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                      <h2 className="text-xl font-bold theme-text-primary mb-2">
                         Materiales próximamente
                       </h2>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="theme-text-secondary">
                         Los materiales para este curso se agregarán pronto.
                       </p>
                     </div>
@@ -929,7 +921,7 @@ function Home() {
                 /* Timeline de publicaciones */
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
+                    <h2 className="text-2xl font-bold theme-text-primary flex items-center">
                       <span className="mr-3 text-2xl">📰</span>
                       Noticias y Eventos
                     </h2>
@@ -939,14 +931,14 @@ function Home() {
                     {timelinePublications.map((publication) => (
                       <div
                         key={publication.id}
-                        className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-white/20 dark:border-slate-700/50 shadow-xl overflow-hidden"
+                        className="theme-card-bg rounded-3xl border theme-card-border shadow-xl overflow-hidden"
                       >
                         {/* Header de la publicación */}
-                        <div className="p-6 border-b border-gray-200/50 dark:border-slate-700/50">
-                          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 text-center">
+                        <div className="p-6 border-b theme-divider">
+                          <h3 className="text-lg font-bold theme-text-primary mb-4 text-center">
                             {publication.titulo}
                           </h3>
-                          <div className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                          <div className="theme-text-primary text-sm leading-relaxed">
                             {(() => {
                               const isExpanded = expandedPublications.has(
                                 publication.id
@@ -970,7 +962,7 @@ function Home() {
                                           publication.id
                                         )
                                       }
-                                      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium mt-2 transition-colors cursor-pointer"
+                                      className="text-blue-600 hover:text-blue-800 text-sm font-medium mt-2 transition-colors cursor-pointer"
                                     >
                                       {isExpanded
                                         ? "Ver menos..."
@@ -994,7 +986,7 @@ function Home() {
 
                         {/* Fecha de la publicación */}
                         <div className="p-6">
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="text-sm theme-text-secondary">
                             {publication.fecha} • {publication.hora}
                           </p>
                         </div>
