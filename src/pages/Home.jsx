@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
+import { useUserProgress } from "../hooks/useUserProgress";
 import Header from "../components/Header";
 import examenAdmisionImg from "../assets/examen_admision.jpg";
 import carrosAlegoricosImg from "../assets/carros_alegoricos.png";
@@ -8,6 +9,14 @@ import carrosAlegoricosImg from "../assets/carros_alegoricos.png";
 function Home() {
   const { user, loading } = useAuth();
   const { isDark } = useTheme();
+  const {
+    progress,
+    loading: progressLoading,
+    isMaterialCompleted,
+    toggleMaterialProgress,
+    getCourseProgress,
+    getOverallProgress,
+  } = useUserProgress();
   const [selectedCycle, setSelectedCycle] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [expandedCycles, setExpandedCycles] = useState(new Set());
@@ -646,15 +655,15 @@ function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Sidebar - Ciclos */}
             <div className="lg:col-span-1">
-              <div className="theme-card-bg rounded-3xl border theme-card-border shadow-xl overflow-hidden sticky top-24 h-fit">
-                <div className="p-6 border-b theme-divider">
+              <div className="theme-card-bg rounded-3xl border theme-card-border shadow-xl overflow-hidden sticky top-24 max-h-[calc(100vh-7rem)]">
+                <div className="p-6 border-b theme-divider flex-shrink-0">
                   <h2 className="text-xl font-bold theme-text-primary flex items-center">
                     <span className="mr-3 text-2xl">🎓</span>
                     Ciclos Académicos
                   </h2>
                 </div>
 
-                <div className="p-4">
+                <div className="p-4 overflow-y-auto flex-1 max-h-[calc(100vh-14rem)]">
                   <div className="space-y-3">
                     {Object.entries(ciclosData).map(([cycleId, cycleData]) => (
                       <div
@@ -708,6 +717,56 @@ function Home() {
                         )}
                       </div>
                     ))}
+                  </div>
+
+                  {/* Overall Progress Summary */}
+                  <div className="mt-6 pt-6 border-t theme-divider">
+                    {(() => {
+                      const overallProgress = getOverallProgress();
+                      const { completed, total, percentage } = overallProgress;
+
+                      return (
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold theme-text-primary flex items-center">
+                            <span className="mr-2 text-xl">🎯</span>
+                            Progreso General
+                          </h3>
+
+                          <div className="space-y-3">
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="theme-text-secondary">
+                                Materiales completados
+                              </span>
+                              <span className="font-medium theme-text-primary">
+                                {completed} / {total}
+                              </span>
+                            </div>
+
+                            <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-1000 ease-out"
+                                style={{ width: `${percentage}%` }}
+                              />
+                            </div>
+
+                            <div className="text-center">
+                              <span className="text-2xl font-bold text-transparent bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text">
+                                {percentage}%
+                              </span>
+                            </div>
+
+                            {percentage === 100 && (
+                              <div className="text-center py-2">
+                                <span className="text-2xl">🎉</span>
+                                <p className="text-xs font-medium text-green-600 dark:text-green-400 mt-1">
+                                  ¡Felicitaciones!
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
               </div>
@@ -887,23 +946,122 @@ function Home() {
                         Materiales del Curso
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {selectedCourse.materiales.map((material, index) => (
-                          <button
-                            key={index}
-                            onClick={() => handleMaterialClick(material.url)}
-                            className="theme-card-small border theme-card-border rounded-2xl p-4 theme-card-hover transition-all duration-300 hover:shadow-lg text-left cursor-pointer"
-                          >
-                            <div className="flex items-center space-x-3">
-                              <div className="flex-shrink-0">
-                                {getIconForMaterial(material.tipo)}
+                        {selectedCourse.materiales.map((material, index) => {
+                          const materialId = `${selectedCourse.id}-${index}`;
+                          const isCompleted = isMaterialCompleted(materialId);
+
+                          return (
+                            <div
+                              key={index}
+                              className={`theme-card-small border rounded-2xl p-4 transition-all duration-300 hover:shadow-lg ${
+                                isCompleted
+                                  ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700"
+                                  : "theme-card-border theme-card-hover"
+                              }`}
+                            >
+                              <div className="flex items-center space-x-3">
+                                {/* Checkbox */}
+                                <div className="flex-shrink-0">
+                                  <input
+                                    type="checkbox"
+                                    id={materialId}
+                                    checked={isCompleted}
+                                    onChange={() =>
+                                      toggleMaterialProgress(materialId)
+                                    }
+                                    disabled={progressLoading}
+                                    className="w-5 h-5 text-green-600 bg-transparent border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-green-500 focus:ring-2 transition-colors duration-200 disabled:opacity-50"
+                                  />
+                                </div>
+
+                                {/* Icon */}
+                                <div className="flex-shrink-0">
+                                  {getIconForMaterial(material.tipo)}
+                                </div>
+
+                                {/* Material title and link */}
+                                <div className="flex-1">
+                                  <button
+                                    onClick={() =>
+                                      handleMaterialClick(material.url)
+                                    }
+                                    className={`text-left w-full font-medium text-sm transition-colors duration-200 hover:text-blue-600 dark:hover:text-blue-400 ${
+                                      isCompleted
+                                        ? "text-green-700 dark:text-green-300 line-through"
+                                        : "theme-text-primary"
+                                    }`}
+                                  >
+                                    {material.titulo}
+                                  </button>
+                                </div>
+
+                                {/* Completion indicator */}
+                                {isCompleted && (
+                                  <div className="flex-shrink-0">
+                                    <svg
+                                      className="w-5 h-5 text-green-500"
+                                      fill="currentColor"
+                                      viewBox="0 0 20 20"
+                                    >
+                                      <path
+                                        fillRule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clipRule="evenodd"
+                                      />
+                                    </svg>
+                                  </div>
+                                )}
                               </div>
-                              <span className="theme-text-primary font-medium text-sm">
-                                {material.titulo}
-                              </span>
                             </div>
-                          </button>
-                        ))}
+                          );
+                        })}
                       </div>
+
+                      {/* Progress Statistics for Current Course */}
+                      {selectedCourse.materiales &&
+                        selectedCourse.materiales.length > 0 && (
+                          <div className="mt-6 pt-6 border-t theme-divider">
+                            {(() => {
+                              const courseProgress = getCourseProgress(
+                                selectedCourse.id
+                              );
+                              const completedCount = courseProgress.completed;
+                              const totalCount = courseProgress.total;
+                              const progressPercentage =
+                                courseProgress.percentage;
+
+                              return (
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center space-x-3">
+                                    <span className="text-lg">📊</span>
+                                    <span className="text-sm font-medium theme-text-primary">
+                                      Progreso del Curso
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center space-x-4">
+                                    <div className="text-sm theme-text-secondary">
+                                      {completedCount} de {totalCount}{" "}
+                                      completados
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                      <div className="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                        <div
+                                          className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500 ease-out"
+                                          style={{
+                                            width: `${progressPercentage}%`,
+                                          }}
+                                        />
+                                      </div>
+                                      <span className="text-sm font-semibold text-green-600 dark:text-green-400 min-w-[3rem] text-right">
+                                        {progressPercentage}%
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })()}
+                          </div>
+                        )}
                     </div>
                   ) : (
                     <div className="theme-card-bg backdrop-blur-sm rounded-3xl border theme-card-border shadow-xl p-8 text-center">
