@@ -834,7 +834,7 @@ function Progreso() {
                 </h2>
                 <button
                   onClick={() => setShowTaskForm(true)}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2 cursor-pointer"
                 >
                   <svg
                     className="w-4 h-4"

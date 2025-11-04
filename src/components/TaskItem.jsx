@@ -147,7 +147,7 @@ const TaskItem = ({
                 <button
                   onClick={() => onEdit(task)}
                   disabled={actionLoading || loading}
-                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  className="p-2 text-blue-600 hover:bg-blue-200 rounded-lg transition-colors cursor-pointer"
                   title="Editar tarea"
                 >
                   <svg
@@ -170,10 +170,10 @@ const TaskItem = ({
               <button
                 onClick={() => setShowConfirmDelete(true)}
                 disabled={actionLoading || loading}
-                className={`p-2 rounded-lg transition-colors ${
+                className={`p-2 rounded-lg cursor-pointer transition-colors ${
                   task.completed
-                    ? "text-gray-500 hover:bg-gray-50"
-                    : "text-red-600 hover:bg-red-50"
+                    ? "text-red-600 hover:bg-red-200"
+                    : "text-red-600 hover:bg-red-200"
                 }`}
                 title="Eliminar tarea"
               >
@@ -207,14 +207,14 @@ const TaskItem = ({
             <button
               onClick={handleDelete}
               disabled={actionLoading}
-              className="px-3 py-1 bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white text-sm rounded-md transition-colors"
+              className="px-3 py-1 bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white text-sm rounded-md transition-colors cursor-pointer"
             >
               {actionLoading ? "Eliminando..." : "Sí, eliminar"}
             </button>
             <button
               onClick={() => setShowConfirmDelete(false)}
               disabled={actionLoading}
-              className="px-3 py-1 border border-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-50 transition-colors"
+              className="px-3 py-1 border bg-gray-100 border-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-50 transition-colors cursor-pointer"
             >
               Cancelar
             </button>

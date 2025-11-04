@@ -49,7 +49,7 @@ const TaskForm = ({
   };
 
   const priorityOptions = [
-    { value: 1, label: "Baja", color: "bg-gray-100 text-gray-700" },
+    { value: 1, label: "Baja", color: "bg-gray-100 text-gray-700 " },
     { value: 2, label: "Media", color: "bg-yellow-100 text-yellow-700" },
     { value: 3, label: "Alta", color: "bg-red-100 text-red-700" },
   ];
@@ -133,7 +133,7 @@ const TaskForm = ({
         <button
           type="submit"
           disabled={loading}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+          className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer"
         >
           {loading && (
             <svg
@@ -163,7 +163,7 @@ const TaskForm = ({
           type="button"
           onClick={onCancel}
           disabled={loading}
-          className="px-4 py-2 border border-gray-300 rounded-lg font-medium theme-text-secondary hover:bg-gray-50 transition-colors"
+          className="px-4 py-2 border border-gray-300 rounded-lg font-medium theme-text-secondary hover:bg-gray-50 transition-colors cursor-pointer"
         >
           Cancelar
         </button>
