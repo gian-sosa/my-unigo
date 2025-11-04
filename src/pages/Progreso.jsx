@@ -15,6 +15,7 @@ function Progreso() {
     loading: progressLoading,
     toggleCourseApproval,
     error: progressError,
+    forceReload,
   } = useUserProgress();
 
   // Hook para manejar tareas
@@ -606,8 +607,53 @@ function Progreso() {
                   </p>
                 </div>
                 <div className="hidden md:block">
-                  <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <span className="text-4xl">🎯</span>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={forceReload}
+                      disabled={progressLoading}
+                      className="px-3 py-2 text-sm bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors disabled:opacity-50"
+                      title="Recargar progreso desde la base de datos"
+                    >
+                      {progressLoading ? (
+                        <svg
+                          className="animate-spin w-4 h-4"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                    <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                      <span className="text-4xl">🎯</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -719,6 +765,34 @@ function Progreso() {
                 Progreso por Ciclos
               </h2>
 
+              {/* Error de progreso */}
+              {progressError && (
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <div className="flex items-center gap-2 text-red-800">
+                    <svg
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span className="text-sm">
+                      Error al cargar progreso: {progressError}
+                    </span>
+                    <button
+                      onClick={forceReload}
+                      className="ml-2 px-2 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded transition-colors"
+                    >
+                      Reintentar
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <div className="space-y-3">
                 {progressData.ciclosProgreso.map((ciclo) => (
                   <div
@@ -781,10 +855,14 @@ function Progreso() {
                                   type="checkbox"
                                   id={curso.id}
                                   checked={approvedCourses.has(curso.id)}
-                                  onChange={() =>
-                                    toggleCourseApproval(curso.id)
-                                  }
-                                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 cursor-pointer"
+                                  onChange={() => {
+                                    console.log(
+                                      `📝 Checkbox clicked for course: ${curso.id}`
+                                    );
+                                    toggleCourseApproval(curso.id);
+                                  }}
+                                  disabled={progressLoading}
+                                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                 />
                                 <label
                                   htmlFor={curso.id}
@@ -792,7 +870,7 @@ function Progreso() {
                                     approvedCourses.has(curso.id)
                                       ? "text-green-700 font-medium"
                                       : "theme-text-primary"
-                                  }`}
+                                  } ${progressLoading ? "opacity-50" : ""}`}
                                 >
                                   {curso.nombre}
                                 </label>
