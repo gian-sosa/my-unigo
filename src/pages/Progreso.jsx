@@ -529,7 +529,7 @@ function Progreso() {
               <div className="flex items-center justify-between">
                 <div>
                   <h1 className="text-3xl md:text-4xl font-bold theme-text-primary mb-2">
-                    Mi Progreso Académico 📊
+                    Mi Progreso Académico 🎓
                   </h1>
                   <p className="theme-text-secondary text-lg">
                     Seguimiento de tu avance en Ingeniería de Sistemas

@@ -37,13 +37,10 @@ function Login() {
                 </svg>
               </div>
               <div>
-                <h4 className="font-semibold text-blue-800 text-sm">
-                  Correo Institucional Requerido
+                <h4 className="font-regular text-blue-800 text-sm ">
+                  Accede a tu plataforma académica usando tu cuenta de Google
+                  institucional UNSCH.
                 </h4>
-                <p className="text-blue-700 text-xs mt-1">
-                  Solo se permite el acceso con correo institucional de dominio{" "}
-                  <strong>@unsch.edu.pe</strong> mediante Google.
-                </p>
               </div>
             </div>
           </div>
@@ -77,20 +74,11 @@ function Login() {
 
           {/* Header */}
           <div className="flex flex-col items-center justify-center mb-8">
-            <div className="mb-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg mb-4">
-                <span className="text-3xl">🎓</span>
-              </div>
-            </div>
             <h1 className="font-bold text-3xl md:text-4xl text-center mb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               UniGo
             </h1>
-            <p className="font-semibold theme-text-primary text-lg mb-2">
-              ¡Bienvenido! 👋
-            </p>
-            <p className="theme-text-secondary text-sm text-center max-w-sm">
-              Accede a tu plataforma académica usando tu cuenta de Google
-              institucional UNSCH.
+            <p className="font-regular theme-text-primary text-lg mb-2">
+              ¡Te damos la bienvenida!
             </p>
           </div>
 
@@ -134,30 +122,6 @@ function Login() {
                 </>
               )}
             </button>
-
-            {/* Info adicional */}
-            <div className="text-center p-4 bg-gray-50 rounded-xl border">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <svg
-                  className="w-4 h-4 text-green-600"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span className="text-sm font-medium text-gray-700">
-                  Seguro y confiable
-                </span>
-              </div>
-              <p className="text-xs text-gray-600">
-                Tu información está protegida por las políticas de seguridad de
-                Google y UNSCH.
-              </p>
-            </div>
 
             {/* Footer */}
             <div className="text-center pt-4 border-t theme-divider">
