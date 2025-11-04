@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
-import { useUserProgress } from "../hooks/useUserProgressSimple";
+import { useUserProgress } from "../hooks/useUserProgress";
 import Header from "../components/Header";
 
 function Progreso() {
@@ -801,35 +801,6 @@ function Progreso() {
           </div>
         </div>
       </div>
-
-      {/* Debug Panel para Progreso (Temporal) */}
-      {user && (
-        <div className="fixed bottom-4 right-4 bg-black/80 text-white p-4 rounded-lg text-xs max-w-sm z-50">
-          <h3 className="font-bold text-blue-400 mb-2">🎓 Progreso Debug</h3>
-          <div className="space-y-1">
-            <div>👤 User ID: {user?.id?.slice(0, 8)}...</div>
-            <div>📊 Progress Loading: {progressLoading ? "🔄" : "✅"}</div>
-            <div>📈 Approved Count: {approvedCourses.size}</div>
-            <div>❌ Progress Error: {progressError || "None"}</div>
-            <div className="mt-2 max-h-20 overflow-y-auto">
-              <div className="text-blue-300">Approved Courses:</div>
-              <pre className="text-xs">
-                {JSON.stringify(Array.from(approvedCourses), null, 1)}
-              </pre>
-            </div>
-            <button
-              onClick={async () => {
-                console.log("🧪 Testing course approval toggle...");
-                const success = await toggleCourseApproval("test-course");
-                console.log("🧪 Result:", success);
-              }}
-              className="mt-2 px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 w-full"
-            >
-              🧪 Test Toggle
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

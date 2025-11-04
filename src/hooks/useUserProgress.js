@@ -4,226 +4,154 @@ import { supabase } from "../supabase/supabase.config";
 
 export const useUserProgress = () => {
   const { user } = useAuth();
-  const [progress, setProgress] = useState({});
+  const [approvedCourses, setApprovedCourses] = useState(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Cargar progreso del usuario
-  const loadUserProgress = async () => {
-    console.log("🔄 [useUserProgress] Cargando progreso del usuario...");
-    console.log("👤 [useUserProgress] Usuario actual:", user);
-
+  // Cargar cursos aprobados del usuario
+  const loadApprovedCourses = async () => {
     if (!user) {
-      console.log("❌ [useUserProgress] No hay usuario autenticado");
-      setProgress({});
+      setApprovedCourses(new Set());
       setLoading(false);
       return;
     }
 
     try {
       setLoading(true);
-      console.log("📡 [useUserProgress] Consultando Supabase...");
-
+      
       const { data, error } = await supabase
         .from("user_progress")
-        .select("*")
-        .eq("user_id", user.id);
-
-      console.log("📊 [useUserProgress] Respuesta de Supabase:");
-      console.log("  - Data:", data);
-      console.log("  - Error:", error);
+        .select("course_id")
+        .eq("user_id", user.id)
+        .eq("completed", true);
 
       if (error) {
-        console.error("❌ [useUserProgress] Error de Supabase:", error);
+        console.error("Error loading approved courses:", error);
         throw error;
       }
 
-      // Convertir array a objeto para fácil acceso
-      const progressMap = {};
-      data.forEach((item) => {
-        const key = `${item.course_id}-${item.material_id}`;
-        progressMap[key] = {
-          completed: item.completed,
-          completed_at: item.completed_at,
-          id: item.id,
-        };
-      });
-
-      console.log("✅ [useUserProgress] Progreso cargado:", progressMap);
-      setProgress(progressMap);
+      // Convertir array a Set para fácil acceso
+      const approvedSet = new Set(data.map((item) => item.course_id));
+      
+      setApprovedCourses(approvedSet);
       setError(null);
     } catch (err) {
-      console.error("💥 [useUserProgress] Error cargando progreso:", err);
+      console.error("Error loading user progress:", err);
       setError(err.message);
+
+      // Fallback a localStorage si hay error
+      console.log(
+        "🔄 [useUserProgress] Intentando cargar desde localStorage..."
+      );
+      try {
+        const stored = localStorage.getItem(`approvedCourses_${user.id}`);
+        if (stored) {
+          const localCourses = new Set(JSON.parse(stored));
+          setApprovedCourses(localCourses);
+        }
+      } catch (localError) {
+        console.error("Error loading from localStorage:", localError);
+      }
     } finally {
       setLoading(false);
-      console.log("🏁 [useUserProgress] Carga completada");
     }
   };
 
-  // Verificar si un material está completado
-  const isMaterialCompleted = (materialKey) => {
-    return progress[materialKey]?.completed || false;
-  };
-
-  // Marcar/desmarcar material como completado
-  const toggleMaterialProgress = async (materialKey) => {
-    console.log(
-      "🔄 [toggleMaterialProgress] Iniciando toggle para:",
-      materialKey
-    );
-    console.log("👤 [toggleMaterialProgress] Usuario:", user);
-
+  // Marcar/desmarcar curso como aprobado
+  const toggleCourseApproval = async (courseId) => {
     if (!user) {
-      console.log("❌ [toggleMaterialProgress] No hay usuario autenticado");
+      console.log("No user authenticated");
       return false;
     }
 
     try {
-      const existingProgress = progress[materialKey];
-      const isCurrentlyCompleted = existingProgress?.completed || false;
-      const newCompletedState = !isCurrentlyCompleted;
+      const isCurrentlyApproved = approvedCourses.has(courseId);
+      const newApprovalState = !isCurrentlyApproved;
 
-      console.log(
-        "📊 [toggleMaterialProgress] Estado actual:",
-        isCurrentlyCompleted
-      );
-      console.log(
-        "🔄 [toggleMaterialProgress] Nuevo estado:",
-        newCompletedState
-      );
-
-      // Extraer courseId y materialId del key
-      const [courseId, materialIndex] = materialKey.split("-");
-      console.log(
-        "📝 [toggleMaterialProgress] CourseId:",
-        courseId,
-        "MaterialIndex:",
-        materialIndex
-      );
-
-      if (existingProgress) {
-        // Actualizar progreso existente
-        console.log(
-          "🔄 [toggleMaterialProgress] Actualizando progreso existente, ID:",
-          existingProgress.id
-        );
-
+      if (isCurrentlyApproved) {
+        // Eliminar aprobación
         const { error } = await supabase
           .from("user_progress")
-          .update({
-            completed: newCompletedState,
-            completed_at: newCompletedState ? new Date().toISOString() : null,
-            updated_at: new Date().toISOString(),
-          })
-          .eq("id", existingProgress.id);
+          .delete()
+          .eq("user_id", user.id)
+          .eq("course_id", courseId);
 
         if (error) {
-          console.error(
-            "❌ [toggleMaterialProgress] Error actualizando:",
-            error
-          );
+          console.error("Error removing course approval:", error);
           throw error;
         }
-        console.log(
-          "✅ [toggleMaterialProgress] Progreso actualizado exitosamente"
-        );
       } else {
-        // Crear nuevo progreso
-        console.log("➕ [toggleMaterialProgress] Creando nuevo progreso");
-
+        // Agregar aprobación
         const insertData = {
           user_id: user.id,
           course_id: courseId,
-          cycle_id: 1, // Para simplificar, usamos un ciclo por defecto
-          material_id: materialIndex,
-          completed: newCompletedState,
-          completed_at: newCompletedState ? new Date().toISOString() : null,
+          cycle_id: 1, // Simplificado por ahora
+          material_id: "course", // Simplificado por ahora
+          completed: true,
         };
-
-        console.log(
-          "📝 [toggleMaterialProgress] Datos a insertar:",
-          insertData
-        );
 
         const { error } = await supabase
           .from("user_progress")
-          .insert(insertData);
+          .upsert(insertData, {
+            onConflict: "user_id,course_id,cycle_id,material_id",
+          });
 
         if (error) {
-          console.error("❌ [toggleMaterialProgress] Error insertando:", error);
+          console.error("Error adding course approval:", error);
           throw error;
         }
-        console.log(
-          "✅ [toggleMaterialProgress] Nuevo progreso creado exitosamente"
-        );
       }
 
       // Actualizar estado local
-      console.log("🔄 [toggleMaterialProgress] Actualizando estado local");
-      setProgress((prev) => ({
-        ...prev,
-        [materialKey]: {
-          completed: newCompletedState,
-          completed_at: newCompletedState ? new Date().toISOString() : null,
-          id: existingProgress?.id,
-        },
-      }));
+      const newApprovedCourses = new Set(approvedCourses);
+      if (newApprovalState) {
+        newApprovedCourses.add(courseId);
+      } else {
+        newApprovedCourses.delete(courseId);
+      }
 
-      console.log("🎉 [toggleMaterialProgress] Toggle completado exitosamente");
+      setApprovedCourses(newApprovedCourses);
+
+      // Guardar también en localStorage como backup
+      try {
+        localStorage.setItem(
+          `approvedCourses_${user.id}`,
+          JSON.stringify(Array.from(newApprovedCourses))
+        );
+      } catch (localError) {
+        console.warn("Error saving backup to localStorage:", localError);
+      }
+
       return true;
     } catch (err) {
-      console.error("💥 [toggleMaterialProgress] Error en toggle:", err);
+      console.error("Error toggling course approval:", err);
       setError(err.message);
       return false;
     }
   };
 
-  // Obtener estadísticas de progreso para un curso
-  const getCourseProgress = (courseId) => {
-    const courseProgressEntries = Object.entries(progress).filter(([key]) => {
-      const [cId] = key.split("-");
-      return cId === courseId;
-    });
-
-    const completed = courseProgressEntries.filter(
-      ([, data]) => data.completed
-    ).length;
-    const total = courseProgressEntries.length;
-
-    return {
-      completed,
-      total,
-      percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
-    };
+  // Verificar si un curso está aprobado
+  const isCourseApproved = (courseId) => {
+    return approvedCourses.has(courseId);
   };
 
-  // Obtener estadísticas generales del usuario
-  const getOverallProgress = () => {
-    const allEntries = Object.values(progress);
-    const completed = allEntries.filter((item) => item.completed).length;
-    const total = allEntries.length;
-
-    return {
-      completed,
-      total,
-      percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
-    };
+  // Obtener cursos aprobados como array
+  const getApprovedCoursesArray = () => {
+    return Array.from(approvedCourses);
   };
 
-  // Cargar progreso cuando el usuario cambie
+  // Cargar cursos cuando el usuario cambie
   useEffect(() => {
-    loadUserProgress();
+    loadApprovedCourses();
   }, [user]);
 
   return {
-    progress,
+    approvedCourses,
     loading,
     error,
-    isMaterialCompleted,
-    toggleMaterialProgress,
-    getCourseProgress,
-    getOverallProgress,
-    reloadProgress: loadUserProgress,
+    toggleCourseApproval,
+    isCourseApproved,
+    getApprovedCoursesArray,
+    loadApprovedCourses,
   };
 };
