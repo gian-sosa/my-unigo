@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { useUserProgress } from "../hooks/useUserProgress";
+import { useUserTasks } from "../hooks/useUserTasks";
 import Header from "../components/Header";
+import TaskForm from "../components/TaskForm";
+import TaskItem from "../components/TaskItem";
 
 function Progreso() {
   const { user, loading } = useAuth();
@@ -13,7 +16,26 @@ function Progreso() {
     toggleCourseApproval,
     error: progressError,
   } = useUserProgress();
+
+  // Hook para manejar tareas
+  const {
+    tasks,
+    loading: tasksLoading,
+    createTask,
+    updateTask,
+    deleteTask,
+    toggleTaskCompletion,
+    getTaskStats,
+    error: tasksError,
+  } = useUserTasks();
+
   const [expandedCycles, setExpandedCycles] = useState(new Set());
+
+  // Estados para el sistema de tareas
+  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
+  const [taskFormLoading, setTaskFormLoading] = useState(false);
+  const [filterCompleted, setFilterCompleted] = useState(false);
 
   // Función para cargar cursos aprobados desde localStorage
   const loadApprovedCourses = () => {
@@ -62,6 +84,54 @@ function Progreso() {
       "estadistica-aplicada", // Ciclo 5
     ]);
   };
+
+  // Funciones para manejar tareas
+  const handleCreateTask = async (taskData) => {
+    setTaskFormLoading(true);
+    const success = await createTask(taskData);
+    if (success) {
+      setShowTaskForm(false);
+    }
+    setTaskFormLoading(false);
+  };
+
+  const handleUpdateTask = async (taskData) => {
+    setTaskFormLoading(true);
+    const success = await updateTask(editingTask.id, taskData);
+    if (success) {
+      setEditingTask(null);
+      setShowTaskForm(false);
+    }
+    setTaskFormLoading(false);
+  };
+
+  const handleEditTask = (task) => {
+    setEditingTask(task);
+    setShowTaskForm(true);
+  };
+
+  const handleCancelTaskForm = () => {
+    setShowTaskForm(false);
+    setEditingTask(null);
+  };
+
+  const handleDeleteTask = async (taskId) => {
+    return await deleteTask(taskId);
+  };
+
+  const handleToggleTaskCompletion = async (taskId) => {
+    await toggleTaskCompletion(taskId);
+  };
+
+  // Filtrar tareas
+  const filteredTasks = tasks.filter((task) => {
+    if (filterCompleted === "completed") return task.completed;
+    if (filterCompleted === "pending") return !task.completed;
+    return true;
+  });
+
+  // Obtener estadísticas de tareas
+  const taskStats = getTaskStats();
   // Estructura completa de datos de todos los ciclos
   const ciclosData = {
     1: {
@@ -755,47 +825,195 @@ function Progreso() {
               </div>
             </div>
 
-            {/* Logros y Reconocimientos */}
+            {/* Tareas y Pendientes */}
             <div className="theme-card-large backdrop-blur-sm rounded-3xl border shadow-xl p-8">
-              <h2 className="text-xl font-bold theme-text-primary mb-6 flex items-center">
-                <span className="mr-3 text-2xl">🏆</span>
-                Logros y Reconocimientos
-              </h2>
-
-              <div className="space-y-4">
-                {progressData.logros.map((logro, index) => (
-                  <div
-                    key={index}
-                    className="p-4 theme-card-small rounded-xl border theme-card-border"
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold theme-text-primary flex items-center">
+                  <span className="mr-3 text-2xl">📌</span>
+                  Tareas y Pendientes
+                </h2>
+                <button
+                  onClick={() => setShowTaskForm(true)}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="text-2xl">{logro.icono}</div>
-                      <div>
-                        <div className="font-bold theme-text-primary mb-1">
-                          {logro.titulo}
-                        </div>
-                        <div className="text-sm theme-text-secondary">
-                          {logro.descripcion}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  Nueva Tarea
+                </button>
               </div>
 
-              {/* Meta del siguiente logro */}
-              <div className="mt-6 p-4 theme-card-small rounded-xl border theme-card-border">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">🎯</span>
-                  <div>
-                    <div className="font-bold text-blue-600">
-                      Próximo Objetivo
+              {/* Estadísticas de tareas */}
+              {taskStats.total > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <div className="p-3 theme-card-small rounded-lg border theme-card-border text-center">
+                    <div className="text-2xl font-bold text-blue-600">
+                      {taskStats.total}
+                    </div>
+                    <div className="text-sm theme-text-secondary">Total</div>
+                  </div>
+                  <div className="p-3 theme-card-small rounded-lg border theme-card-border text-center">
+                    <div className="text-2xl font-bold text-green-600">
+                      {taskStats.completed}
                     </div>
                     <div className="text-sm theme-text-secondary">
-                      Mantener promedio mayor a 16.0 este ciclo
+                      Completadas
+                    </div>
+                  </div>
+                  <div className="p-3 theme-card-small rounded-lg border theme-card-border text-center">
+                    <div className="text-2xl font-bold text-orange-600">
+                      {taskStats.pending}
+                    </div>
+                    <div className="text-sm theme-text-secondary">
+                      Pendientes
+                    </div>
+                  </div>
+                  <div className="p-3 theme-card-small rounded-lg border theme-card-border text-center">
+                    <div className="text-2xl font-bold text-red-600">
+                      {taskStats.highPriority}
+                    </div>
+                    <div className="text-sm theme-text-secondary">
+                      Alta Prioridad
                     </div>
                   </div>
                 </div>
+              )}
+
+              {/* Filtros */}
+              {taskStats.total > 0 && (
+                <div className="flex gap-2 mb-4">
+                  <button
+                    onClick={() => setFilterCompleted(false)}
+                    className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                      filterCompleted === false
+                        ? "bg-blue-100 text-blue-700"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    Todas
+                  </button>
+                  <button
+                    onClick={() => setFilterCompleted("pending")}
+                    className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                      filterCompleted === "pending"
+                        ? "bg-orange-100 text-orange-700"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    Pendientes
+                  </button>
+                  <button
+                    onClick={() => setFilterCompleted("completed")}
+                    className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                      filterCompleted === "completed"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    Completadas
+                  </button>
+                </div>
+              )}
+
+              {/* Formulario de tarea */}
+              {showTaskForm && (
+                <div className="mb-6 p-4 theme-card-small rounded-xl border theme-card-border">
+                  <h3 className="font-bold theme-text-primary mb-4">
+                    {editingTask ? "Editar Tarea" : "Nueva Tarea"}
+                  </h3>
+                  <TaskForm
+                    onSubmit={editingTask ? handleUpdateTask : handleCreateTask}
+                    onCancel={handleCancelTaskForm}
+                    initialData={editingTask}
+                    loading={taskFormLoading}
+                  />
+                </div>
+              )}
+
+              {/* Lista de tareas */}
+              <div className="space-y-3">
+                {tasksLoading && (
+                  <div className="text-center py-8">
+                    <div className="inline-flex items-center gap-2 theme-text-secondary">
+                      <svg
+                        className="animate-spin h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Cargando tareas...
+                    </div>
+                  </div>
+                )}
+
+                {!tasksLoading && filteredTasks.length === 0 && (
+                  <div className="text-center py-8">
+                    <div className="text-6xl mb-4">📝</div>
+                    <div className="theme-text-secondary">
+                      {taskStats.total === 0
+                        ? "¡Comienza agregando tu primera tarea!"
+                        : "No hay tareas que coincidan con el filtro seleccionado"}
+                    </div>
+                  </div>
+                )}
+
+                {!tasksLoading && filteredTasks.length > 0 && (
+                  <div className="space-y-3">
+                    {filteredTasks.map((task) => (
+                      <TaskItem
+                        key={task.id}
+                        task={task}
+                        onToggleComplete={handleToggleTaskCompletion}
+                        onEdit={handleEditTask}
+                        onDelete={handleDeleteTask}
+                        loading={tasksLoading}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {tasksError && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <div className="flex items-center gap-2 text-red-800">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      Error al cargar tareas: {tasksError}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
