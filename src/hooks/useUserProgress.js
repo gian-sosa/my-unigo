@@ -7,6 +7,7 @@ export const useUserProgress = () => {
   const [approvedCourses, setApprovedCourses] = useState(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [hasLoaded, setHasLoaded] = useState(false); // Flag para evitar recargas innecesarias
 
   // Función para obtener el ciclo de un curso
   const getCycleIdForCourse = (courseId) => {
@@ -97,17 +98,12 @@ export const useUserProgress = () => {
     return cycleMap[courseId] || 1; // Por defecto ciclo 1
   };
 
-  // Función para forzar recarga desde la base de datos
-  const forceReload = async () => {
-    console.log("🔄 Force reloading progress data...");
-    await loadApprovedCourses();
-  };
-
   // Cargar cursos aprobados del usuario
   const loadApprovedCourses = async () => {
     if (!user) {
       setApprovedCourses(new Set());
       setLoading(false);
+      setHasLoaded(true);
       return;
     }
 
@@ -130,6 +126,7 @@ export const useUserProgress = () => {
 
       setApprovedCourses(approvedSet);
       setError(null);
+      setHasLoaded(true);
     } catch (err) {
       console.error("Error loading user progress:", err);
       setError(err.message);
@@ -143,6 +140,7 @@ export const useUserProgress = () => {
         if (stored) {
           const localCourses = new Set(JSON.parse(stored));
           setApprovedCourses(localCourses);
+          setHasLoaded(true);
         }
       } catch (localError) {
         console.error("Error loading from localStorage:", localError);
@@ -266,10 +264,17 @@ export const useUserProgress = () => {
     return Array.from(approvedCourses);
   };
 
-  // Cargar cursos cuando el usuario cambie
+  // Cargar cursos solo una vez cuando el usuario esté disponible
   useEffect(() => {
-    loadApprovedCourses();
-  }, [user]);
+    if (user && !hasLoaded) {
+      loadApprovedCourses();
+    } else if (!user) {
+      // Reset si no hay usuario
+      setApprovedCourses(new Set());
+      setLoading(false);
+      setHasLoaded(false);
+    }
+  }, [user?.id]); // Solo depende del ID del usuario, no del objeto completo
 
   return {
     approvedCourses,
@@ -279,6 +284,5 @@ export const useUserProgress = () => {
     isCourseApproved,
     getApprovedCoursesArray,
     loadApprovedCourses,
-    forceReload,
   };
 };

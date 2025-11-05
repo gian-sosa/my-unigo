@@ -540,137 +540,37 @@ function Home() {
 
       {/* Main Container */}
       <div className="pt-16 md:pt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Hero Section - Solo visible cuando no hay curso seleccionado */}
-          {!selectedCourse && (
-            <div className="mb-8 mt-8">
-              {/* Welcome Card */}
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-8 mb-8 shadow-2xl">
-                <div className="absolute inset-0 bg-black/10"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                        ¡Hola,{" "}
-                        {(
-                          user?.user_metadata?.full_name ||
-                          user?.user_metadata?.name ||
-                          user?.email?.split("@")[0] ||
-                          "Estudiante"
-                        )
-                          .split(" ")[0]
-                          .charAt(0)
-                          .toUpperCase() +
-                          (
-                            user?.user_metadata?.full_name ||
-                            user?.user_metadata?.name ||
-                            user?.email?.split("@")[0] ||
-                            "Estudiante"
-                          )
-                            .split(" ")[0]
-                            .slice(1)
-                            .toLowerCase()}
-                        ! 👋
-                      </h1>
-                      <p className="text-blue-100 text-lg">
-                        Bienvenido a tu plataforma académica UniGo
-                      </p>
-                    </div>
-                    <div className="hidden md:block">
-                      <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
-                        <span className="text-4xl">🎓</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="theme-card-small rounded-2xl p-4 border shadow-lg">
-                  <div className="flex items-center">
-                    <div className="p-3 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">📚</span>
-                    </div>
-                    <div className="ml-3">
-                      <p className="text-sm theme-text-secondary">Ciclos</p>
-                      <p className="text-xl font-bold theme-text-primary">10</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="theme-card-small rounded-2xl p-4 border shadow-lg">
-                  <div className="flex items-center">
-                    <div className="p-3 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">✅</span>
-                    </div>
-                    <div className="ml-3">
-                      <p className="text-sm theme-text-secondary">Activo</p>
-                      <p className="text-xl font-bold theme-text-primary">Sí</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="theme-card-small rounded-2xl p-4 border shadow-lg">
-                  <div className="flex items-center">
-                    <div className="p-3 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">🎯</span>
-                    </div>
-                    <div className="ml-3">
-                      <p className="text-sm theme-text-secondary">Progreso</p>
-                      <p className="text-xl font-bold theme-text-primary">
-                        85%
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="theme-card-small rounded-2xl p-4 border shadow-lg">
-                  <div className="flex items-center">
-                    <div className="p-3 w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">⭐</span>
-                    </div>
-                    <div className="ml-3">
-                      <p className="text-sm theme-text-secondary">Ranking</p>
-                      <p className="text-xl font-bold theme-text-primary">
-                        Top 10
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-8">
             {/* Sidebar - Ciclos */}
             <div className="lg:col-span-1">
-              <div className="theme-card-bg rounded-3xl border theme-card-border shadow-xl overflow-hidden sticky top-24 max-h-[calc(100vh-7rem)]">
-                <div className="p-6 border-b theme-divider flex-shrink-0">
-                  <h2 className="text-xl font-bold theme-text-primary flex items-center">
-                    <span className="mr-3 text-2xl">🎓</span>
+              <div className="theme-card-bg rounded-3xl border theme-card-border shadow-xl overflow-hidden lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)]">
+                {/* Header */}
+                <div className="p-4 lg:p-6 border-b theme-divider flex-shrink-0">
+                  <h2 className="text-lg lg:text-xl font-bold theme-text-primary flex items-center">
+                    <span className="mr-3 text-xl lg:text-2xl">🎓</span>
                     Ciclos Académicos
                   </h2>
                 </div>
 
-                <div className="p-4 overflow-y-auto flex-1 max-h-[calc(100vh-14rem)]">
-                  <div className="space-y-3">
+                <div className="p-3 lg:p-4 overflow-y-auto lg:max-h-[calc(100vh-14rem)]">
+                  <div className="space-y-2 lg:space-y-3">
                     {Object.entries(ciclosData).map(([cycleId, cycleData]) => (
                       <div
                         key={cycleId}
-                        className="theme-card-small backdrop-blur-sm rounded-2xl border overflow-hidden"
+                        className="theme-card-small backdrop-blur-sm rounded-xl lg:rounded-2xl border overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
                       >
                         {/* Cycle Button */}
                         <button
-                          className="w-full text-left px-4 py-3 font-medium transition-all duration-300 flex items-center justify-between text-sm hover:bg-blue-400 cursor-pointer"
+                          className="w-full text-left px-3 lg:px-4 py-2.5 lg:py-3 font-medium transition-all duration-300 flex items-center justify-between text-sm hover:bg-blue-400 hover:bg-opacity-20 cursor-pointer group"
                           onClick={() => toggleCycle(parseInt(cycleId))}
                         >
-                          <span className="theme-text-primary">
+                          <span className="theme-text-primary group-hover:text-blue-600">
                             {cycleData.nombre}
                           </span>
                           <svg
-                            className={`w-5 h-5 transition-transform duration-300 theme-text-secondary ${
+                            className={`w-4 h-4 lg:w-5 lg:h-5 transition-transform duration-300 theme-text-secondary group-hover:text-blue-600 ${
                               expandedCycles.has(parseInt(cycleId))
                                 ? "rotate-180"
                                 : ""
@@ -692,16 +592,24 @@ function Home() {
                             {cycleData.cursos.map((curso) => (
                               <button
                                 key={curso.id}
-                                className={`w-full text-left px-6 py-2.5 text-sm transition-all duration-300 cursor-pointer ${
+                                className={`course-button w-full text-left px-4 lg:px-5 py-2 lg:py-2.5 text-sm transition-all duration-300 cursor-pointer border-b border-gray-200 dark:border-gray-200 last:border-b-0 hover:bg-blue-400 hover:bg-opacity-20 group ${
                                   selectedCourse?.id === curso.id
-                                    ? "bg-blue-500 text-white font-medium"
-                                    : "theme-text-primary hover:bg-blue-400"
+                                    ? "bg-blue-100 bg-opacity-20 border-l-blue-400"
+                                    : ""
                                 }`}
                                 onClick={() =>
                                   selectCourse(parseInt(cycleId), curso)
                                 }
                               >
-                                {curso.nombre}
+                                <span
+                                  className={`text-sm ${
+                                    selectedCourse?.id === curso.id
+                                      ? "text-blue-400"
+                                      : "theme-text-primary group-hover:text-blue-600"
+                                  }`}
+                                >
+                                  {curso.nombre}
+                                </span>
                               </button>
                             ))}
                           </div>
@@ -717,15 +625,15 @@ function Home() {
             <div className="lg:col-span-2">
               {selectedCourse ? (
                 /* Información del curso */
-                <div className="space-y-6 mt-4">
+                <div className="space-y-4 lg:space-y-6">
                   {/* Course Header */}
-                  <div className="theme-card-large rounded-3xl border shadow-xl p-8">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h1 className="text-2xl md:text-3xl font-bold theme-text-primary mb-2">
+                  <div className="theme-card-large rounded-2xl lg:rounded-3xl border shadow-xl p-4 lg:p-6 xl:p-8">
+                    <div className="flex items-start justify-between sm:flex-row gap-3 lg:gap-4">
+                      <div className="flex-1 min-w-0">
+                        <h1 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold theme-text-primary mb-1 lg:mb-2 leading-tight break-words">
                           {selectedCourse.nombre}
                         </h1>
-                        <p className="text-blue-600 font-medium">
+                        <p className="text-blue-600 font-medium text-sm lg:text-base">
                           {ciclosData[selectedCycle]?.nombre}
                         </p>
                       </div>
@@ -734,7 +642,7 @@ function Home() {
                           setSelectedCourse(null);
                           setSelectedCycle(null);
                         }}
-                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer"
+                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer flex-shrink-0"
                       >
                         <svg
                           className="w-5 h-5 theme-text-secondary"
@@ -755,17 +663,21 @@ function Home() {
 
                   {/* Course Information */}
                   {selectedCourse.info && (
-                    <div className="theme-card-large backdrop-blur-sm rounded-3xl border shadow-xl p-8">
-                      <h2 className="text-xl font-bold theme-text-primary mb-6 flex items-center">
-                        <span className="mr-3 text-2xl">📚</span>
+                    <div className="theme-card-large backdrop-blur-sm rounded-2xl lg:rounded-3xl border shadow-xl p-4 lg:p-6 xl:p-8">
+                      <h2 className="text-base lg:text-lg xl:text-xl font-bold theme-text-primary mb-3 lg:mb-4 xl:mb-6 flex items-center">
+                        <span className="mr-2 lg:mr-3 text-lg lg:text-xl xl:text-2xl">
+                          📚
+                        </span>
                         Información del Curso
                       </h2>
 
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 xl:gap-6">
                         {/* Docente Principal */}
-                        <div className="theme-card-small rounded-2xl p-6 border theme-card-border">
-                          <h3 className="font-bold text-blue-600 mb-3 flex items-center">
-                            <span className="mr-2 text-lg">👨‍🏫</span>
+                        <div className="theme-card-small rounded-xl lg:rounded-2xl p-3 lg:p-4 xl:p-6 border theme-card-border">
+                          <h3 className="font-bold text-blue-600 mb-2 lg:mb-3 flex items-center text-sm lg:text-base">
+                            <span className="mr-2 text-sm lg:text-base xl:text-lg">
+                              👨‍🏫
+                            </span>
                             Docente Principal
                           </h3>
                           <p className="font-semibold theme-text-primary mb-1">
@@ -787,9 +699,11 @@ function Home() {
                         </div>
 
                         {/* Docente Auxiliar */}
-                        <div className="theme-card-small rounded-2xl p-6 border theme-card-border">
-                          <h3 className="font-bold text-purple-600 mb-3 flex items-center">
-                            <span className="mr-2 text-lg">👩‍🏫</span>
+                        <div className="theme-card-small rounded-xl lg:rounded-2xl p-3 lg:p-4 xl:p-6 border theme-card-border">
+                          <h3 className="font-bold text-purple-600 mb-2 lg:mb-3 flex items-center text-sm lg:text-base">
+                            <span className="mr-2 text-sm lg:text-base xl:text-lg">
+                              👩‍🏫
+                            </span>
                             Docente Auxiliar
                           </h3>
                           <p className="font-semibold theme-text-primary mb-1">
@@ -812,36 +726,40 @@ function Home() {
                       </div>
 
                       {/* Horarios */}
-                      <div className="mt-8">
-                        <h3 className="font-bold theme-text-primary mb-4 flex items-center">
-                          <span className="mr-2 text-lg">🕒</span>
+                      <div className="mt-6 lg:mt-8">
+                        <h3 className="font-bold theme-text-primary mb-3 lg:mb-4 flex items-center text-sm lg:text-base">
+                          <span className="mr-2 text-base lg:text-lg">🕒</span>
                           Horarios
                         </h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="theme-card-small rounded-2xl p-4 border theme-card-border">
-                            <h4 className="font-bold text-emerald-600 mb-2 flex items-center">
-                              <span className="mr-2 text-sm">🅰️</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+                          <div className="theme-card-small rounded-xl lg:rounded-2xl p-3 lg:p-4 border theme-card-border">
+                            <h4 className="font-bold text-emerald-600 mb-2 flex items-center text-sm lg:text-base">
+                              <span className="mr-2 text-xs lg:text-sm">
+                                🅰️
+                              </span>
                               Grupo A
                             </h4>
-                            <p className="text-sm theme-text-primary mb-1">
+                            <p className="text-xs lg:text-sm theme-text-primary mb-1">
                               <span className="font-medium">Teoría:</span>{" "}
                               {selectedCourse.info.horarioA.teoria}
                             </p>
-                            <p className="text-sm theme-text-primary">
+                            <p className="text-xs lg:text-sm theme-text-primary">
                               <span className="font-medium">Práctica:</span>{" "}
                               {selectedCourse.info.horarioA.practica}
                             </p>
                           </div>
-                          <div className="theme-card-small rounded-2xl p-4 border theme-card-border">
-                            <h4 className="font-bold text-orange-600 mb-2 flex items-center">
-                              <span className="mr-2 text-sm">🅱️</span>
+                          <div className="theme-card-small rounded-xl lg:rounded-2xl p-3 lg:p-4 border theme-card-border">
+                            <h4 className="font-bold text-orange-600 mb-2 flex items-center text-sm lg:text-base">
+                              <span className="mr-2 text-xs lg:text-sm">
+                                🅱️
+                              </span>
                               Grupo B
                             </h4>
-                            <p className="text-sm theme-text-primary mb-1">
+                            <p className="text-xs lg:text-sm theme-text-primary mb-1">
                               <span className="font-medium">Teoría:</span>{" "}
                               {selectedCourse.info.horarioB.teoria}
                             </p>
-                            <p className="text-sm theme-text-primary">
+                            <p className="text-xs lg:text-sm theme-text-primary">
                               <span className="font-medium">Práctica:</span>{" "}
                               {selectedCourse.info.horarioB.practica}
                             </p>
@@ -881,23 +799,25 @@ function Home() {
                   {/* Materials */}
                   {selectedCourse.materiales &&
                   selectedCourse.materiales.length > 0 ? (
-                    <div className="theme-card-bg backdrop-blur-sm rounded-3xl border theme-card-border shadow-xl p-8">
-                      <h2 className="text-xl font-bold theme-text-primary mb-6 flex items-center">
-                        <span className="mr-3 text-2xl">📁</span>
+                    <div className="theme-card-bg backdrop-blur-sm rounded-2xl lg:rounded-3xl border theme-card-border shadow-xl p-4 lg:p-6 xl:p-8">
+                      <h2 className="text-base lg:text-lg xl:text-xl font-bold theme-text-primary mb-3 lg:mb-4 xl:mb-6 flex items-center">
+                        <span className="mr-2 lg:mr-3 text-lg lg:text-xl xl:text-2xl">
+                          📁
+                        </span>
                         Materiales del Curso
                       </h2>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4">
                         {selectedCourse.materiales.map((material, index) => (
                           <button
                             key={index}
                             onClick={() => handleMaterialClick(material.url)}
-                            className="theme-card-small border theme-card-border rounded-2xl p-4 theme-card-hover transition-all duration-300 hover:shadow-lg text-left cursor-pointer"
+                            className="theme-card-small border theme-card-border rounded-xl lg:rounded-2xl p-3 lg:p-4 theme-card-hover transition-all duration-300 hover:shadow-lg text-left cursor-pointer"
                           >
-                            <div className="flex items-center space-x-3">
+                            <div className="flex items-center space-x-2 lg:space-x-3">
                               <div className="flex-shrink-0">
                                 {getIconForMaterial(material.tipo)}
                               </div>
-                              <span className="theme-text-primary font-medium text-sm">
+                              <span className="theme-text-primary font-medium text-xs lg:text-sm break-words">
                                 {material.titulo}
                               </span>
                             </div>
@@ -906,12 +826,14 @@ function Home() {
                       </div>
                     </div>
                   ) : (
-                    <div className="theme-card-bg backdrop-blur-sm rounded-3xl border theme-card-border shadow-xl p-8 text-center">
-                      <div className="text-6xl mb-4">📚</div>
-                      <h2 className="text-xl font-bold theme-text-primary mb-2">
+                    <div className="theme-card-bg backdrop-blur-sm rounded-2xl lg:rounded-3xl border theme-card-border shadow-xl p-6 lg:p-8 text-center">
+                      <div className="text-4xl lg:text-6xl mb-3 lg:mb-4">
+                        📚
+                      </div>
+                      <h2 className="text-lg lg:text-xl font-bold theme-text-primary mb-2">
                         Materiales próximamente
                       </h2>
-                      <p className="theme-text-secondary">
+                      <p className="theme-text-secondary text-sm lg:text-base">
                         Los materiales para este curso se agregarán pronto.
                       </p>
                     </div>
@@ -919,10 +841,10 @@ function Home() {
                 </div>
               ) : (
                 /* Timeline de publicaciones */
-                <div className="space-y-6">
+                <div className="space-y-6 mt-0">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-bold theme-text-primary flex items-center">
-                      <span className="mr-3 text-2xl">📰</span>
+                    <h2 className="text-xl lg:text-2xl font-bold theme-text-primary flex items-center">
+                      <span className="mr-3 text-xl lg:text-2xl">📰</span>
                       Noticias y Eventos
                     </h2>
                   </div>

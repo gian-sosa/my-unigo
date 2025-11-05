@@ -7,12 +7,14 @@ export const useUserTasks = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [hasLoaded, setHasLoaded] = useState(false); // Flag para evitar recargas innecesarias
 
   // Cargar tareas del usuario
   const loadTasks = async () => {
     if (!user) {
       setTasks([]);
       setLoading(false);
+      setHasLoaded(true);
       return;
     }
 
@@ -32,6 +34,7 @@ export const useUserTasks = () => {
 
       setTasks(data || []);
       setError(null);
+      setHasLoaded(true);
     } catch (err) {
       console.error("Error loading user tasks:", err);
       setError(err.message);
@@ -42,6 +45,7 @@ export const useUserTasks = () => {
         if (stored) {
           const localTasks = JSON.parse(stored);
           setTasks(localTasks);
+          setHasLoaded(true);
         }
       } catch (localError) {
         console.error("Error loading from localStorage:", localError);
@@ -200,10 +204,17 @@ export const useUserTasks = () => {
     };
   };
 
-  // Cargar tareas cuando el usuario cambie
+  // Cargar tareas solo una vez cuando el usuario esté disponible
   useEffect(() => {
-    loadTasks();
-  }, [user]);
+    if (user && !hasLoaded) {
+      loadTasks();
+    } else if (!user) {
+      // Reset si no hay usuario
+      setTasks([]);
+      setLoading(false);
+      setHasLoaded(false);
+    }
+  }, [user?.id]); // Solo depende del ID del usuario, no del objeto completo
 
   return {
     tasks,

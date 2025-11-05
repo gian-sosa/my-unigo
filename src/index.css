@@ -915,3 +915,27 @@ select:-webkit-autofill:focus {
 .dark .bg-orange-100 {
   background: rgba(251, 146, 60, 0.15) !important;
 }
+
+/* ============================================= */
+/* UNIFICACIÓN HOVER BLUE-400 PARA CICLOS Y CURSOS */
+/* ============================================= */
+
+/* Asegurar que todos los hover de blue-400 sean exactamente iguales */
+.hover\:bg-blue-400:hover {
+  background-color: rgba(
+    96,
+    165,
+    250,
+    0.2
+  ) !important; /* blue-400 con opacidad 20% */
+}
+
+/* Para modo oscuro también */
+.dark .hover\:bg-blue-400:hover {
+  background-color: rgba(
+    96,
+    165,
+    250,
+    0.2
+  ) !important; /* blue-400 con opacidad 20% */
+}
