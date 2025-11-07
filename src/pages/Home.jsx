@@ -544,7 +544,7 @@ function Home() {
           {/* Two Column Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-8">
             {/* Sidebar - Ciclos */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 mb-4">
               <div className="theme-card-bg rounded-3xl border theme-card-border shadow-xl overflow-hidden lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)]">
                 {/* Header */}
                 <div className="p-4 lg:p-6 border-b theme-divider flex-shrink-0">
@@ -671,7 +671,7 @@ function Home() {
                         Información del Curso
                       </h2>
 
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 xl:gap-6">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 xl:gap-4">
                         {/* Docente Principal */}
                         <div className="theme-card-small rounded-xl lg:rounded-2xl p-3 lg:p-4 xl:p-6 border theme-card-border">
                           <h3 className="font-bold text-blue-600 mb-2 lg:mb-3 flex items-center text-sm lg:text-base">
