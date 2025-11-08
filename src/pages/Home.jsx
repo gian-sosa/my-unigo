@@ -12,6 +12,7 @@ function Home() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [expandedCycles, setExpandedCycles] = useState(new Set());
   const [expandedPublications, setExpandedPublications] = useState(new Set());
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Timeline de publicaciones
   const timelinePublications = [
@@ -445,6 +446,7 @@ function Home() {
   const selectCourse = (cycleId, course) => {
     setSelectedCycle(cycleId);
     setSelectedCourse(course);
+    setIsMobileMenuOpen(false); // Cerrar menú móvil al seleccionar curso
   };
 
   const togglePublicationExpansion = (publicationId) => {
@@ -455,6 +457,14 @@ function Home() {
       newExpanded.add(publicationId);
     }
     setExpandedPublications(newExpanded);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
   };
 
   const truncateText = (text, maxLines = 2) => {
@@ -541,20 +551,82 @@ function Home() {
       {/* Main Container */}
       <div className="pt-16 md:pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          {/* Botón hamburguesa para móvil */}
+          <div className="lg:hidden mb-4">
+            <button
+              onClick={toggleMobileMenu}
+              className="flex items-center justify-center w-full theme-card-bg rounded-2xl border theme-card-border shadow-lg p-4 hover:shadow-xl transition-all duration-300"
+            >
+              <span className="mr-3 text-xl">🎓</span>
+              <span className="text-lg font-bold theme-text-primary flex-1 text-left">
+                Ciclos Académicos
+              </span>
+              <svg
+                className={`w-6 h-6 transition-transform duration-300 theme-text-primary ${
+                  isMobileMenuOpen ? "rotate-180" : ""
+                }`}
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+
           {/* Two Column Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-8">
+            {/* Overlay para móvil */}
+            {isMobileMenuOpen && (
+              <div
+                className="fixed inset-0 z-40 lg:hidden"
+                style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
+                onClick={closeMobileMenu}
+              />
+            )}
+
             {/* Sidebar - Ciclos */}
-            <div className="lg:col-span-1 mb-4">
-              <div className="theme-card-bg rounded-3xl border theme-card-border shadow-xl overflow-hidden lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)]">
+            <div
+              className={`lg:col-span-1 mb-4 ${
+                isMobileMenuOpen
+                  ? "fixed inset-x-4 top-32 bottom-12 z-50 lg:relative lg:inset-auto lg:top-auto lg:bottom-auto lg:z-auto"
+                  : "hidden lg:block"
+              }`}
+            >
+              <div className="theme-card-bg rounded-3xl border theme-card-border shadow-xl overflow-hidden lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] h-full lg:h-auto flex flex-col">
                 {/* Header */}
                 <div className="p-4 lg:p-6 border-b theme-divider flex-shrink-0">
-                  <h2 className="text-lg lg:text-xl font-bold theme-text-primary flex items-center">
-                    <span className="mr-3 text-xl lg:text-2xl">🎓</span>
-                    Ciclos Académicos
-                  </h2>
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-lg lg:text-xl font-bold theme-text-primary flex items-center">
+                      <span className="mr-3 text-xl lg:text-2xl">🎓</span>
+                      Ciclos Académicos
+                    </h2>
+                    {/* Botón cerrar solo en móvil */}
+                    <button
+                      onClick={closeMobileMenu}
+                      className="lg:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <svg
+                        className="w-5 h-5 theme-text-secondary"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
 
-                <div className="p-3 lg:p-4 overflow-y-auto lg:max-h-[calc(100vh-14rem)]">
+                <div className="p-3 lg:p-4 overflow-y-auto flex-1 lg:max-h-[calc(100vh-14rem)]">
                   <div className="space-y-2 lg:space-y-3">
                     {Object.entries(ciclosData).map(([cycleId, cycleData]) => (
                       <div
